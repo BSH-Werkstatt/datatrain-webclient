@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
@@ -44,3 +45,31 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+=======
+.DS_Store
+*.swp
+*~.nib
+build/
+*.mode1
+*.mode1v3
+*.mode2v3
+pbxuser
+*.perspective
+*.perspectivev3
+*._*
+xcuserdata
+*.xccheckout
+profile
+*.moved-aside
+DerivedData
+.idea/
+*._*
+.hg
+.svn
+CVS
+*~
+bin
+*.bak
+Packages/
+.build/
+>>>>>>> 1e3da9e7e980a64158f9f82e7f1af6ce22db7f51
