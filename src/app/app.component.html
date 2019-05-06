@@ -1,42 +1,6 @@
-<h1>B/S/H/ Gotcha</h1>
-
-<div class="gotcha-container">
-  <mat-card class="example-card">
-    <mat-card-header>
-      <mat-card-title>BSH Gotcha</mat-card-title>
-      <mat-card-subtitle
-        >Please select all {{ dataset.class }}<br />
-        <small>{{ selectedCount() }} items selected</small></mat-card-subtitle
-      >
-    </mat-card-header>
-    <mat-card-content>
-      <mat-grid-list cols="3" rowHeight="1:1">
-        <mat-grid-tile *ngFor="let image of dataset.images; let i = index">
-          <div
-            class="gotcha-instance flip-in-hor-bottom"
-            [style.animation-delay]="i / 6 + 's'"
-          >
-            <img [src]="image.src" class="gotcha-image" />
-            <div
-              class="gotcha-image-overlay"
-              [class.selected]="image.selected"
-              (click)="image.selected = !image.selected"
-            ></div>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </mat-card-content>
-    <mat-card-actions>
-      <div class="button-action-container">
-        <button
-          mat-flat-button
-          [disabled]="selectedCount() == 0"
-          color="primary"
-          (click)="validate()"
-        >
-          done
-        </button>
-      </div>
-    </mat-card-actions>
-  </mat-card>
-</div>
+<nav>
+  <h1>B/S/H/ Gotcha</h1>
+</nav>
+<section>
+  <router-outlet></router-outlet>
+</section>
