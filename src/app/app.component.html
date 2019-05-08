@@ -1,6 +1,15 @@
 <nav>
-  <h1>B/S/H/ Gotcha</h1>
+  <mat-toolbar>
+    <div class="toolbar-content">
+      <img src="assets/logo.svg" height="60" routerLink="/" />
+      <div class="button-group">
+        <button mat-stroked-button routerLink="/" color="primary">
+          Login
+        </button>
+      </div>
+    </div>
+  </mat-toolbar>
 </nav>
-<section>
+<section class="section-container">
   <router-outlet></router-outlet>
 </section>

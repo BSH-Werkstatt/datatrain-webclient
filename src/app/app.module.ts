@@ -7,20 +7,30 @@ import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { 
+import {
 	MatFormFieldModule,
 	MatInputModule,
-} from  '@angular/material';
+	MatToolbarModule
+} from "@angular/material";
+
+import { FormsModule } from "@angular/forms";
+
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { LoginComponent } from './login/login.component';
-import { StartComponent } from './start/start.component';
-import { AppRoutingModule } from './app-routing.module';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from "./login/login.component";
+import { StartComponent } from "./start/start.component";
+import { AppRoutingModule } from "./app-routing.module";
+import { RegisterComponent } from "./register/register.component";
 
 @NgModule({
-	declarations: [AppComponent, LoginComponent, StartComponent, RegisterComponent],
+	declarations: [
+		AppComponent,
+		LoginComponent,
+		StartComponent,
+		RegisterComponent
+	],
 	imports: [
 		BrowserModule,
+		FormsModule,
 		MatCardModule,
 		BrowserAnimationsModule,
 		MatGridListModule,
@@ -28,7 +38,8 @@ import { RegisterComponent } from './register/register.component';
 		MatSnackBarModule,
 		AppRoutingModule,
 		MatInputModule,
-		MatFormFieldModule
+		MatFormFieldModule,
+		MatToolbarModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

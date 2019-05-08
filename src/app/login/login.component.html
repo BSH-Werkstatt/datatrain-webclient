@@ -4,18 +4,35 @@
     <form class="login-form">
       <mat-form-field class="full-width">
         <mat-label>BSH Email</mat-label>
-        <input matInput placeholder="BSH Email" name="email">
+        <input
+          matInput
+          placeholder="mustermann@bsh-group.com"
+          name="email"
+          [(ngModel)]="loginEmail"
+        />
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" name="password">
+        <input
+          matInput
+          placeholder="∙∙∙∙∙∙∙∙∙"
+          name="password"
+          [(ngModel)]="loginPassword"
+        />
       </mat-form-field>
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="login()" color="primary">LOGIN</button>
-    <section class="register">
-      <p>Don't have access? Sign up using your BSH email <a routerLink="/register">here</a></p>
-    </section>
+    <button mat-stroked-button routerLink="/register">
+      REGISTER
+    </button>
+    <button
+      mat-raised-button
+      routerLink="/start"
+      color="primary"
+      [disabled]="loginEmail == '' || loginPassword == ''"
+    >
+      LOGIN
+    </button>
   </mat-card-actions>
 </mat-card>

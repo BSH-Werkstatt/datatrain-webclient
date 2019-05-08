@@ -28,11 +28,78 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+/* For use in src/lib/core/theming/_palette.scss */
+$md-bshprimary: (
+	50: #f0e4ef,
+	100: #d9bbd6,
+	200: #c08ebb,
+	300: #a761a0,
+	400: #943f8b,
+	500: #811d77,
+	600: #791a6f,
+	700: #6e1564,
+	800: #64115a,
+	900: #510a47,
+	A100: #ff86ec,
+	A200: #ff53e3,
+	A400: #ff20db,
+	A700: #ff07d7,
+	contrast: (
+		50: #000000,
+		100: #000000,
+		200: #000000,
+		300: #ffffff,
+		400: #ffffff,
+		500: #ffffff,
+		600: #ffffff,
+		700: #ffffff,
+		800: #ffffff,
+		900: #ffffff,
+		A100: #000000,
+		A200: #000000,
+		A400: #ffffff,
+		A700: #ffffff
+	)
+);
+
+$md-bshsecondary: (
+	50: #e0ebf4,
+	100: #b3cee3,
+	200: #80aed1,
+	300: #4d8dbf,
+	400: #2674b1,
+	500: #005ca3,
+	600: #00549b,
+	700: #004a91,
+	800: #004188,
+	900: #003077,
+	A100: #a5c1ff,
+	A200: #729fff,
+	A400: #3f7cff,
+	A700: #256aff,
+	contrast: (
+		50: #000000,
+		100: #000000,
+		200: #000000,
+		300: #ffffff,
+		400: #ffffff,
+		500: #ffffff,
+		600: #ffffff,
+		700: #ffffff,
+		800: #ffffff,
+		900: #ffffff,
+		A100: #000000,
+		A200: #000000,
+		A400: #ffffff,
+		A700: #ffffff
+	)
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$bsh-gotcha-primary: mat-palette($mat-indigo);
-$bsh-gotcha-accent: mat-palette($mat-pink, A200, A100, A400);
+$bsh-gotcha-primary: mat-palette($md-bshprimary);
+$bsh-gotcha-accent: mat-palette($md-bshsecondary, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $bsh-gotcha-warn: mat-palette($mat-red);
