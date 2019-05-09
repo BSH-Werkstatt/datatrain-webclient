@@ -15,17 +15,4 @@ describe('StartComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
-
-  it(`should have as title 'bsh-gotcha'`, () => {
-    const fixture = TestBed.createComponent(StartComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('bsh-gotcha');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(StartComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to bsh-gotcha!');
-  });
 });

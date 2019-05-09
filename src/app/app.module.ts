@@ -20,13 +20,15 @@ import { LoginComponent } from "./login/login.component";
 import { StartComponent } from "./start/start.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { RegisterComponent } from "./register/register.component";
+import { CampaignComponent } from './campaign/campaign.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		LoginComponent,
 		StartComponent,
-		RegisterComponent
+		RegisterComponent,
+		CampaignComponent
 	],
 	imports: [
 		BrowserModule,
