@@ -1,187 +1,176 @@
-import { Component, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material";
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 import {
-	trigger,
-	state,
-	style,
-	animate,
-	transition,
-	keyframes
-	// ...
-} from "@angular/animations";
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  keyframes
+  // ...
+} from '@angular/animations';
 
 @Component({
-	selector: "app-campaign",
-	templateUrl: "./campaign.component.html",
-	styleUrls: ["./campaign.component.scss"],
+  selector: 'app-campaign',
+  templateUrl: './campaign.component.html',
+  styleUrls: ['./campaign.component.scss'],
 
-	// Cool animations
-	animations: [
-		trigger("checkboxAnimation", [
-			transition(":enter", [
-				animate(
-					"175ms cubic-bezier(0.4, 0, 0.2, 1)",
-					keyframes([
-						style({
-							transform: "rotateZ(-90deg)",
-							opacity: 0
-						}),
-						style({
-							transform: "rotateZ(0)",
-							opacity: 1
-						})
-					])
-				)
-			]),
-			transition(":leave", [animate("100ms", style({ opacity: 0 }))])
-		])
-	]
+  // Cool animations
+  animations: [
+    trigger('checkboxAnimation', [
+      transition(':enter', [
+        animate(
+          '175ms cubic-bezier(0.4, 0, 0.2, 1)',
+          keyframes([
+            style({
+              transform: 'rotateZ(-90deg)',
+              opacity: 0
+            }),
+            style({
+              transform: 'rotateZ(0)',
+              opacity: 1
+            })
+          ])
+        )
+      ]),
+      transition(':leave', [animate('100ms', style({ opacity: 0 }))])
+    ])
+  ]
 })
 export class CampaignComponent implements OnInit {
-	constructor(private snackBar: MatSnackBar) {
-		this.reset();
-	}
+  constructor(private snackBar: MatSnackBar) {
+    this.reset();
+  }
 
-	ngOnInit(): void {}
+  checkingIncorrect = false;
+  incorrect = [];
+  incorrectValidated = 0;
+  incorrectItem = {};
 
-	selectedCount(): number {
-		return this.dataset.images.filter(e => e.selected == true).length;
-	}
+  dataset = {
+    class: 'potatoes',
+    classSingular: 'potato',
+    images: [
+      {
+        id: 1,
+        src: '/assets/potatoes/potato1.jpg',
+        isValid: true,
+        selected: false
+      },
+      {
+        id: 2,
+        src: '/assets/potatoes/banana.jpg',
+        isValid: false,
+        selected: false
+      },
+      {
+        id: 3,
+        src: '/assets/potatoes/potato2.png',
+        isValid: true,
+        selected: false
+      },
+      {
+        id: 4,
+        src: '/assets/potatoes/carrot.png',
+        isValid: false,
+        selected: false
+      },
+      {
+        id: 5,
+        src: '/assets/potatoes/potato3.jpg',
+        isValid: true,
+        selected: false
+      },
+      {
+        id: 6,
+        src: '/assets/potatoes/potato4.jpg',
+        isValid: true,
+        selected: false
+      },
+      {
+        id: 7,
+        src: '/assets/potatoes/cucumber.jpg',
+        isValid: false,
+        selected: false
+      },
+      {
+        id: 8,
+        src: '/assets/potatoes/potato5.jpg',
+        isValid: true,
+        selected: false
+      },
+      {
+        id: 9,
+        src: '/assets/potatoes/radish.jpg',
+        isValid: false,
+        selected: false
+      }
+    ]
+  };
 
-	correctCount(): number {
-		return this.dataset.images.filter(e => e.selected == e.isValid).length;
-	}
+  ngOnInit(): void {}
 
-	validate() {
-		let correctCount = this.correctCount();
+  selectedCount(): number {
+    return this.dataset.images.filter(e => e.selected === true).length;
+  }
 
-		this.snackBar.open(
-			"You correctly selected " +
-				correctCount +
-				"/" +
-				this.dataset.images.length +
-				" images."
-		);
+  correctCount(): number {
+    return this.dataset.images.filter(e => e.selected === e.isValid).length;
+  }
 
-		setTimeout(() => {
-			this.snackBar.dismiss();
-		}, 3000);
+  validate() {
+    const correctCount = this.correctCount();
 
-		if (correctCount < this.dataset.images.length) {
-			this.incorrect = this.dataset.images.filter(
-				e => e.selected != e.isValid
-			);
-			this.incorrectItem = this.incorrect[this.incorrectValidated];
-		} else {
-			this.reset();
-		}
-	}
+    this.snackBar.open('You correctly selected ' + correctCount + '/' + this.dataset.images.length + ' images.');
 
-	validateIncorrect() {
-		this.incorrectValidated++;
+    setTimeout(() => {
+      this.snackBar.dismiss();
+    }, 3000);
 
-		if (
-			this.incorrectValidated >= 3 ||
-			this.incorrect.length - 1 < this.incorrectValidated
-		) {
-			this.incorrectValidated = 0;
-			this.incorrect = [];
-			this.incorrectItem = {};
+    if (correctCount < this.dataset.images.length) {
+      this.incorrect = this.dataset.images.filter(e => e.selected !== e.isValid);
+      this.incorrectItem = this.incorrect[this.incorrectValidated];
+    } else {
+      this.reset();
+    }
+  }
 
-			this.reset();
-			return;
-		}
+  validateIncorrect() {
+    this.incorrectValidated++;
 
-		this.incorrectItem = this.incorrect[this.incorrectValidated];
-	}
+    if (this.incorrectValidated >= 3 || this.incorrect.length - 1 < this.incorrectValidated) {
+      this.incorrectValidated = 0;
+      this.incorrect = [];
+      this.incorrectItem = {};
 
-	reset() {
-		this.dataset.images.forEach(e => {
-			e.selected = false;
-		});
+      this.reset();
+      return;
+    }
 
-		var left = this.dataset.images.length;
-		var temp;
-		var index;
+    this.incorrectItem = this.incorrect[this.incorrectValidated];
+  }
 
-		var cpy = this.dataset.images.slice(0);
+  reset() {
+    this.dataset.images.forEach(e => {
+      e.selected = false;
+    });
 
-		while (left > 0) {
-			index = Math.floor(Math.random() * left);
-			left--;
+    let left = this.dataset.images.length;
+    let temp;
+    let index;
 
-			temp = cpy[left];
-			cpy[left] = cpy[index];
-			cpy[index] = temp;
-		}
+    const cpy = this.dataset.images.slice(0);
 
-		this.dataset.images = cpy;
-	}
+    while (left > 0) {
+      index = Math.floor(Math.random() * left);
+      left--;
 
-	checkingIncorrect = false;
-	incorrect = [];
-	incorrectValidated = 0;
-	incorrectItem = {};
+      temp = cpy[left];
+      cpy[left] = cpy[index];
+      cpy[index] = temp;
+    }
 
-	dataset = {
-		class: "potatoes",
-		classSingular: "potato",
-		images: [
-			{
-				id: 1,
-				src: "/assets/potatoes/potato1.jpg",
-				isValid: true,
-				selected: false
-			},
-			{
-				id: 2,
-				src: "/assets/potatoes/banana.jpg",
-				isValid: false,
-				selected: false
-			},
-			{
-				id: 3,
-				src: "/assets/potatoes/potato2.png",
-				isValid: true,
-				selected: false
-			},
-			{
-				id: 4,
-				src: "/assets/potatoes/carrot.png",
-				isValid: false,
-				selected: false
-			},
-			{
-				id: 5,
-				src: "/assets/potatoes/potato3.jpg",
-				isValid: true,
-				selected: false
-			},
-			{
-				id: 6,
-				src: "/assets/potatoes/potato4.jpg",
-				isValid: true,
-				selected: false
-			},
-			{
-				id: 7,
-				src: "/assets/potatoes/cucumber.jpg",
-				isValid: false,
-				selected: false
-			},
-			{
-				id: 8,
-				src: "/assets/potatoes/potato5.jpg",
-				isValid: true,
-				selected: false
-			},
-			{
-				id: 9,
-				src: "/assets/potatoes/radish.jpg",
-				isValid: false,
-				selected: false
-			}
-		]
-	};
+    this.dataset.images = cpy;
+  }
 }

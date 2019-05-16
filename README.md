@@ -2,9 +2,17 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
 
+## Installation
+
+Install all dependencies by first installing yarn: `npm i -g yarn` and then installing everything from the `package.json` with `yarn install`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Code Formatting
+
+To reformat all code run `prettier src/** --write`. It changes all code to conform to the prettier standard. Use `ng lint` to display any code formatting errors prior to committing.
 
 ## Code scaffolding
 

@@ -4,21 +4,11 @@
     <form class="login-form">
       <mat-form-field class="full-width">
         <mat-label>BSH Email</mat-label>
-        <input
-          matInput
-          placeholder="mustermann@bsh-group.com"
-          name="email"
-          [(ngModel)]="loginEmail"
-        />
+        <input matInput placeholder="mustermann@bsh-group.com" name="email" [(ngModel)]="loginEmail" />
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Password</mat-label>
-        <input
-          matInput
-          placeholder="∙∙∙∙∙∙∙∙∙"
-          name="password"
-          [(ngModel)]="loginPassword"
-        />
+        <input matInput placeholder="∙∙∙∙∙∙∙∙∙" name="password" [(ngModel)]="loginPassword" />
       </mat-form-field>
     </form>
   </mat-card-content>
@@ -26,12 +16,7 @@
     <button mat-stroked-button routerLink="/register">
       REGISTER
     </button>
-    <button
-      mat-raised-button
-      routerLink="/start"
-      color="primary"
-      [disabled]="loginEmail == '' || loginPassword == ''"
-    >
+    <button mat-raised-button routerLink="/start" color="primary" [disabled]="loginEmail == '' || loginPassword == ''">
       LOGIN
     </button>
   </mat-card-actions>

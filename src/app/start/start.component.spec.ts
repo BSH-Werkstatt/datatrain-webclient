@@ -4,9 +4,7 @@ import { StartComponent } from './start.component';
 describe('StartComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        StartComponent
-      ],
+      declarations: [StartComponent]
     }).compileComponents();
   }));
 

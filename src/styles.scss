@@ -1,26 +1,26 @@
 @font-face {
-	font-family: BSH;
-	src: url(assets/3200AF_1_0_woff2.woff2) format("woff2");
-	font-weight: 400;
+  font-family: BSH;
+  src: url(assets/3200AF_1_0_woff2.woff2) format('woff2');
+  font-weight: 400;
 }
 
 @font-face {
-	font-family: BSH;
-	src: url(assets/3200AF_0_0_woff2.woff2) format("woff2");
-	font-weight: 400;
-	font-style: italic;
+  font-family: BSH;
+  src: url(assets/3200AF_0_0_woff2.woff2) format('woff2');
+  font-weight: 400;
+  font-style: italic;
 }
 
 @font-face {
-	font-family: BSH;
-	src: url(assets/3200AF_2_0_woff2.woff2) format("woff2");
-	font-weight: 700;
-	font-style: bold;
+  font-family: BSH;
+  src: url(assets/3200AF_2_0_woff2.woff2) format('woff2');
+  font-weight: 700;
+  font-style: bold;
 }
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import "~@angular/material/theming";
+@import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -30,69 +30,69 @@
 
 /* For use in src/lib/core/theming/_palette.scss */
 $md-bshprimary: (
-	50: #f0e4ef,
-	100: #d9bbd6,
-	200: #c08ebb,
-	300: #a761a0,
-	400: #943f8b,
-	500: #811d77,
-	600: #791a6f,
-	700: #6e1564,
-	800: #64115a,
-	900: #510a47,
-	A100: #ff86ec,
-	A200: #ff53e3,
-	A400: #ff20db,
-	A700: #ff07d7,
-	contrast: (
-		50: #000000,
-		100: #000000,
-		200: #000000,
-		300: #ffffff,
-		400: #ffffff,
-		500: #ffffff,
-		600: #ffffff,
-		700: #ffffff,
-		800: #ffffff,
-		900: #ffffff,
-		A100: #000000,
-		A200: #000000,
-		A400: #ffffff,
-		A700: #ffffff
-	)
+  50: #f0e4ef,
+  100: #d9bbd6,
+  200: #c08ebb,
+  300: #a761a0,
+  400: #943f8b,
+  500: #811d77,
+  600: #791a6f,
+  700: #6e1564,
+  800: #64115a,
+  900: #510a47,
+  A100: #ff86ec,
+  A200: #ff53e3,
+  A400: #ff20db,
+  A700: #ff07d7,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #ffffff
+  )
 );
 
 $md-bshsecondary: (
-	50: #e0ebf4,
-	100: #b3cee3,
-	200: #80aed1,
-	300: #4d8dbf,
-	400: #2674b1,
-	500: #005ca3,
-	600: #00549b,
-	700: #004a91,
-	800: #004188,
-	900: #003077,
-	A100: #a5c1ff,
-	A200: #729fff,
-	A400: #3f7cff,
-	A700: #256aff,
-	contrast: (
-		50: #000000,
-		100: #000000,
-		200: #000000,
-		300: #ffffff,
-		400: #ffffff,
-		500: #ffffff,
-		600: #ffffff,
-		700: #ffffff,
-		800: #ffffff,
-		900: #ffffff,
-		A100: #000000,
-		A200: #000000,
-		A400: #ffffff,
-		A700: #ffffff
-	)
+  50: #e0ebf4,
+  100: #b3cee3,
+  200: #80aed1,
+  300: #4d8dbf,
+  400: #2674b1,
+  500: #005ca3,
+  600: #00549b,
+  700: #004a91,
+  800: #004188,
+  900: #003077,
+  A100: #a5c1ff,
+  A200: #729fff,
+  A400: #3f7cff,
+  A700: #256aff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #ffffff
+  )
 );
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
@@ -105,11 +105,7 @@ $bsh-gotcha-accent: mat-palette($md-bshsecondary, A200, A100, A400);
 $bsh-gotcha-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$bsh-gotcha-theme: mat-light-theme(
-	$bsh-gotcha-primary,
-	$bsh-gotcha-accent,
-	$bsh-gotcha-warn
-);
+$bsh-gotcha-theme: mat-light-theme($bsh-gotcha-primary, $bsh-gotcha-accent, $bsh-gotcha-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -120,13 +116,13 @@ $bsh-gotcha-theme: mat-light-theme(
 
 html,
 body {
-	height: 100%;
+  height: 100%;
 }
 body {
-	margin: 0;
-	font-family: BSH, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: BSH, 'Helvetica Neue', sans-serif;
 }
 
 * {
-	font-family: BSH, "Helvetica Neue", sans-serif;
+  font-family: BSH, 'Helvetica Neue', sans-serif;
 }
