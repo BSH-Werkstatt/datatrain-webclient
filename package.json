@@ -10,6 +10,11 @@
     "e2e": "ng e2e",
     "format": "prettier src/**.html src/**.scss src/**.ts src/**.json --write"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~7.2.0",
@@ -37,6 +42,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
+    "husky": "^2.3.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.0.0",
@@ -46,6 +52,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.4",
     "prettier": "^1.17.1",
+    "pretty-quick": "^1.10.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
