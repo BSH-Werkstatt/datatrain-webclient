@@ -13,7 +13,7 @@ import { slideInAnimation } from './animations/router-animations';
   ]
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  constructor(router: Router) {}
 
   prepareRoute(outlet: RouterOutlet) {
     /* tslint:disable:no-string-literal */
