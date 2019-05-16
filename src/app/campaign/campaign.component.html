@@ -3,7 +3,8 @@
     <mat-card-header>
       <mat-card-title>BSH Gotcha</mat-card-title>
       <mat-card-subtitle
-        >Please select all {{ dataset.class }}<br />
+        >Please select all <b>{{ dataset.class }}</b
+        ><br />
         <small>{{ selectedCount() }} items selected</small></mat-card-subtitle
       >
     </mat-card-header>
@@ -14,12 +15,23 @@
             class="gotcha-instance flip-in-hor-bottom"
             [style.animation-delay]="i / 6 + 's'"
           >
-            <img [src]="image.src" class="gotcha-image" />
+            <img
+              [src]="image.src"
+              class="gotcha-image"
+              [class.selected]="image.selected"
+            />
             <div
               class="gotcha-image-overlay"
               [class.selected]="image.selected"
               (click)="image.selected = !image.selected"
-            ></div>
+            >
+              <mat-icon
+                @checkboxAnimation
+                *ngIf="image.selected"
+                class="checkmark"
+                >check</mat-icon
+              >
+            </div>
           </div>
         </mat-grid-tile>
       </mat-grid-list>

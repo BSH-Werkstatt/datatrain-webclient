@@ -1,19 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
 
+import {
+	trigger,
+	state,
+	style,
+	animate,
+	transition,
+	keyframes
+	// ...
+} from "@angular/animations";
+
 @Component({
-  selector: 'app-campaign',
-  templateUrl: './campaign.component.html',
-  styleUrls: ['./campaign.component.scss']
+	selector: "app-campaign",
+	templateUrl: "./campaign.component.html",
+	styleUrls: ["./campaign.component.scss"],
+
+	animations: [
+		trigger("checkboxAnimation", [
+			transition(":enter", [
+				animate(
+					"175ms cubic-bezier(0.4, 0, 0.2, 1)",
+					keyframes([
+						style({
+							transform: "rotateZ(-90deg)",
+							opacity: 0
+						}),
+						style({
+							transform: "rotateZ(0)",
+							opacity: 1
+						})
+					])
+				)
+			]),
+			transition(":leave", [animate("100ms", style({ opacity: 0 }))])
+		])
+	]
 })
 export class CampaignComponent implements OnInit {
-  constructor(private snackBar: MatSnackBar) {
-	this.reset();
-  }
+	constructor(private snackBar: MatSnackBar) {
+		this.reset();
+	}
 
-  ngOnInit(): void {
-
-  }
+	ngOnInit(): void {}
 
 	selectedCount(): number {
 		return this.dataset.images.filter(e => e.selected == true).length;
@@ -37,9 +66,11 @@ export class CampaignComponent implements OnInit {
 		setTimeout(() => {
 			this.snackBar.dismiss();
 		}, 3000);
-		
+
 		if (correctCount < this.dataset.images.length) {
-			this.incorrect = this.dataset.images.filter(e => e.selected != e.isValid);
+			this.incorrect = this.dataset.images.filter(
+				e => e.selected != e.isValid
+			);
 			this.incorrectItem = this.incorrect[this.incorrectValidated];
 		} else {
 			this.reset();
@@ -49,24 +80,27 @@ export class CampaignComponent implements OnInit {
 	validateIncorrect() {
 		this.incorrectValidated++;
 
-		if (this.incorrectValidated >= 3 || this.incorrect.length - 1 < this.incorrectValidated) {
+		if (
+			this.incorrectValidated >= 3 ||
+			this.incorrect.length - 1 < this.incorrectValidated
+		) {
 			this.incorrectValidated = 0;
 			this.incorrect = [];
 			this.incorrectItem = {};
 
 			this.reset();
 			return;
-		}		
+		}
 
 		this.incorrectItem = this.incorrect[this.incorrectValidated];
 	}
 
 	reset() {
-		this.dataset.images.forEach((e) => {
+		this.dataset.images.forEach(e => {
 			e.selected = false;
 		});
 
-		var left = this.dataset.images.length
+		var left = this.dataset.images.length;
 		var temp;
 		var index;
 

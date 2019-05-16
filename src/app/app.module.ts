@@ -3,13 +3,14 @@ import { NgModule } from "@angular/core";
 
 import { AppComponent } from "./app.component";
 
-import { MatCardModule } from "@angular/material/card";
-import { MatGridListModule } from "@angular/material/grid-list";
-import { MatButtonModule } from "@angular/material/button";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 import {
+	MatButtonModule,
+	MatCardModule,
 	MatFormFieldModule,
+	MatGridListModule,
+	MatIconModule,
 	MatInputModule,
+	MatSnackBarModule,
 	MatToolbarModule
 } from "@angular/material";
 
@@ -20,7 +21,7 @@ import { LoginComponent } from "./login/login.component";
 import { StartComponent } from "./start/start.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { RegisterComponent } from "./register/register.component";
-import { CampaignComponent } from './campaign/campaign.component';
+import { CampaignComponent } from "./campaign/campaign.component";
 
 @NgModule({
 	declarations: [
@@ -31,16 +32,17 @@ import { CampaignComponent } from './campaign/campaign.component';
 		CampaignComponent
 	],
 	imports: [
+		AppRoutingModule,
+		BrowserAnimationsModule,
 		BrowserModule,
 		FormsModule,
-		MatCardModule,
-		BrowserAnimationsModule,
-		MatGridListModule,
 		MatButtonModule,
-		MatSnackBarModule,
-		AppRoutingModule,
-		MatInputModule,
+		MatCardModule,
 		MatFormFieldModule,
+		MatGridListModule,
+		MatIconModule,
+		MatInputModule,
+		MatSnackBarModule,
 		MatToolbarModule
 	],
 	providers: [],
