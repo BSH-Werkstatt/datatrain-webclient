@@ -16,6 +16,7 @@ import {
 	templateUrl: "./campaign.component.html",
 	styleUrls: ["./campaign.component.scss"],
 
+	// Cool animations
 	animations: [
 		trigger("checkboxAnimation", [
 			transition(":enter", [
