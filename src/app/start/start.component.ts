@@ -16,7 +16,7 @@ export class StartComponent implements OnInit {
   constructor() {}
 
   /**
-   * Execute on controlle initialization
+   * Execute on controller initialization
    */
   ngOnInit(): void {}
 }
