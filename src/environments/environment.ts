@@ -4,7 +4,6 @@
 
 /**
  * Environment variables for development.
- * @type {Object}
  */
 export const environment = {
   production: false

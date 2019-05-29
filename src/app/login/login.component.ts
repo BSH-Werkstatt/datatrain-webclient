@@ -14,12 +14,10 @@ export class LoginComponent implements OnInit {
 
   /**
    * The e-mail address of the user
-   * @type {string}
    */
   loginEmail: string;
   /**
    * The password of the user
-   * @type {string}
    */
   loginPassword: string;
 
