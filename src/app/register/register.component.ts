@@ -5,8 +5,18 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
+
+/**
+ * The registration component.
+ */
 export class RegisterComponent implements OnInit {
+  /**
+   * Constructor
+   */
   constructor() {}
 
-  ngOnInit() {}
+  /**
+   * Execute on controlle initialization
+   */
+  ngOnInit(): void {}
 }

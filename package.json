@@ -2,13 +2,14 @@
   "name": "bsh-gotcha",
   "version": "0.0.0",
   "scripts": {
+    "build": "npx compodoc -p src/tsconfig.app.json && ng build",
+    "compodoc": "npx compodoc -p src/tsconfig.app.json",
+    "e2e": "ng e2e",
+    "format": "prettier src/**.html src/**.scss src/**.ts src/**.json --write",
+    "lint": "ng lint",
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "format": "prettier src/**.html src/**.scss src/**.ts src/**.json --write"
+    "test": "ng test"
   },
   "husky": {
     "hooks": {
@@ -38,6 +39,7 @@
     "@angular/cli": "~7.3.8",
     "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",
+    "@compodoc/compodoc": "^1.1.9",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",

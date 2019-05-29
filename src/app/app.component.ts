@@ -13,11 +13,23 @@ import { slideInAnimation } from './animations/router-animations';
   ]
 })
 export class AppComponent {
-  router;
+  /**
+   * The couter
+   * @type {[type]}
+   */
+  router: Router;
+
+  /**
+   * @param {Router}
+   */
   constructor(router: Router) {
     this.router = router;
   }
 
+  /**
+   * Prepares a route for the router
+   * @param {RouterOutlet}
+   */
   prepareRoute(outlet: RouterOutlet) {
     /* tslint:disable:no-string-literal */
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];

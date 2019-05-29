@@ -39,6 +39,10 @@ import {
   ]
 })
 export class CampaignComponent implements OnInit {
+  /**
+   *
+   * @param {MatSnackBar}
+   */
   constructor(private snackBar: MatSnackBar) {
     this.reset();
   }
