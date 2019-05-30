@@ -14,7 +14,7 @@ import { slideInAnimation } from './animations/router-animations';
 })
 export class AppComponent {
   /**
-   * The couter
+   * The router
    */
   router: Router;
 
