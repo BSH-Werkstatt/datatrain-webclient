@@ -39,6 +39,9 @@ import {
   ]
 })
 export class CampaignComponent implements OnInit {
+  /**
+   *
+   */
   constructor(private snackBar: MatSnackBar) {
     this.reset();
   }

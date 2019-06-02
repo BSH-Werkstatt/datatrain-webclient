@@ -5,8 +5,18 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.scss']
 })
+
+/**
+ * The Start component
+ */
 export class StartComponent implements OnInit {
+  /**
+   * Constructor
+   */
   constructor() {}
 
+  /**
+   * Execute on controller initialization
+   */
   ngOnInit(): void {}
 }
