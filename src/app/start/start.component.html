@@ -1,14 +1,19 @@
 <div class="campaigns-container">
-  <mat-card class="example-campaign">
+  <mat-card class="campaign" *ngFor="let campaign of campaigns; let i = index">
     <mat-card-header>
-      <mat-card-title>Potato Campaign</mat-card-title>
-      <mat-card-subtitle> <small>We will classify ALL the potatoes!</small></mat-card-subtitle>
+      <mat-card-title>{{ campaign.name }}</mat-card-title>
+      <mat-card-subtitle>
+        <small>{{ campaign.description }}</small></mat-card-subtitle
+      >
     </mat-card-header>
     <mat-card-content> </mat-card-content>
     <mat-card-actions>
       <div class="button-action-container">
         <button mat-raised-button routerLink="/campaign" color="primary">
-          Label
+          Annotate
+        </button>
+        <button mat-raised-button routerLink="/campaign" color="primary">
+          Upload
         </button>
       </div>
     </mat-card-actions>
