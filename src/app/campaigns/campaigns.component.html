@@ -1,0 +1,26 @@
+<div class="campaigns-container">
+  <mat-card class="campaign" *ngFor="let campaign of campaigns; let i = index">
+    <mat-card-header>
+      <mat-card-title>{{ campaign.name }}</mat-card-title>
+      <mat-card-subtitle>
+        <small>Object classification campaign</small>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <div class="image-container">
+      <img src="{{ campaign.image }}" />
+    </div>
+    <mat-card-content>
+      <p>
+        {{ campaign.description }}
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div class="button-action-container">
+        <button mat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
+          Select Campaign
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

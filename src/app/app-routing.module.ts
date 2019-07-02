@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StartComponent } from './start/start.component';
+import { CampaignsComponent } from './campaigns/campaigns.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CampaignComponent } from './campaign/campaign.component';
 
 const routes: Routes = [
   {
-    path: 'start',
-    component: StartComponent,
+    path: 'campaigns',
+    component: CampaignsComponent,
     data: { animation: 'AboutPage' }
   },
   { path: '', component: LoginComponent, data: { animation: 'HomePage' } },
@@ -18,7 +18,7 @@ const routes: Routes = [
     data: { animation: 'AboutPage' }
   },
   {
-    path: 'campaign',
+    path: 'campaigns/:urlName',
     component: CampaignComponent,
     data: { animation: 'HomePage' }
   }

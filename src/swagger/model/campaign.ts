@@ -16,6 +16,7 @@ export interface Campaign {
   ownerId: string;
   type: CampaignType;
   name: string;
+  urlName: string;
   description: string;
   taxonomy: Array<string>;
   image: string;

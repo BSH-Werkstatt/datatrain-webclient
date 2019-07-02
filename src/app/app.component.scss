@@ -15,8 +15,22 @@
   align-items: center;
 }
 
-.start-btn {
+.nav-btn {
   margin-left: 30px;
   text-decoration: none;
   color: black;
+}
+
+.nav-hidden {
+  display: none;
+}
+
+.nav-slash {
+  padding: 0 5px;
+  color: gray;
+}
+
+.mat-toolbar {
+  background: white;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
 }

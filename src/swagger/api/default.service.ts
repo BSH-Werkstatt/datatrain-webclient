@@ -31,9 +31,7 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class DefaultService {
-  //protected basePath = 'http://ios19bsh.ase.in.tum.de/dev/api';
   protected basePath = 'http://127.0.0.1:5000';
-
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -229,6 +227,56 @@ export class DefaultService {
       observe: observe,
       reportProgress: reportProgress
     });
+  }
+
+  /**
+   *
+   *
+   * @param campaignName
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getCampaignByURLName(campaignName: string, observe?: 'body', reportProgress?: boolean): Observable<Campaign>;
+  public getCampaignByURLName(
+    campaignName: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Campaign>>;
+  public getCampaignByURLName(
+    campaignName: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Campaign>>;
+  public getCampaignByURLName(
+    campaignName: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (campaignName === null || campaignName === undefined) {
+      throw new Error('Required parameter campaignName was null or undefined when calling getCampaignByURLName.');
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Campaign>(
+      `${this.basePath}/campaigns/byURLName/${encodeURIComponent(String(campaignName))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
   }
 
   /**
@@ -567,39 +615,30 @@ export class DefaultService {
   /**
    *
    *
-   * @param imageFile
    * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public requestPrediction(
-    imageFile: Blob,
     campaignId: string,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<PredictionResult>;
   public requestPrediction(
-    imageFile: Blob,
     campaignId: string,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<PredictionResult>>;
   public requestPrediction(
-    imageFile: Blob,
     campaignId: string,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<PredictionResult>>;
   public requestPrediction(
-    imageFile: Blob,
     campaignId: string,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
-    if (imageFile === null || imageFile === undefined) {
-      throw new Error('Required parameter imageFile was null or undefined when calling requestPrediction.');
-    }
-
     if (campaignId === null || campaignId === undefined) {
       throw new Error('Required parameter campaignId was null or undefined when calling requestPrediction.');
     }
@@ -616,27 +655,9 @@ export class DefaultService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    const canConsumeForm = this.canConsumeForm(consumes);
-
-    let formParams: { append(param: string, value: any): void };
-    let useForm = false;
-    let convertFormParamsToString = false;
-    // use FormData to transmit files using content-type "multipart/form-data"
-    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-    useForm = canConsumeForm;
-    if (useForm) {
-      formParams = new FormData();
-    } else {
-      formParams = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
-    }
-
-    if (imageFile !== undefined) {
-      formParams.append('imageFile', <any>imageFile);
-    }
-
     return this.httpClient.post<PredictionResult>(
       `${this.basePath}/campaigns/${encodeURIComponent(String(campaignId))}/predictions`,
-      convertFormParamsToString ? formParams.toString() : formParams,
+      null,
       {
         withCredentials: this.configuration.withCredentials,
         headers: headers,

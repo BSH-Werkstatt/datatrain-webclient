@@ -39,7 +39,9 @@ export class LoginComponent implements OnInit {
           this.wrongCredentials = true;
         } else {
           // user validated
-          this.router.navigateByUrl('/start');
+          localStorage.setItem('datatrainUser', JSON.stringify(user));
+          localStorage.setItem('datatrainUserToken', user.id);
+          this.router.navigateByUrl('/campaigns');
         }
       });
     }

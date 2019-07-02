@@ -14,11 +14,11 @@
     <p class="alert" *ngIf="wrongCredentials">Wrong Login Credentials!</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-stroked-button routerLink="/register">
-      REGISTER
-    </button>
     <button mat-raised-button color="primary" [disabled]="loginEmail == '' || loginPassword == ''" (click)="login()">
       LOGIN
+    </button>
+    <button mat-stroked-button routerLink="/register">
+      REGISTER
     </button>
   </mat-card-actions>
 </mat-card>

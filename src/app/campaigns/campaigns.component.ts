@@ -3,15 +3,15 @@ import { Router } from '@angular/router';
 import { DefaultService, Campaign } from '../../swagger';
 
 @Component({
-  selector: 'app-start',
-  templateUrl: './start.component.html',
-  styleUrls: ['./start.component.scss']
+  selector: 'app-campaigns',
+  templateUrl: './campaigns.component.html',
+  styleUrls: ['./campaigns.component.scss']
 })
 
 /**
  * The Start component
  */
-export class StartComponent implements OnInit {
+export class CampaignsComponent implements OnInit {
   private campaigns: Campaign[];
 
   /**
@@ -24,7 +24,6 @@ export class StartComponent implements OnInit {
    */
   ngOnInit(): void {
     this.defaultService.getAllCampaigns().subscribe((campaigns: Campaign[]) => {
-      console.log(campaigns);
       this.campaigns = campaigns;
     });
   }

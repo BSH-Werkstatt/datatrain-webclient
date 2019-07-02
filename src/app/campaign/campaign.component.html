@@ -1,54 +1,16 @@
-<div class="gotcha-container">
-  <mat-card class="example-card" *ngIf="incorrect.length == 0">
-    <mat-card-header>
-      <mat-card-title>BSH Gotcha</mat-card-title>
-      <mat-card-subtitle
-        >Please select all <b>{{ dataset.class }}!</b><br />
-        <small>{{ selectedCount() }} items selected</small></mat-card-subtitle
-      >
-    </mat-card-header>
-    <mat-card-content>
-      <mat-grid-list cols="3" rowHeight="1:1">
-        <mat-grid-tile *ngFor="let image of dataset.images; let i = index">
-          <div class="gotcha-instance flip-in-hor-bottom" [style.animation-delay]="i / 6 + 's'">
-            <img [src]="image.src" class="gotcha-image" [class.selected]="image.selected" />
-            <div
-              class="gotcha-image-overlay"
-              [class.selected]="image.selected"
-              (click)="image.selected = !image.selected"
-            >
-              <mat-icon @checkboxAnimation *ngIf="image.selected" class="checkmark">check</mat-icon>
-            </div>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </mat-card-content>
-    <mat-card-actions>
-      <div class="button-action-container">
-        <button mat-flat-button [disabled]="selectedCount() == 0" color="primary" (click)="validate()">
-          done
-        </button>
-      </div>
-    </mat-card-actions>
-  </mat-card>
-
-  <mat-card class="example-card validation-card" *ngIf="incorrect.length > 0">
-    <mat-card-header>
-      <mat-card-title>BSH Gotcha</mat-card-title>
-      <mat-card-subtitle> Are you sure this is a {{ dataset.classSingular }}?<br /> </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <img [src]="incorrectItem.src" class="validation-image" />
-    </mat-card-content>
-    <mat-card-actions>
-      <div class="button-action-container">
-        <button mat-flat-button [disabled]="selectedCount() == 0" color="primary" (click)="validateIncorrect()">
-          Yes
-        </button>
-        <button mat-flat-button [disabled]="selectedCount() == 0" color="primary" (click)="validateIncorrect()">
-          No
-        </button>
-      </div>
-    </mat-card-actions>
-  </mat-card>
+<div class="campaigns-containe" *ngIf="campaignLoaded">
+  <mat-card-header>
+    <mat-card-title>{{ campaign.name }}</mat-card-title>
+    <mat-card-subtitle>
+      <small>Object classification campaign</small>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <div class="image-container">
+    <img src="{{ campaign.image }}" />
+  </div>
+  <mat-card-content>
+    <p>
+      {{ campaign.description }}
+    </p>
+  </mat-card-content>
 </div>

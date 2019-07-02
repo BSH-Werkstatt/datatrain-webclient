@@ -3,9 +3,13 @@
     <div class="toolbar-content">
       <div class="toolbar-left">
         <img src="assets/logo.svg" height="60" routerLink="/" />
-        <a *ngIf="router.url != '/'" routerLink="/start" class="start-btn">
-          Start
+        <a *ngIf="router.url != '/'" routerLink="/campaigns" class="nav-btn">
+          Campaigns
         </a>
+        <span class="nav-btn nav-slash nav-hidden" id="nav-campaign-slash">/</span>
+        <a class="nav-btn" id="nav-campaign-btn"></a>
+        <span class="nav-btn nav-slash nav-hidden" id="nav-function-slash">/</span>
+        <a class="nav-btn" id="nav-function-btn"></a>
       </div>
       <div class="button-group">
         <button mat-stroked-button routerLink="/" color="primary">

@@ -19,13 +19,13 @@ import { ApiModule } from '../swagger/api.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
-import { StartComponent } from './start/start.component';
+import { CampaignsComponent } from './campaigns/campaigns.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { CampaignComponent } from './campaign/campaign.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, StartComponent, RegisterComponent, CampaignComponent],
+  declarations: [AppComponent, LoginComponent, CampaignsComponent, RegisterComponent, CampaignComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,

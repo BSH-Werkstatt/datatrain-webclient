@@ -1,0 +1,41 @@
+.campaigns-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.campaign {
+  display: inline-block;
+  vertical-align: top;
+  width: 500px;
+  padding: 0;
+  margin: 20px;
+}
+
+.campaign .image-container,
+.image-container img {
+  width: 100%;
+}
+
+.campaign .image-container {
+  height: 200px;
+  overflow: hidden;
+}
+
+.campaign .mat-card-content {
+  height: 100px;
+  padding: 20px;
+  padding-bottom: 0;
+  overflow: auto;
+  text-align: justify;
+  white-space: pre-line;
+}
+
+.campaign .mat-card-header {
+  padding: 20px;
+}
+
+.campaign .mat-card-actions {
+  padding: 20px;
+  padding-top: 0;
+}
