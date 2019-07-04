@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-campaign',
   templateUrl: './campaign.component.html',
-  styleUrls: ['./campaign.component.scss']
+  styleUrls: ['./campaign.component.scss', '../upload/upload.component.scss']
 })
 export class CampaignComponent implements OnInit {
   public urlName = '';
