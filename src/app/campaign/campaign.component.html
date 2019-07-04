@@ -26,10 +26,12 @@
       </div>
       <div class="button-action-container" style="float: right">
         <button mat-button [routerLink]="['/campaigns', campaign.urlName, 'history']" color="primary">
-          <span class="btn-icon">🖻</span>Your Images and Annotations
+          <span class="btn-icon"><i class="material-icons">collections</i></span
+          >Your Images and Annotations
         </button>
         <button mat-button [routerLink]="['/campaigns', campaign.urlName, 'admin']" color="primary">
-          <span class="btn-icon">⚙</span>Administration
+          <span class="btn-icon"><i class="material-icons">settings</i></span
+          >Administration
         </button>
       </div>
     </mat-card-actions>
