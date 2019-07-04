@@ -1,0 +1,25 @@
+version: 0.2
+
+env:
+  variables:
+    IMAGE_REPO_NAME: 'datatrain/api'
+    IMAGE_TAG: 'latest'
+    AWS_ACCOUNT_ID: '802162369613'
+# parameter-store:
+#   key: "value"
+#   key: "value"
+# git-credential-helper: yes
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 8
+      docker: 18
+    commands:
+      - 'yarn install'
+      - 'yarn lint'
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - 'yarn build'
