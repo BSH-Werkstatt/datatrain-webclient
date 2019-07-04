@@ -1,3 +1,93 @@
-<p>
-  admin works!
-</p>
+<div class="admin-container" *ngIf="campaignLoaded">
+  <mat-card class="admin-card">
+    <mat-card-header>
+      <mat-card-title>Administration</mat-card-title>
+      <mat-card-subtitle>{{ campaign.name }} Campaign</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="left">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Campaign name</mat-label>
+          <input matInput value="{{ campaign.name }}" />
+        </mat-form-field>
+
+        <h4>Campaign image</h4>
+        <img class="campaign-image" src="{{ campaign.image }}" />
+        <button
+          type="button"
+          mat-stroked-button
+          color="primary"
+          (click)="fileInput.click()"
+          style="display: block; margin-bottom: 40px; margin-top: 10px;"
+        >
+          Change Image
+        </button>
+        <input hidden (change)="onFileSelected()" #fileInput type="file" id="choose-file" multiple />
+
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label style="background: white">Campaign description</mat-label>
+          <textarea matInput style="height: 200px;">{{ campaign.description }}</textarea>
+        </mat-form-field>
+      </div>
+      <div class="right">
+        <form class="taxonomy-form">
+          <h4>Taxonomy</h4>
+          <ul class="taxonomy admin-list">
+            <li *ngFor="let type of campaign.taxonomy; let i = index">
+              {{ type }}<i class="material-icons remove" (click)="removeFromTaxonomy(i)">highlight_off</i>
+            </li>
+          </ul>
+
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-label>New object type</mat-label>
+            <input [(ngModel)]="newObjectType" matInput name="newObjectType" />
+          </mat-form-field>
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="addToTaxonomy()"
+            [disabled]="!newObjectType || newObjectType == ''"
+            style="margin-top: -20px"
+          >
+            Add new object type
+          </button>
+        </form>
+        <form class="user-form">
+          <h4>Users</h4>
+          <ul class="users admin-list">
+            <li *ngFor="let score of leaderboard.scores; let i = index">
+              {{ score.name }} ({{ score.email }})<i class="material-icons remove" (click)="removeFromLeaderboard(i)"
+                >highlight_off</i
+              >
+            </li>
+          </ul>
+
+          <p class="alert" *ngIf="userNotFound">
+            Please enter a registered email address
+          </p>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-label>Add user by E-mail</mat-label>
+            <input [(ngModel)]="newUserEmail" matInput name="newUserEmail" />
+          </mat-form-field>
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="addToLeaderboard()"
+            [disabled]="!newUserEmail || newUserEmail == ''"
+            style="margin-top: -20px"
+          >
+            Add user
+          </button>
+        </form>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" (click)="save()" [routerLink]="['/campaigns']">
+        Save
+      </button>
+      <button mat-button color="primary" style="margin-left: 8px;" [routerLink]="['/campaigns']">
+        Back
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

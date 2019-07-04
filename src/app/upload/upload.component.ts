@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { CampaignComponent } from '../campaign/campaign.component';
-import { DefaultService, Campaign, Leaderboard, ImageData } from '../../swagger';
+import { DefaultService, ImageData } from '../../swagger';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-upload',
