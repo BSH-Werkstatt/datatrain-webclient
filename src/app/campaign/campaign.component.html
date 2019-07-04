@@ -1,16 +1,69 @@
-<div class="campaigns-containe" *ngIf="campaignLoaded">
-  <mat-card-header>
-    <mat-card-title>{{ campaign.name }}</mat-card-title>
-    <mat-card-subtitle>
-      <small>Object classification campaign</small>
-    </mat-card-subtitle>
-  </mat-card-header>
-  <div class="image-container">
-    <img src="{{ campaign.image }}" />
+<div class="campaign-container" *ngIf="campaignLoaded">
+  <mat-card class="campaign-selected">
+    <mat-card-header>
+      <mat-card-title>{{ campaign.name }}</mat-card-title>
+      <mat-card-subtitle>
+        <small>Object classification campaign</small>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <div class="image-container">
+      <img src="{{ campaign.image }}" />
+    </div>
+    <mat-card-content>
+      <p>
+        {{ campaign.description }}
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div class="button-action-container" style="float: left">
+        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
+          <span class="btn-icon">⛶</span>Annotate Random
+        </button>
+        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
+          <span class="btn-icon">⛶</span>Annotate Your Image
+        </button>
+        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
+          <span class="btn-icon">🡅</span>Upload Image
+        </button>
+      </div>
+      <div class="button-action-container" style="float: right">
+        <button mat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
+          <span class="btn-icon">⛶</span>Your Annotations
+        </button>
+        <button mat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
+          <span class="btn-icon">🖻</span>Your Images
+        </button>
+        <button mat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
+          <span class="btn-icon">⚙</span>Administration
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+  <div class="campaign-bottom-cards">
+    <mat-card class="campaign-leaderboard" *ngIf="leaderboardLoaded">
+      <mat-card-header>
+        <mat-card-title>Leaderboard</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table>
+          <tr class="campaign" *ngFor="let score of leaderboard.scores; let i = index">
+            <td>{{ i + 1 }}.</td>
+            <td>{{ score.name }}</td>
+            <td>{{ score.score }}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="campaign-playground" *ngIf="leaderboardLoaded">
+      <mat-card-header>
+        <mat-card-title>Playground</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <input type="file" />
+      </mat-card-content>
+    </mat-card>
   </div>
-  <mat-card-content>
-    <p>
-      {{ campaign.description }}
-    </p>
-  </mat-card-content>
 </div>

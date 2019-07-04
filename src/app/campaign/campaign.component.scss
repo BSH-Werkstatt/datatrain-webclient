@@ -1,0 +1,69 @@
+.campaign-selected {
+  box-sizing: border-box;
+  width: 1000px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.campaign-bottom-cards {
+  width: 1000px;
+  white-space: nowrap;
+  margin: 0 auto;
+}
+
+.campaign-leaderboard {
+  vertical-align: top;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 490px;
+  margin-right: 20px;
+}
+
+.campaign-playground {
+  vertical-align: top;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 490px;
+}
+
+.campaign-selected .mat-card-actions {
+  margin: 0 !important;
+}
+
+.campaign-selected .image-container {
+  margin-left: -16px;
+  margin-right: -16px;
+  margin-bottom: 20px;
+
+  height: 300px;
+  overflow: hidden;
+}
+
+.campaign-selected .image-container img {
+  width: 100%;
+}
+
+.campaign-selected .image-container img {
+  width: 100%;
+}
+
+.campaign-selected .button-action-container button {
+  margin-right: 8px;
+}
+
+.campaign-selected .mat-card-actions {
+  height: 37px;
+}
+
+.campaign-selected .mat-card-content {
+  margin-bottom: 40px;
+}
+
+.campaign-leaderboard table {
+  width: 100%;
+}
+
+.btn-icon {
+  display: inline-block;
+  margin-right: 6px;
+}

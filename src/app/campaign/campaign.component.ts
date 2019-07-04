@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DefaultService, Campaign } from '../../swagger';
+import { DefaultService, Campaign, Leaderboard } from '../../swagger';
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -14,6 +14,9 @@ export class CampaignComponent implements OnInit {
   private campaign: Campaign;
   private campaign$: Observable<Campaign>;
   private campaignLoaded = false;
+
+  private leaderboard: Leaderboard;
+  private leaderboardLoaded = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private defaultService: DefaultService) {}
 
@@ -30,13 +33,28 @@ export class CampaignComponent implements OnInit {
       this.campaign = campaign;
       this.campaignLoaded = true;
 
-      const navCampaignSlash = document.getElementById('nav-campaign-slash');
-      navCampaignSlash.classList.remove('nav-hidden');
+      this.setNavBar();
+      this.loadLeaderboard();
+    });
+  }
 
-      const navCampaignBtn = document.getElementById('nav-campaign-btn');
-      navCampaignBtn.innerHTML = campaign.name;
-      // @ts-ignore
-      navCampaignBtn.href = '/campaigns/' + campaign.urlName;
+  setNavBar() {
+    const navCampaignSlash = document.getElementById('nav-campaign-slash');
+    navCampaignSlash.classList.remove('nav-hidden');
+
+    const navCampaignBtn = document.getElementById('nav-campaign-btn');
+    navCampaignBtn.innerHTML = this.campaign.name;
+    // @ts-ignore
+    navCampaignBtn.href = '/campaigns/' + this.campaign.urlName;
+  }
+
+  loadLeaderboard() {
+    this.defaultService.getLeaderboard(this.campaign.id).subscribe((leaderboard: Leaderboard) => {
+      this.leaderboard = leaderboard;
+      this.leaderboard.scores.sort((a, b) => {
+        return b.score - a.score;
+      });
+      this.leaderboardLoaded = true;
     });
   }
 }
