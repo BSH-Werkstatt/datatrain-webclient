@@ -28,6 +28,7 @@ import { AnnotationComponent } from './annotation/annotation.component';
 import { UploadComponent } from './upload/upload.component';
 import { HistoryComponent } from './history/history.component';
 import { AdminComponent } from './admin/admin.component';
+import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AdminComponent } from './admin/admin.component';
     AnnotationComponent,
     UploadComponent,
     HistoryComponent,
-    AdminComponent
+    AdminComponent,
+    CreateCampaignComponent
   ],
   imports: [
     AppRoutingModule,

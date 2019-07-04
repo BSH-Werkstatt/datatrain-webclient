@@ -8,6 +8,7 @@ import { AnnotationComponent } from './annotation/annotation.component';
 import { UploadComponent } from './upload/upload.component';
 import { HistoryComponent } from './history/history.component';
 import { AdminComponent } from './admin/admin.component';
+import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     data: { animation: 'AboutPage' }
+  },
+  {
+    path: 'campaigns/create',
+    component: CreateCampaignComponent,
+    data: { animation: 'HomePage' }
   },
   {
     path: 'campaigns/:urlName',
