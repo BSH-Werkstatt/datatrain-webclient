@@ -13,14 +13,14 @@ import { Observable } from 'rxjs';
 export class CampaignComponent implements OnInit {
   public urlName = '';
 
-  private campaign: Campaign;
-  private campaign$: Observable<Campaign>;
-  private campaignLoaded = false;
+  protected campaign: Campaign;
+  protected campaign$: Observable<Campaign>;
+  protected campaignLoaded = false;
 
-  private leaderboard: Leaderboard;
-  private leaderboardLoaded = false;
+  protected leaderboard: Leaderboard;
+  protected leaderboardLoaded = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private defaultService: DefaultService) {}
+  constructor(protected route: ActivatedRoute, protected router: Router, protected defaultService: DefaultService) {}
 
   ngOnInit(): void {
     this.campaign$ = this.route.paramMap.pipe(
@@ -41,6 +41,9 @@ export class CampaignComponent implements OnInit {
     });
   }
 
+  /**
+   * Sets the campaign name in the navigation bar
+   */
   setNavBar() {
     const navCampaignSlash = document.getElementById('nav-campaign-slash');
     navCampaignSlash.classList.remove('nav-hidden');
@@ -49,8 +52,17 @@ export class CampaignComponent implements OnInit {
     navCampaignBtn.innerHTML = this.campaign.name;
     // @ts-ignore
     navCampaignBtn.href = '/campaigns/' + this.campaign.urlName;
+
+    const navFunctionSlash = document.getElementById('nav-function-slash');
+    navFunctionSlash.classList.add('nav-hidden');
+
+    const navFunctionBtn = document.getElementById('nav-function-btn');
+    navFunctionBtn.innerHTML = '';
   }
 
+  /**
+   * Loads the leaderboard using the Swagger DefaultService
+   */
   loadLeaderboard() {
     this.defaultService.getLeaderboard(this.campaign.id).subscribe((leaderboard: Leaderboard) => {
       this.leaderboard = leaderboard;

@@ -1,0 +1,92 @@
+#upload-preview {
+  min-height: 136px;
+}
+
+#upload-preview .img-container {
+  box-sizing: border-box;
+  position: relative;
+
+  display: inline-block;
+  width: 220px;
+  height: 130px;
+  border: 2px solid gray;
+  padding: 6px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+#upload-preview .img-container img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#upload-preview .img-container .success-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 6px;
+
+  background: rgba(255, 255, 255, 0.8);
+  line-height: 32px;
+  vertical-align: text-bottom;
+}
+
+#upload-preview .img-container .success-indicator * {
+  vertical-align: middle;
+}
+
+#upload-preview .img-container .success-indicator div {
+  display: inline-block;
+}
+
+.upload-container .mat-card-actions {
+  margin: 0 !important;
+}
+
+.upload-container {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.upload-help {
+  text-align: center;
+}
+
+#upload-area {
+  border: 2px dashed gray;
+  padding: 20px;
+  min-height: 300px;
+}
+
+#upload-area.highlight {
+  background-color: #f0e4ef;
+}
+
+#upload-progress {
+  width: 50%;
+  margin: 0 auto;
+}
+
+#upload-progress-count {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+#upload-progress small {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.upload-container .mat-card-actions {
+  height: 37px;
+}
+
+.success-indicator .success {
+  color: #4bb543;
+}
+
+.success-indicator .failed {
+  color: #fc100d;
+}

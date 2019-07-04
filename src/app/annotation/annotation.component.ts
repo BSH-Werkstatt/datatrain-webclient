@@ -8,5 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AnnotationComponent implements OnInit {
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(localStorage.getItem('datatrainToAnnotate'));
+  }
 }

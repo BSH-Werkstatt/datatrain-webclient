@@ -32,6 +32,9 @@ export class LoginComponent implements OnInit {
    */
   ngOnInit(): void {}
 
+  /**
+   * Sends the login form data to the server and determines if the user can log in
+   */
   login() {
     if (this.loginEmail) {
       this.defaultService.getUserByEmail(this.loginEmail).subscribe((user: User) => {
