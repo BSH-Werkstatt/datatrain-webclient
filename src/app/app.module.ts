@@ -23,9 +23,23 @@ import { CampaignsComponent } from './campaigns/campaigns.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { CampaignComponent } from './campaign/campaign.component';
+import { AnnotationComponent } from './annotation/annotation.component';
+import { UploadComponent } from './upload/upload.component';
+import { HistoryComponent } from './history/history.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CampaignsComponent, RegisterComponent, CampaignComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    CampaignsComponent,
+    RegisterComponent,
+    CampaignComponent,
+    AnnotationComponent,
+    UploadComponent,
+    HistoryComponent,
+    AdminComponent
+  ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,

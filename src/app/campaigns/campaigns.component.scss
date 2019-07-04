@@ -2,12 +2,14 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 1000px;
+  margin: 0 auto;
 }
 
 .campaign {
   display: inline-block;
   vertical-align: top;
-  width: 500px;
+  width: calc(1000px / 2 - 40px);
   padding: 0;
   margin: 20px;
 }

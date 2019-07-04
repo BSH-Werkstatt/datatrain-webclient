@@ -6,10 +6,10 @@
         <a *ngIf="router.url != '/'" routerLink="/campaigns" class="nav-btn">
           Campaigns
         </a>
-        <span class="nav-btn nav-slash nav-hidden" id="nav-campaign-slash">/</span>
-        <a class="nav-btn" id="nav-campaign-btn"></a>
-        <span class="nav-btn nav-slash nav-hidden" id="nav-function-slash">/</span>
-        <a class="nav-btn" id="nav-function-btn"></a>
+        <span *ngIf="router.url != '/campaigns'" class="nav-btn nav-slash nav-hidden" id="nav-campaign-slash">/</span>
+        <a *ngIf="router.url != '/campaigns'" class="nav-btn" id="nav-campaign-btn"></a>
+        <span *ngIf="router.url != '/campaigns'" class="nav-btn nav-slash nav-hidden" id="nav-function-slash">/</span>
+        <a *ngIf="router.url != '/campaigns'" class="nav-btn" id="nav-function-btn"></a>
       </div>
       <div class="button-group">
         <button mat-stroked-button routerLink="/" color="primary">

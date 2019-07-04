@@ -17,24 +17,18 @@
 
     <mat-card-actions>
       <div class="button-action-container" style="float: left">
-        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
-          <span class="btn-icon">⛶</span>Annotate Random
+        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName, 'annotate']" color="primary">
+          <span class="btn-icon">⛶</span>Annotate Random Image
         </button>
-        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
-          <span class="btn-icon">⛶</span>Annotate Your Image
-        </button>
-        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
+        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName, 'upload']" color="primary">
           <span class="btn-icon">🡅</span>Upload Image
         </button>
       </div>
       <div class="button-action-container" style="float: right">
-        <button mat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
-          <span class="btn-icon">⛶</span>Your Annotations
+        <button mat-button [routerLink]="['/campaigns', campaign.urlName, 'history']" color="primary">
+          <span class="btn-icon">🖻</span>Your Images and Annotations
         </button>
-        <button mat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
-          <span class="btn-icon">🖻</span>Your Images
-        </button>
-        <button mat-button [routerLink]="['/campaigns', campaign.urlName]" color="primary">
+        <button mat-button [routerLink]="['/campaigns', campaign.urlName, 'admin']" color="primary">
           <span class="btn-icon">⚙</span>Administration
         </button>
       </div>

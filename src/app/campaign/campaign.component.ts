@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./campaign.component.scss']
 })
 export class CampaignComponent implements OnInit {
+  public urlName = '';
+
   private campaign: Campaign;
   private campaign$: Observable<Campaign>;
   private campaignLoaded = false;
@@ -24,6 +26,7 @@ export class CampaignComponent implements OnInit {
     this.campaign$ = this.route.paramMap.pipe(
       switchMap(params => {
         const urlName = params.get('urlName');
+        this.urlName = urlName;
 
         return this.defaultService.getCampaignByURLName(urlName);
       })
