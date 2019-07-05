@@ -1,12 +1,18 @@
 <canvas id="mainCanvas"> </canvas>
 
 <div id="toolbox">
-  <button>Polygon</button>
-  <button>Freehand</button>
-  <button>Adjust</button>
-  <button>Select</button>
-  <button>Delete</button>
-  <button>Upload</button>
+  <button
+    class="{{ annotationState == 1 ? 'active' : '' }}"
+    [disabled]="annotationState != 0 && annotationState != 1"
+    (click)="startPolygonAnnotation()"
+  >
+    Polygon
+  </button>
+  <button disabled>Freehand</button>
+  <button disabled>Adjust</button>
+  <button disabled>Select</button>
+  <button [disabled]="annotationState == 0">Delete</button>
+  <button disabled>Upload</button>
 </div>
 
 <div id="label-selector"></div>

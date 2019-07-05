@@ -3,6 +3,10 @@ import { CampaignComponent } from '../campaign/campaign.component';
 import { DefaultService, ImageData, Campaign } from '../../swagger';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { CanvasAnnotation } from './CanvasAnnotation';
+
+const ANNOTATION_STATE_POLYGON = 1;
+
 @Component({
   selector: 'app-annotation',
   templateUrl: './annotation.component.html',
@@ -14,6 +18,10 @@ export class AnnotationComponent extends CampaignComponent {
   protected image;
   protected canvas: HTMLCanvasElement;
   protected ctx: CanvasRenderingContext2D;
+
+  protected canvasAnnotations: CanvasAnnotation[] = [];
+  protected currentCanvasAnnotationIndex = -1;
+  protected annotationState = 0;
 
   protected originX = 0;
   protected originY = 0;
@@ -117,12 +125,22 @@ export class AnnotationComponent extends CampaignComponent {
       false
     );
 
+    this.canvas.addEventListener(
+      'click',
+      e => {
+        this.handleClick(e);
+        this.render();
+      },
+      false
+    );
+
     this.resizeCanvas();
   }
 
   resizeCanvas() {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight - 64;
+    this.rescale();
 
     this.render();
   }
@@ -130,8 +148,8 @@ export class AnnotationComponent extends CampaignComponent {
   render() {
     this.clear();
 
-    this.rescale();
     this.drawImage();
+    this.drawAnnotations();
   }
 
   clear() {
@@ -163,5 +181,46 @@ export class AnnotationComponent extends CampaignComponent {
 
   drawImage() {
     this.ctx.drawImage(this.image, 0, 0, this.image.width, this.image.height);
+  }
+
+  startPolygonAnnotation() {
+    this.canvasAnnotations.push(new CanvasAnnotation(this.canvas, this.ctx));
+    this.currentCanvasAnnotationIndex = this.canvasAnnotations.length - 1;
+    this.annotationState = ANNOTATION_STATE_POLYGON; // 1 is drawing polygon
+  }
+
+  handleClick(e) {
+    const x = this.getMouseToImageX(e);
+    const y = this.getMouseToImageY(e);
+
+    if (this.annotationState === ANNOTATION_STATE_POLYGON) {
+      console.log(x, y);
+
+      const completed = this.canvasAnnotations[this.currentCanvasAnnotationIndex].addPoint(x, y, this.scale);
+
+      if (completed) {
+        this.annotationState = 0;
+      }
+    }
+  }
+
+  drawAnnotations() {
+    this.canvasAnnotations.forEach(a => {
+      a.draw(this.scale);
+    });
+  }
+
+  getMouseToImageX(e) {
+    const cx = e.clientX;
+    const mx = (cx - this.canvas.offsetLeft - this.originX) / this.scale;
+
+    return mx;
+  }
+
+  getMouseToImageY(e) {
+    const cy = e.clientY;
+    const my = (cy - this.canvas.offsetTop - this.originY) / this.scale;
+
+    return my;
   }
 }
