@@ -22,7 +22,6 @@ export class CanvasAnnotation {
   }
 
   draw(scale: number) {
-    console.log(this.points);
     const ctx = this.ctx;
     ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.strokeStyle = '#fff';
@@ -62,7 +61,6 @@ export class CanvasAnnotation {
     const i = this.detectCollision(x, y, scale);
     if (i === 0) {
       this.complete();
-      console.log('completed');
       return 1;
     } else {
       this.points.push(new CAPoint(x, y));
@@ -77,7 +75,6 @@ export class CanvasAnnotation {
   detectCollision(x, y, scale) {
     for (let i = 0; i < this.points.length; i++) {
       const dist = (this.points[i].x - x) * (this.points[i].x - x) + (this.points[i].y - y) * (this.points[i].y - y);
-      console.log(dist, i);
       if (dist < (10 / scale) * (10 / scale)) {
         return i;
       }
