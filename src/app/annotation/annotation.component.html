@@ -1,18 +1,22 @@
 <canvas id="mainCanvas"> </canvas>
 
-<div id="toolbox">
+<div id="toolbar">
   <button
-    class="{{ annotationState == 1 ? 'active' : '' }}"
-    [disabled]="annotationState != 0 && annotationState != 1"
+    class="toolbar-btn {{ state == STATE.POLYGON ? 'active' : '' }}"
+    [disabled]="state != STATE.IDLE && state != STATE.POLYGON"
     (click)="startPolygonAnnotation()"
   >
     Polygon
   </button>
-  <button disabled>Freehand</button>
-  <button disabled>Adjust</button>
-  <button disabled>Select</button>
-  <button [disabled]="annotationState == 0">Delete</button>
-  <button disabled>Upload</button>
+  <button
+    class="toolbar-btn {{ state == STATE.FREEHAND || state == STATE.FREEHAND_MOUSEDOWN ? 'active' : '' }}"
+    [disabled]="state != STATE.IDLE && state != STATE.FREEHAND && state != STATE.FREEHAND_MOUSEDOWN"
+    (click)="startFreehandAnnotation()"
+  >
+    Freehand
+  </button>
+  <button class="toolbar-btn" [disabled]="state == STATE.IDLE">Delete</button>
+  <button class="toolbar-btn" [disabled]="state != STATE.IDLE">Upload</button>
 </div>
 
 <div id="label-selector"></div>

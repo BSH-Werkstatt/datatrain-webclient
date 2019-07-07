@@ -9,12 +9,33 @@
   background: black;
 }
 
-#toolbox {
+#toolbar {
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: white;
+  height: 64px;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.active {
-  background: red;
+#toolbar .toolbar-btn {
+  background: white;
+  border: none;
+  height: 64px;
+  width: 64px;
+  padding: 10px;
+  font-size: 11px;
+
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#toolbar .toolbar-btn.active {
+  background: rgba(0, 0, 0, 0.2);
 }
