@@ -62,11 +62,11 @@ export class CanvasAnnotation {
 
       if (i === 0 && !this.completed) {
         ctx.strokeStyle = 'red';
-        ctx.lineWidth = 5 / scale;
+        ctx.lineWidth = 3 / scale;
         ctx.stroke();
       } else if (i === this.points.length - 1 && !this.completed) {
         ctx.strokeStyle = 'green';
-        ctx.lineWidth = 5 / scale;
+        ctx.lineWidth = 3 / scale;
         ctx.stroke();
       }
     }

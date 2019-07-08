@@ -6,6 +6,9 @@
     [disabled]="state != STATE.IDLE && state != STATE.POLYGON"
     (click)="startPolygonAnnotation()"
   >
+    <i class="material-icons">
+      format_shapes
+    </i>
     Polygon
   </button>
   <button
@@ -13,10 +16,18 @@
     [disabled]="state != STATE.IDLE && state != STATE.FREEHAND && state != STATE.FREEHAND_MOUSEDOWN"
     (click)="startFreehandAnnotation()"
   >
+    <i class="material-icons">
+      create
+    </i>
     Freehand
   </button>
-  <button class="toolbar-btn" [disabled]="state == STATE.IDLE">Delete</button>
-  <button class="toolbar-btn" [disabled]="state != STATE.IDLE">Upload</button>
+  <button class="toolbar-btn" [disabled]="state == STATE.IDLE"><i class="material-icons"> delete </i>Delete</button>
+  <button class="toolbar-btn" [disabled]="state != STATE.IDLE">
+    <i class="material-icons">
+      cloud_upload
+    </i>
+    Upload
+  </button>
 </div>
 
 <div id="label-selector"></div>
