@@ -21,6 +21,11 @@ export class CanvasAnnotation {
   protected canvas: HTMLCanvasElement;
   protected ctx: CanvasRenderingContext2D;
 
+  protected boundingBox = {
+    topLeft: new CAPoint(0, 0),
+    bottomRight: new CAPoint(0, 0)
+  };
+
   constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
     this.canvas = canvas;
     this.ctx = ctx;
@@ -51,6 +56,21 @@ export class CanvasAnnotation {
       }
 
       ctx.stroke();
+
+      if (this.completed) {
+        // render bounding box;
+        ctx.save();
+        ctx.setLineDash([20, 20]);
+        ctx.lineWidth = 3 / scale;
+        ctx.strokeRect(
+          this.boundingBox.topLeft.x,
+          this.boundingBox.topLeft.y,
+          this.boundingBox.bottomRight.x - this.boundingBox.topLeft.x,
+          this.boundingBox.bottomRight.y - this.boundingBox.topLeft.y
+        );
+        ctx.setLineDash([]);
+        ctx.restore();
+      }
     }
 
     // tslint:disable-next-line: prefer-for-of
@@ -94,8 +114,35 @@ export class CanvasAnnotation {
     }
   }
 
+  initBoundingBox() {
+    this.boundingBox.topLeft.x = this.points[0].x;
+    this.boundingBox.topLeft.y = this.points[0].y;
+    this.boundingBox.bottomRight.x = this.points[0].x;
+    this.boundingBox.bottomRight.y = this.points[0].y;
+
+    for (const p of this.points) {
+      if (p.x < this.boundingBox.topLeft.x) {
+        this.boundingBox.topLeft.x = p.x;
+      }
+
+      if (p.x > this.boundingBox.bottomRight.x) {
+        this.boundingBox.bottomRight.x = p.x;
+      }
+
+      if (p.y < this.boundingBox.topLeft.y) {
+        this.boundingBox.topLeft.y = p.y;
+      }
+
+      if (p.y > this.boundingBox.bottomRight.y) {
+        this.boundingBox.bottomRight.y = p.y;
+      }
+    }
+  }
+
   complete() {
     if (this.points.length > 2) {
+      this.initBoundingBox();
+
       this.completed = true;
     }
   }
