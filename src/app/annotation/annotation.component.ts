@@ -214,7 +214,14 @@ export class AnnotationComponent extends CampaignComponent {
     this.ctx.drawImage(this.image, 0, 0, this.image.width, this.image.height);
   }
 
+  unselectAll() {
+    for (const ca of this.canvasAnnotations) {
+      ca.selected = false;
+    }
+  }
   createAnnotation() {
+    this.unselectAll();
+
     this.canvasAnnotations.push(new CanvasAnnotation(this.canvas, this.ctx));
     this.currentCanvasAnnotationIndex = this.canvasAnnotations.length - 1;
     this.getCurrentAnnotation().selected = true;
@@ -235,6 +242,19 @@ export class AnnotationComponent extends CampaignComponent {
     const y = this.getMouseToImageY(e);
 
     switch (this.state) {
+      case this.STATE.IDLE:
+        this.currentCanvasAnnotationIndex = -1;
+
+        this.unselectAll();
+        for (let i = 0; i < this.canvasAnnotations.length; i++) {
+          const ca = this.canvasAnnotations[i];
+          if (ca.pointInside(x, y)) {
+            ca.selected = true;
+            this.currentCanvasAnnotationIndex = i;
+            break;
+          }
+        }
+        break;
       case this.STATE.POLYGON:
         this.statePolygonClick(x, y);
         break;
@@ -310,6 +330,7 @@ export class AnnotationComponent extends CampaignComponent {
             this.state = this.STATE.IDLE;
             this.getCurrentAnnotation().selected = false;
             this.canMove = true;
+            this.currentCanvasAnnotationIndex = -1;
           }
         }
         break;
@@ -382,6 +403,7 @@ export class AnnotationComponent extends CampaignComponent {
     if (completed) {
       this.state = this.STATE.IDLE;
       this.getCurrentAnnotation().selected = false;
+      this.currentCanvasAnnotationIndex = -1;
     }
   }
 
@@ -391,7 +413,7 @@ export class AnnotationComponent extends CampaignComponent {
     if (ci.points.length === 0) {
       ci.addPoint(x, y, this.scale);
       this.canMove = false;
-    } else if (ci.detectCollision(x, y, this.scale) == ci.points.length - 1) {
+    } else if (ci.detectPointCollision(x, y, this.scale) == ci.points.length - 1) {
       // detect collision and start freehand if collided with last point
       this.canMove = false;
     }
@@ -407,12 +429,24 @@ export class AnnotationComponent extends CampaignComponent {
     const cx = e.clientX;
     const mx = (cx - this.canvas.offsetLeft) / this.scale + this.originX;
 
+    if (mx < 0) {
+      return 0;
+    } else if (mx > this.image.width) {
+      return this.image.width;
+    }
+
     return mx;
   }
 
   getMouseToImageY(e) {
     const cy = e.clientY;
     const my = (cy - this.canvas.offsetTop) / this.scale + this.originY;
+
+    if (my < 0) {
+      return 0;
+    } else if (my > this.image.height) {
+      return this.image.height;
+    }
 
     return my;
   }

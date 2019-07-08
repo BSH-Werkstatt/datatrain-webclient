@@ -84,7 +84,7 @@ export class CanvasAnnotation {
       return -1;
     }
 
-    const i = this.detectCollision(x, y, scale);
+    const i = this.detectPointCollision(x, y, scale);
     if (i === 0 && this.points.length > 2) {
       this.complete();
       return 1;
@@ -100,7 +100,7 @@ export class CanvasAnnotation {
     }
   }
 
-  detectCollision(x, y, scale) {
+  detectPointCollision(x, y, scale) {
     for (let i = 0; i < this.points.length; i++) {
       const dx = this.points[i].x - x;
       const dy = this.points[i].y - y;
@@ -147,5 +147,22 @@ export class CanvasAnnotation {
     const dy = this.points[0].y - y;
 
     return delta * delta > dx * dx + dy * dy;
+  }
+
+  pointInside(x, y) {
+    let polyCollision = false;
+
+    for (let i = 0, j = this.points.length - 1; i < this.points.length; j = i++) {
+      if (
+        this.points[i].y > y !== this.points[j].y > y &&
+        x <
+          ((this.points[j].x - this.points[i].x) * (y - this.points[i].y)) / (this.points[j].y - this.points[i].y) +
+            this.points[i].x
+      ) {
+        polyCollision = !polyCollision;
+      }
+    }
+
+    return polyCollision;
   }
 }
