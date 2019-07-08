@@ -56,3 +56,48 @@
 #toolbar .toolbar-btn.active {
   background: rgba(0, 0, 0, 0.2);
 }
+
+#toolbar * {
+  user-select: none;
+}
+
+#label-selector {
+  box-sizing: border-box;
+
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+
+  max-width: 1000px;
+  max-height: calc(100% - 120px);
+  margin: 0 auto;
+}
+
+#label-selector .other-container .mat-form-field,
+#label-selector .label-container div {
+  display: inline-block;
+  width: calc((100% - 30px) / 3);
+  margin: 5px;
+}
+
+#label-selector .label-container button {
+  width: 100%;
+}
+
+#label-selector .label-container div.chosen button {
+  background: #d9bbd6;
+}
+
+#label-selector-wrapper {
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+#label-selector * {
+  user-select: none;
+}

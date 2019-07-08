@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { FormsModule } from '@angular/forms';
 
@@ -58,7 +59,8 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
     MatToolbarModule,
     MatProgressBarModule,
     ApiModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

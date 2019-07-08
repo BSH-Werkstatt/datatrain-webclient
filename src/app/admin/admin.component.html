@@ -6,7 +6,7 @@
     </mat-card-header>
     <mat-card-content>
       <div class="left">
-        <mat-form-field appearance="outline" class="example-full-width">
+        <mat-form-field appearance="outline">
           <mat-label>Campaign name</mat-label>
           <input matInput value="{{ campaign.name }}" />
         </mat-form-field>
@@ -24,7 +24,7 @@
         </button>
         <input hidden (change)="onFileSelected()" #fileInput type="file" id="choose-file" multiple />
 
-        <mat-form-field appearance="outline" class="example-full-width">
+        <mat-form-field appearance="outline">
           <mat-label style="background: white">Campaign description</mat-label>
           <textarea matInput style="height: 200px;">{{ campaign.description }}</textarea>
         </mat-form-field>
@@ -38,7 +38,7 @@
             </li>
           </ul>
 
-          <mat-form-field appearance="outline" class="example-full-width">
+          <mat-form-field appearance="outline">
             <mat-label>New object type</mat-label>
             <input [(ngModel)]="newObjectType" matInput name="newObjectType" />
           </mat-form-field>
@@ -65,7 +65,7 @@
           <p class="alert" *ngIf="userNotFound">
             Please enter a registered email address
           </p>
-          <mat-form-field appearance="outline" class="example-full-width">
+          <mat-form-field appearance="outline">
             <mat-label>Add user by E-mail</mat-label>
             <input [(ngModel)]="newUserEmail" matInput name="newUserEmail" />
           </mat-form-field>

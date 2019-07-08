@@ -22,7 +22,6 @@ export class AnnotationComponent extends CampaignComponent {
   };
 
   protected imageId = '';
-  protected showSelectLabel = false;
 
   protected image;
   protected canvas: HTMLCanvasElement;
@@ -48,6 +47,11 @@ export class AnnotationComponent extends CampaignComponent {
   protected zoom = 1;
 
   protected isRescaling = false;
+
+  protected showSelectLabel = false;
+  protected labelSource = 0; // 0 == taxonomy, 1 == other
+  protected otherLabelValue: string;
+  protected taxnonomyChosen = -1;
 
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService) {
     super(route, router, defaultService);
@@ -394,7 +398,8 @@ export class AnnotationComponent extends CampaignComponent {
             this.state = this.STATE.IDLE;
             this.getCurrentAnnotation().selected = false;
             this.canMove = true;
-            this.currentCanvasAnnotationIndex = -1;
+
+            this.initLabelling();
           }
         }
         break;
@@ -467,14 +472,15 @@ export class AnnotationComponent extends CampaignComponent {
     if (completed) {
       this.state = this.STATE.IDLE;
       this.getCurrentAnnotation().selected = false;
-      this.currentCanvasAnnotationIndex = -1;
+
+      this.initLabelling();
     }
   }
 
   stateFreehandClick(x, y) {
     const ci = this.getCurrentAnnotation();
     ci.selected = true;
-    console.log(x, y);
+
     if (ci.points.length === 0) {
       ci.addPoint(x, y, this.scale);
       this.canMove = false;
@@ -531,5 +537,39 @@ export class AnnotationComponent extends CampaignComponent {
     this.requestFrame();
   }
 
-  selectLabel() {}
+  initLabelling() {
+    this.mousedown = false;
+
+    this.showSelectLabel = true;
+  }
+
+  tabLabelTaxonomy() {
+    this.labelSource = 0;
+  }
+
+  tabLabelOther() {
+    this.labelSource = 1;
+  }
+
+  chooseLabel(i) {
+    this.taxnonomyChosen = i;
+  }
+
+  selectLabel() {
+    const labelValue = this.labelSource === 0 ? this.campaign.taxonomy[this.taxnonomyChosen] : this.otherLabelValue;
+    if (this.labelSource === 1 && labelValue.length === 0) {
+      // TODO: alert label value cannot be empty
+      return;
+    }
+
+    this.getCurrentAnnotation().setLabel(labelValue);
+
+    this.showSelectLabel = false;
+    this.currentCanvasAnnotationIndex = -1;
+
+    this.otherLabelValue = '';
+    this.taxnonomyChosen = -1;
+
+    this.requestFrame();
+  }
 }
