@@ -21,7 +21,9 @@
     </i>
     Freehand
   </button>
-  <button class="toolbar-btn" [disabled]="state == STATE.IDLE"><i class="material-icons"> delete </i>Delete</button>
+  <button class="toolbar-btn" [disabled]="currentCanvasAnnotationIndex < 0" (click)="deleteAnnotation()">
+    <i class="material-icons"> delete </i>Delete
+  </button>
   <button class="toolbar-btn" [disabled]="state != STATE.IDLE">
     <i class="material-icons">
       cloud_upload

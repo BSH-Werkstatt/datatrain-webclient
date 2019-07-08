@@ -156,7 +156,7 @@ export class AnnotationComponent extends CampaignComponent {
 
     this.resizeCanvas();
 
-    window.requestAnimationFrame(this.render.bind(this));
+    this.requestFrame();
   }
 
   resizeCanvas() {
@@ -172,6 +172,10 @@ export class AnnotationComponent extends CampaignComponent {
     this.drawAnnotations();
 
     this.drawDebugStuff();
+  }
+
+  requestFrame() {
+    window.requestAnimationFrame(this.render.bind(this));
   }
 
   drawDebugStuff() {
@@ -260,7 +264,7 @@ export class AnnotationComponent extends CampaignComponent {
         break;
     }
 
-    window.requestAnimationFrame(this.render.bind(this));
+    this.requestFrame();
   }
 
   handleMouseDown(e) {
@@ -276,7 +280,7 @@ export class AnnotationComponent extends CampaignComponent {
     }
     this.mousedown = true;
 
-    window.requestAnimationFrame(this.render.bind(this));
+    this.requestFrame();
   }
 
   handleMouseUp(e) {
@@ -295,7 +299,7 @@ export class AnnotationComponent extends CampaignComponent {
         break;
     }
 
-    window.requestAnimationFrame(this.render.bind(this));
+    this.requestFrame();
   }
 
   handleScroll(e) {
@@ -305,7 +309,7 @@ export class AnnotationComponent extends CampaignComponent {
       this.handleZoom(delta, e);
     }
 
-    window.requestAnimationFrame(this.render.bind(this));
+    this.requestFrame();
     return e.preventDefault() && false;
   }
 
@@ -343,7 +347,7 @@ export class AnnotationComponent extends CampaignComponent {
 
     this.lastMX = mx;
     this.lastMY = my;
-    window.requestAnimationFrame(this.render.bind(this));
+    this.requestFrame();
   }
 
   getMaxScale() {
@@ -413,7 +417,7 @@ export class AnnotationComponent extends CampaignComponent {
     if (ci.points.length === 0) {
       ci.addPoint(x, y, this.scale);
       this.canMove = false;
-    } else if (ci.detectPointCollision(x, y, this.scale) == ci.points.length - 1) {
+    } else if (ci.detectPointCollision(x, y, this.scale) === ci.points.length - 1) {
       // detect collision and start freehand if collided with last point
       this.canMove = false;
     }
@@ -457,5 +461,12 @@ export class AnnotationComponent extends CampaignComponent {
 
   getMouseY(e) {
     return e.clientY - this.canvas.offsetTop;
+  }
+
+  deleteAnnotation() {
+    this.canvasAnnotations.splice(this.currentCanvasAnnotationIndex, 1);
+    this.currentCanvasAnnotationIndex = -1;
+
+    this.requestFrame();
   }
 }

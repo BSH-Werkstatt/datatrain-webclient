@@ -117,8 +117,8 @@ export class CanvasAnnotation {
   stopFreehand(x, y, scale) {
     if (!this.completed && this.distanceToLastPointGreaterDelta(x, y, FREEHAND_DELTA / 2 / scale)) {
       this.points.push(new CAPoint(x, y));
-      this.freehandPoint = null;
     }
+    this.freehandPoint = null;
   }
 
   updateFreehand(x, y, scale) {
