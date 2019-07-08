@@ -18,8 +18,7 @@ export class AnnotationComponent extends CampaignComponent {
   protected STATE = {
     IDLE: 0,
     POLYGON: 1,
-    FREEHAND: 2,
-    FREEHAND_DRAWING: 201
+    FREEHAND: 2
   };
 
   protected imageId = '';
@@ -31,6 +30,7 @@ export class AnnotationComponent extends CampaignComponent {
   protected canvasAnnotations: CanvasAnnotation[] = [];
   protected currentCanvasAnnotationIndex = -1;
   protected state = 0;
+  protected canMove = true;
 
   protected originX = 0;
   protected originY = 0;
@@ -237,9 +237,6 @@ export class AnnotationComponent extends CampaignComponent {
       case this.STATE.POLYGON:
         this.statePolygonClick(x, y);
         break;
-      case this.STATE.FREEHAND:
-        this.stateFreehandClick(x, y);
-        break;
     }
   }
 
@@ -261,6 +258,17 @@ export class AnnotationComponent extends CampaignComponent {
     this.mousedown = false;
     this.lastMX = null;
     this.lastMY = null;
+    const x = this.getMouseToImageX(e);
+    const y = this.getMouseToImageY(e);
+
+    switch (this.state) {
+      case this.STATE.FREEHAND:
+        if (!this.canMove) {
+          this.getCurrentAnnotation().stopFreehand(x, y, this.scale);
+          this.canMove = true;
+        }
+        break;
+    }
   }
 
   handleScroll(e) {
@@ -276,6 +284,9 @@ export class AnnotationComponent extends CampaignComponent {
   handleMousemove(e) {
     const mx = this.getMouseX(e);
     const my = this.getMouseY(e);
+    const x = this.getMouseToImageX(e);
+    const y = this.getMouseToImageY(e);
+
     if (this.lastMX == null || this.lastMY == null) {
       this.lastMX = mx;
       this.lastMY = my;
@@ -284,7 +295,8 @@ export class AnnotationComponent extends CampaignComponent {
     switch (this.state) {
       case this.STATE.FREEHAND:
         // freehand logic
-        if (this.mousedown) {
+        if (this.mousedown && !this.canMove) {
+          this.getCurrentAnnotation().updateFreehand(x, y, this.scale);
         }
         break;
     }
@@ -329,6 +341,10 @@ export class AnnotationComponent extends CampaignComponent {
   }
 
   handleMove(x, y) {
+    if (!this.canMove) {
+      return;
+    }
+
     const dx = x - this.lastMX;
     const dy = y - this.lastMY;
 
@@ -358,7 +374,10 @@ export class AnnotationComponent extends CampaignComponent {
 
     if (ci.points.length === 0) {
       ci.addPoint(x, y, this.scale);
-      this.state = this.STATE.FREEHAND_DRAWING;
+      this.canMove = false;
+    } else if (ci.detectCollision(x, y, this.scale) == ci.points.length - 1) {
+      // detect collision and start freehand if collided with last point
+      this.canMove = false;
     }
   }
 
@@ -370,14 +389,14 @@ export class AnnotationComponent extends CampaignComponent {
 
   getMouseToImageX(e) {
     const cx = e.clientX;
-    const mx = (cx - this.canvas.offsetLeft + this.originX) / this.scale;
+    const mx = (cx - this.canvas.offsetLeft) / this.scale + this.originX;
 
     return mx;
   }
 
   getMouseToImageY(e) {
     const cy = e.clientY;
-    const my = (cy - this.canvas.offsetTop + this.originY) / this.scale;
+    const my = (cy - this.canvas.offsetTop) / this.scale + this.originY;
 
     return my;
   }

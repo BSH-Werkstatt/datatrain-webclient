@@ -32,8 +32,13 @@
   width: 64px;
   padding: 10px;
   font-size: 11px;
+  color: black;
 
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#toolbar .toolbar-btn:disabled {
+  color: gray;
 }
 
 #toolbar .toolbar-btn.active {

@@ -8,8 +8,11 @@ export class CAPoint {
   }
 }
 
+const FREEHAND_DELTA = 30;
+
 export class CanvasAnnotation {
   public points: CAPoint[] = [];
+  protected freehandPoint: CAPoint | null = null;
 
   protected completed = false;
 
@@ -35,6 +38,10 @@ export class CanvasAnnotation {
         ctx.lineTo(this.points[i].x, this.points[i].y);
       }
 
+      if (this.freehandPoint !== null) {
+        ctx.lineTo(this.freehandPoint.x, this.freehandPoint.y);
+      }
+
       if (this.completed) {
         ctx.closePath();
 
@@ -49,6 +56,23 @@ export class CanvasAnnotation {
       ctx.fillStyle = '#999';
       ctx.beginPath();
       ctx.arc(this.points[i].x, this.points[i].y, 10 / scale, 0, 2 * Math.PI);
+      ctx.fill();
+
+      if (i === 0 && !this.completed) {
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 5 / scale;
+        ctx.stroke();
+      } else if (i === this.points.length - 1 && !this.completed) {
+        ctx.strokeStyle = 'green';
+        ctx.lineWidth = 5 / scale;
+        ctx.stroke();
+      }
+    }
+
+    if (this.freehandPoint !== null) {
+      ctx.fillStyle = 'green';
+      ctx.beginPath();
+      ctx.arc(this.freehandPoint.x, this.freehandPoint.y, 10 / scale, 0, 2 * Math.PI);
       ctx.fill();
     }
   }
@@ -74,12 +98,48 @@ export class CanvasAnnotation {
 
   detectCollision(x, y, scale) {
     for (let i = 0; i < this.points.length; i++) {
-      const dist = (this.points[i].x - x) * (this.points[i].x - x) + (this.points[i].y - y) * (this.points[i].y - y);
-      if (dist < (10 / scale) * (10 / scale)) {
+      const dx = this.points[i].x - x;
+      const dy = this.points[i].y - y;
+      const dist = dx * dx + dy * dy;
+      const scaledCollision = 10 / scale;
+      if (dist < scaledCollision * scaledCollision) {
         return i;
       }
     }
 
     return -1;
+  }
+
+  stopFreehand(x, y, scale) {
+    if (!this.completed && this.distanceToLastPointGreaterDelta(x, y, FREEHAND_DELTA / 2 / scale)) {
+      this.points.push(new CAPoint(x, y));
+      this.freehandPoint = null;
+    }
+  }
+
+  updateFreehand(x, y, scale) {
+    if (!this.completed && this.distanceToLastPointGreaterDelta(x, y, FREEHAND_DELTA / scale)) {
+      this.points.push(new CAPoint(x, y));
+    } else if (this.distanceToFirstPointLessDelta(x, y, 10 / scale) && this.points.length > 3) {
+      this.freehandPoint = null;
+      this.completed = true;
+    } else {
+      this.freehandPoint = new CAPoint(x, y);
+    }
+  }
+
+  distanceToLastPointGreaterDelta(x, y, delta) {
+    const li = this.points.length - 1;
+    const dx = this.points[li].x - x;
+    const dy = this.points[li].y - y;
+
+    return delta * delta < dx * dx + dy * dy;
+  }
+
+  distanceToFirstPointLessDelta(x, y, delta) {
+    const dx = this.points[0].x - x;
+    const dy = this.points[0].y - y;
+
+    return delta * delta > dx * dx + dy * dy;
   }
 }
