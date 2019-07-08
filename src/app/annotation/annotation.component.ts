@@ -156,7 +156,7 @@ export class AnnotationComponent extends CampaignComponent {
 
     this.resizeCanvas();
 
-    setInterval(this.render.bind(this), 1000 / 60);
+    window.requestAnimationFrame(this.render.bind(this));
   }
 
   resizeCanvas() {
@@ -238,6 +238,8 @@ export class AnnotationComponent extends CampaignComponent {
         this.statePolygonClick(x, y);
         break;
     }
+
+    window.requestAnimationFrame(this.render.bind(this));
   }
 
   handleMouseDown(e) {
@@ -252,6 +254,8 @@ export class AnnotationComponent extends CampaignComponent {
         break;
     }
     this.mousedown = true;
+
+    window.requestAnimationFrame(this.render.bind(this));
   }
 
   handleMouseUp(e) {
@@ -269,6 +273,8 @@ export class AnnotationComponent extends CampaignComponent {
         }
         break;
     }
+
+    window.requestAnimationFrame(this.render.bind(this));
   }
 
   handleScroll(e) {
@@ -278,6 +284,7 @@ export class AnnotationComponent extends CampaignComponent {
       this.handleZoom(delta, e);
     }
 
+    window.requestAnimationFrame(this.render.bind(this));
     return e.preventDefault() && false;
   }
 
@@ -308,6 +315,7 @@ export class AnnotationComponent extends CampaignComponent {
 
     this.lastMX = mx;
     this.lastMY = my;
+    window.requestAnimationFrame(this.render.bind(this));
   }
 
   getMaxScale() {
@@ -345,8 +353,8 @@ export class AnnotationComponent extends CampaignComponent {
       return;
     }
 
-    const dx = x - this.lastMX;
-    const dy = y - this.lastMY;
+    const dx = (x - this.lastMX) / this.scale;
+    const dy = (y - this.lastMY) / this.scale;
 
     this.offsetX += dx;
     this.offsetY += dy;
