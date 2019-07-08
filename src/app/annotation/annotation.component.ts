@@ -245,23 +245,25 @@ export class AnnotationComponent extends CampaignComponent {
     const x = this.getMouseToImageX(e);
     const y = this.getMouseToImageY(e);
 
-    switch (this.state) {
-      case this.STATE.IDLE:
-        this.currentCanvasAnnotationIndex = -1;
+    if (e.button === 0) {
+      switch (this.state) {
+        case this.STATE.IDLE:
+          this.currentCanvasAnnotationIndex = -1;
 
-        this.unselectAll();
-        for (let i = 0; i < this.canvasAnnotations.length; i++) {
-          const ca = this.canvasAnnotations[i];
-          if (ca.pointInside(x, y)) {
-            ca.selected = true;
-            this.currentCanvasAnnotationIndex = i;
-            break;
+          this.unselectAll();
+          for (let i = 0; i < this.canvasAnnotations.length; i++) {
+            const ca = this.canvasAnnotations[i];
+            if (ca.pointInside(x, y)) {
+              ca.selected = true;
+              this.currentCanvasAnnotationIndex = i;
+              break;
+            }
           }
-        }
-        break;
-      case this.STATE.POLYGON:
-        this.statePolygonClick(x, y);
-        break;
+          break;
+        case this.STATE.POLYGON:
+          this.statePolygonClick(x, y);
+          break;
+      }
     }
 
     this.requestFrame();
@@ -273,12 +275,19 @@ export class AnnotationComponent extends CampaignComponent {
     this.lastMX = this.getMouseX(e);
     this.lastMY = this.getMouseY(e);
 
-    switch (this.state) {
-      case this.STATE.FREEHAND:
-        this.stateFreehandClick(x, y);
-        break;
+    if (e.button === 0) {
+      // left
+      switch (this.state) {
+        case this.STATE.FREEHAND:
+          this.stateFreehandClick(x, y);
+          break;
+      }
+      this.mousedown = true;
+    } else if (e.button === 1) {
+      // middle
+      this.mousedown = true;
+      this.canMove = true;
     }
-    this.mousedown = true;
 
     this.requestFrame();
   }
@@ -294,7 +303,7 @@ export class AnnotationComponent extends CampaignComponent {
       case this.STATE.FREEHAND:
         if (!this.canMove) {
           this.getCurrentAnnotation().stopFreehand(x, y, this.scale);
-          this.getCurrentAnnotation().selected = false;
+          this.canMove = true;
         }
         break;
     }
