@@ -1,12 +1,12 @@
 .images-container {
-  width: 1040px;
+  max-width: 1040px;
   margin: 0 auto;
 }
 
 .image {
   display: inline-block;
   vertical-align: top;
-  width: calc(1040px / 3 - 20px);
+  width: calc(100% / 3 - 20px);
   padding: 0;
   margin: 10px;
 }
@@ -55,6 +55,6 @@
 }
 
 .image-detail-container {
-  width: 1040px;
+  max-width: 1040px;
   margin: 0 auto;
 }

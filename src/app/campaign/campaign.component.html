@@ -16,7 +16,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <div class="button-action-container" style="float: left">
+      <div class="button-action-container button-action-container-left">
         <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName, 'annotate']" color="primary">
           <span class="btn-icon">⛶</span>Annotate Random Images
         </button>
@@ -24,12 +24,12 @@
           <span class="btn-icon">🡅</span>Upload Images
         </button>
       </div>
-      <div class="button-action-container" style="float: right">
-        <button mat-button [routerLink]="['/campaigns', campaign.urlName, 'history']" color="primary">
+      <div class="button-action-container button-action-container-right">
+        <button mat-stroked-button [routerLink]="['/campaigns', campaign.urlName, 'history']" color="primary">
           <span class="btn-icon"><i class="material-icons">collections</i></span
           >Your Images and Annotations
         </button>
-        <button mat-button [routerLink]="['/campaigns', campaign.urlName, 'admin']" color="primary">
+        <button mat-stroked-button [routerLink]="['/campaigns', campaign.urlName, 'admin']" color="primary">
           <span class="btn-icon"><i class="material-icons">settings</i></span
           >Administration
         </button>

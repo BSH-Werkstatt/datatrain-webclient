@@ -22,6 +22,7 @@ export class AnnotationComponent extends CampaignComponent {
   };
 
   protected imageId = '';
+  protected showSelectLabel = false;
 
   protected image;
   protected canvas: HTMLCanvasElement;
@@ -154,9 +155,59 @@ export class AnnotationComponent extends CampaignComponent {
     this.canvas.addEventListener('mousewheel', this.handleScroll.bind(this), false);
     this.canvas.addEventListener('mousemove', this.handleMousemove.bind(this), false);
 
+    this.canvas.addEventListener(
+      'touchstart',
+      e => {
+        e = this.touchToMouseEvent(e);
+        this.handleMouseDown(e);
+      },
+      false
+    );
+    this.canvas.addEventListener(
+      'touchend',
+      e => {
+        e = this.touchToMouseEvent(e);
+        this.handleMouseUp(e);
+      },
+      false
+    );
+    this.canvas.addEventListener(
+      'touchcancel',
+      e => {
+        e = this.touchToMouseEvent(e);
+        this.handleMouseUp(e);
+      },
+      false
+    );
+    this.canvas.addEventListener(
+      'touchmove',
+      e => {
+        e = this.touchToMouseEvent(e);
+        this.handleMousemove(e);
+      },
+      false
+    );
+
     this.resizeCanvas();
 
     this.requestFrame();
+  }
+
+  touchToMouseEvent(e) {
+    //@ts-ignore
+    e.button = 0;
+    //@ts-ignore
+    if (e.touches.length > 0) {
+      e.clientX = e.touches[0].clientX;
+      //@ts-ignore
+      e.clientY = e.touches[0].clientY;
+    } else {
+      e.clientX = undefined;
+      //@ts-ignore
+      e.clientY = undefined;
+    }
+
+    return e;
   }
 
   resizeCanvas() {
@@ -423,6 +474,7 @@ export class AnnotationComponent extends CampaignComponent {
   stateFreehandClick(x, y) {
     const ci = this.getCurrentAnnotation();
     ci.selected = true;
+    console.log(x, y);
     if (ci.points.length === 0) {
       ci.addPoint(x, y, this.scale);
       this.canMove = false;
@@ -478,4 +530,6 @@ export class AnnotationComponent extends CampaignComponent {
 
     this.requestFrame();
   }
+
+  selectLabel() {}
 }

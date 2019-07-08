@@ -21,21 +21,28 @@
           *ngIf="router.url != '/campaigns' && router.url != '/'"
           class="nav-btn nav-slash nav-hidden"
           id="nav-campaign-slash"
-          >/</span
+          ><i class="material-icons">
+            keyboard_arrow_right
+          </i></span
         >
         <a *ngIf="router.url != '/campaigns' && router.url != '/'" class="nav-btn" id="nav-campaign-btn"></a>
         <span
           *ngIf="router.url != '/campaigns' && router.url != '/'"
           class="nav-btn nav-slash nav-hidden"
           id="nav-function-slash"
-          >/</span
+          ><i class="material-icons">
+            keyboard_arrow_right
+          </i></span
         >
         <a *ngIf="router.url != '/campaigns' && router.url != '/'" class="nav-btn" id="nav-function-btn"></a>
       </div>
       <div class="button-group">
-        <button mat-stroked-button routerLink="/" color="primary">
+        <button class="logout-button" mat-stroked-button routerLink="/" color="primary">
           <span *ngIf="router.url != '/'">
-            Log out
+            <i class="material-icons logout-icon">
+              exit_to_app
+            </i>
+            <span class="logout-text">Log out</span>
           </span>
           <span *ngIf="router.url == '/'">
             Log in

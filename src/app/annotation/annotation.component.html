@@ -32,4 +32,18 @@
   </button>
 </div>
 
-<div id="label-selector"></div>
+<div id="label-selector">
+  <div class="image-detail-container" *ngIf="showSelectLabel">
+    <mat-card class="image" style="width: 100%">
+      <mat-card-header>
+        <mat-card-title>Select Label</mat-card-title>
+      </mat-card-header>
+      <mat-card-content> </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="selectLabel()">
+          Select
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

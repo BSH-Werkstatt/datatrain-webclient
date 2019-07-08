@@ -2,16 +2,16 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 1040px;
+  max-width: 1020px;
   margin: 0 auto;
 }
 
 .campaign {
   display: inline-block;
   vertical-align: top;
-  width: calc(1040px / 2 - 40px);
+  width: calc(100% / 2 - 20px);
   padding: 0;
-  margin: 20px;
+  margin: 10px;
 }
 
 .campaign .image-container,
@@ -20,7 +20,7 @@
 }
 
 .campaign .image-container {
-  height: 200px;
+  max-height: 200px;
   overflow: hidden;
 }
 
@@ -40,4 +40,11 @@
 .campaign .mat-card-actions {
   padding: 20px;
   padding-top: 0;
+}
+
+@media (max-width: 800px) {
+  .campaign {
+    width: calc(100% - 20px);
+    margin: 10px;
+  }
 }

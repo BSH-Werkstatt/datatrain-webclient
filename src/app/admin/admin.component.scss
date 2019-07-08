@@ -1,5 +1,5 @@
 .admin-container {
-  width: 1000px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -67,4 +67,17 @@
   color: #fc100d;
   transition-duration: 0.2s;
   cursor: pointer;
+}
+
+@media (max-width: 599px) {
+  .admin-container .left {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+
+  .admin-container .right {
+    display: block;
+    width: 100%;
+  }
 }

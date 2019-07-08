@@ -9,6 +9,13 @@
   background: black;
 }
 
+@media (max-width: 599px) {
+  #mainCanvas {
+    top: 56px;
+    height: calc(100vh - 56px);
+  }
+}
+
 #toolbar {
   position: absolute;
   bottom: 0;

@@ -152,7 +152,11 @@ export class CanvasAnnotation {
       const dx = this.points[i].x - x;
       const dy = this.points[i].y - y;
       const dist = dx * dx + dy * dy;
-      const scaledCollision = POINT_RADIUS / scale;
+      let scaledCollision = POINT_RADIUS / scale;
+      if (i === 0) {
+        scaledCollision *= 3;
+      }
+
       if (dist < scaledCollision * scaledCollision) {
         return i;
       }
