@@ -9,12 +9,14 @@ export class CAPoint {
 }
 
 const FREEHAND_DELTA = 30;
+const POINT_RADIUS = 8;
 
 export class CanvasAnnotation {
   public points: CAPoint[] = [];
   protected freehandPoint: CAPoint | null = null;
 
   protected completed = false;
+  public selected = false;
 
   protected canvas: HTMLCanvasElement;
   protected ctx: CanvasRenderingContext2D;
@@ -26,8 +28,8 @@ export class CanvasAnnotation {
 
   draw(scale: number) {
     const ctx = this.ctx;
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-    ctx.strokeStyle = '#fff';
+    ctx.fillStyle = this.selected ? 'rgba(100, 52, 92, 0.5)' : 'rgba(255, 255, 255, 0.5)';
+    ctx.strokeStyle = this.selected ? '#ff20db' : '#ccc';
     ctx.lineWidth = 5 / scale;
 
     if (this.points.length > 1) {
@@ -53,9 +55,9 @@ export class CanvasAnnotation {
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.points.length; i++) {
-      ctx.fillStyle = '#999';
+      ctx.fillStyle = this.selected ? '#943f8b' : '#999';
       ctx.beginPath();
-      ctx.arc(this.points[i].x, this.points[i].y, 10 / scale, 0, 2 * Math.PI);
+      ctx.arc(this.points[i].x, this.points[i].y, POINT_RADIUS / scale, 0, 2 * Math.PI);
       ctx.fill();
 
       if (i === 0 && !this.completed) {
@@ -72,7 +74,7 @@ export class CanvasAnnotation {
     if (this.freehandPoint !== null) {
       ctx.fillStyle = 'green';
       ctx.beginPath();
-      ctx.arc(this.freehandPoint.x, this.freehandPoint.y, 10 / scale, 0, 2 * Math.PI);
+      ctx.arc(this.freehandPoint.x, this.freehandPoint.y, POINT_RADIUS / scale, 0, 2 * Math.PI);
       ctx.fill();
     }
   }
@@ -83,7 +85,7 @@ export class CanvasAnnotation {
     }
 
     const i = this.detectCollision(x, y, scale);
-    if (i === 0) {
+    if (i === 0 && this.points.length > 2) {
       this.complete();
       return 1;
     } else {
@@ -93,7 +95,9 @@ export class CanvasAnnotation {
   }
 
   complete() {
-    this.completed = true;
+    if (this.points.length > 2) {
+      this.completed = true;
+    }
   }
 
   detectCollision(x, y, scale) {
@@ -101,7 +105,7 @@ export class CanvasAnnotation {
       const dx = this.points[i].x - x;
       const dy = this.points[i].y - y;
       const dist = dx * dx + dy * dy;
-      const scaledCollision = 10 / scale;
+      const scaledCollision = POINT_RADIUS / scale;
       if (dist < scaledCollision * scaledCollision) {
         return i;
       }
@@ -120,12 +124,14 @@ export class CanvasAnnotation {
   updateFreehand(x, y, scale) {
     if (!this.completed && this.distanceToLastPointGreaterDelta(x, y, FREEHAND_DELTA / scale)) {
       this.points.push(new CAPoint(x, y));
-    } else if (this.distanceToFirstPointLessDelta(x, y, 10 / scale) && this.points.length > 3) {
+    } else if (this.distanceToFirstPointLessDelta(x, y, POINT_RADIUS / scale) && this.points.length > 3) {
       this.freehandPoint = null;
-      this.completed = true;
+      this.complete();
     } else {
       this.freehandPoint = new CAPoint(x, y);
     }
+
+    return this.completed;
   }
 
   distanceToLastPointGreaterDelta(x, y, delta) {

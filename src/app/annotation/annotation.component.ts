@@ -217,6 +217,7 @@ export class AnnotationComponent extends CampaignComponent {
   createAnnotation() {
     this.canvasAnnotations.push(new CanvasAnnotation(this.canvas, this.ctx));
     this.currentCanvasAnnotationIndex = this.canvasAnnotations.length - 1;
+    this.getCurrentAnnotation().selected = true;
   }
 
   startPolygonAnnotation() {
@@ -269,7 +270,7 @@ export class AnnotationComponent extends CampaignComponent {
       case this.STATE.FREEHAND:
         if (!this.canMove) {
           this.getCurrentAnnotation().stopFreehand(x, y, this.scale);
-          this.canMove = true;
+          this.getCurrentAnnotation().selected = false;
         }
         break;
     }
@@ -303,7 +304,13 @@ export class AnnotationComponent extends CampaignComponent {
       case this.STATE.FREEHAND:
         // freehand logic
         if (this.mousedown && !this.canMove) {
-          this.getCurrentAnnotation().updateFreehand(x, y, this.scale);
+          const completed = this.getCurrentAnnotation().updateFreehand(x, y, this.scale);
+
+          if (completed) {
+            this.state = this.STATE.IDLE;
+            this.getCurrentAnnotation().selected = false;
+            this.canMove = true;
+          }
         }
         break;
     }
@@ -374,12 +381,13 @@ export class AnnotationComponent extends CampaignComponent {
 
     if (completed) {
       this.state = this.STATE.IDLE;
+      this.getCurrentAnnotation().selected = false;
     }
   }
 
   stateFreehandClick(x, y) {
     const ci = this.getCurrentAnnotation();
-
+    ci.selected = true;
     if (ci.points.length === 0) {
       ci.addPoint(x, y, this.scale);
       this.canMove = false;
