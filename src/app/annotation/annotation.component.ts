@@ -612,7 +612,7 @@ export class AnnotationComponent extends CampaignComponent {
     this.redoStack = [];
     this.undoStack.push([...this.canvasAnnotations]);
 
-    if (this.undoStack.length > 15) {
+    if (this.undoStack.length > 50) {
       this.undoStack.splice(0, 1);
     }
   }
@@ -620,7 +620,7 @@ export class AnnotationComponent extends CampaignComponent {
   saveToRedoStack() {
     this.redoStack.push([...this.canvasAnnotations]);
 
-    if (this.redoStack.length > 15) {
+    if (this.redoStack.length > 50) {
       this.redoStack.splice(0, 1);
     }
   }
