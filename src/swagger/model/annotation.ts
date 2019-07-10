@@ -19,4 +19,5 @@ export interface Annotation {
   userId: string;
   campaignId: string;
   imageId: string;
+  timestamp?: string;
 }

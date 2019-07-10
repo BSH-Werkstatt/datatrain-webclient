@@ -16,4 +16,6 @@ export interface ImageData {
   campaignId: string;
   userId: string;
   annotations: Array<Annotation>;
+  timestamp: string;
+  url: string;
 }

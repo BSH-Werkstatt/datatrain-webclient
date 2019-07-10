@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CampaignComponent } from '../campaign/campaign.component';
-import { DefaultService, Campaign, Leaderboard, User, LeaderboardScore } from '../../swagger';
+import { DefaultService, Campaign, Leaderboard, User, LeaderboardScore, CampaignUpdateRequest } from '../../swagger';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 @Component({
@@ -13,6 +13,9 @@ export class AdminComponent extends CampaignComponent {
   newUserEmail: string;
   userNotFound = false;
 
+  campaignName: string;
+  campaignDescription;
+
   protected leaderboard: Leaderboard;
 
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService) {
@@ -23,6 +26,9 @@ export class AdminComponent extends CampaignComponent {
     super.ngOnInit();
 
     this.campaign$.subscribe((campaign: Campaign) => {
+      this.campaignName = campaign.name;
+      this.campaignDescription = campaign.description;
+
       this.defaultService.getLeaderboard(campaign.id).subscribe(leaderboard => {
         this.leaderboard = leaderboard;
       });
@@ -78,5 +84,19 @@ export class AdminComponent extends CampaignComponent {
     this.leaderboard.scores.splice(i, 1);
   }
 
-  save() {}
+  save() {
+    console.log(this.campaignName, this.campaignDescription);
+    this.campaign.name = this.campaignName;
+    this.campaign.description = this.campaignDescription;
+
+    const request: CampaignUpdateRequest = {
+      campaign: this.campaign,
+      userToken: localStorage.getItem('datatrainUserToken')
+    };
+    console.log(this.campaign);
+
+    this.defaultService.putCampaign(this.campaign.id, request).subscribe(campaign => {
+      console.log(campaign);
+    });
+  }
 }

@@ -9,8 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Campaign } from './campaign';
 
-export interface CreateUserRequest {
-  email: string;
-  name: string;
+export interface CampaignUpdateRequest {
+  userToken: string;
+  campaign: Campaign;
 }

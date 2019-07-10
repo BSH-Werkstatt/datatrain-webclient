@@ -20,6 +20,8 @@ import { Observable } from 'rxjs';
 import { Annotation } from '../model/annotation';
 import { AnnotationCreationRequest } from '../model/annotationCreationRequest';
 import { Campaign } from '../model/campaign';
+import { CampaignCreationRequest } from '../model/campaignCreationRequest';
+import { CampaignUpdateRequest } from '../model/campaignUpdateRequest';
 import { CreateUserRequest } from '../model/createUserRequest';
 import { ImageData } from '../model/imageData';
 import { Leaderboard } from '../model/leaderboard';
@@ -66,6 +68,12 @@ export class DefaultService {
   /**
    *
    *
+   *
+   *
+   *
+   *
+   * @param request
+   * @param request
    * @param request
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -117,6 +125,10 @@ export class DefaultService {
   /**
    *
    *
+   *
+   *
+   *
+   *
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -147,6 +159,12 @@ export class DefaultService {
   /**
    *
    *
+   *
+   *
+   *
+   *
+   * @param campaignId
+   * @param campaignId
    * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -193,6 +211,12 @@ export class DefaultService {
   /**
    *
    *
+   *
+   *
+   *
+   *
+   * @param campaignId
+   * @param campaignId
    * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -232,6 +256,12 @@ export class DefaultService {
   /**
    *
    *
+   *
+   *
+   *
+   *
+   * @param campaignName
+   * @param campaignName
    * @param campaignName
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -282,6 +312,12 @@ export class DefaultService {
   /**
    *
    *
+   *
+   *
+   *
+   *
+   * @param campaignId
+   * @param campaignId
    * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -328,6 +364,12 @@ export class DefaultService {
   /**
    *
    *
+   *
+   *
+   *
+   *
+   * @param campaignId
+   * @param campaignId
    * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -374,6 +416,12 @@ export class DefaultService {
   /**
    *
    *
+   *
+   *
+   *
+   *
+   * @param email
+   * @param email
    * @param email
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -409,6 +457,75 @@ export class DefaultService {
   /**
    *
    *
+   * @param userId
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getUserById(userId: string, observe?: 'body', reportProgress?: boolean): Observable<User>;
+  public getUserById(userId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
+  public getUserById(userId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
+  public getUserById(userId: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    if (userId === null || userId === undefined) {
+      throw new Error('Required parameter userId was null or undefined when calling getUserById.');
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<User>(`${this.basePath}/users/${encodeURIComponent(String(userId))}`, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
+  }
+
+  /**
+   *
+   *
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public healthcheck(observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+  public healthcheck(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+  public healthcheck(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+  public healthcheck(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<boolean>(`${this.basePath}/healthcheck`, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
+  }
+
+  /**
+   *
+   *
+   *
+   *
+   *
+   *
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -439,8 +556,73 @@ export class DefaultService {
   /**
    *
    *
+   * @param request
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public postCampaign(
+    request: CampaignCreationRequest,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Campaign>;
+  public postCampaign(
+    request: CampaignCreationRequest,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Campaign>>;
+  public postCampaign(
+    request: CampaignCreationRequest,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Campaign>>;
+  public postCampaign(
+    request: CampaignCreationRequest,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (request === null || request === undefined) {
+      throw new Error('Required parameter request was null or undefined when calling postCampaign.');
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<Campaign>(`${this.basePath}/campaigns`, request, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
+  }
+
+  /**
+   *
+   *
+   *
+   *
+   *
+   *
+   * @param imageFile
+   * @param imageFile
    * @param imageFile
    * @param userToken
+   * @param userToken
+   * @param userToken
+   * @param campaignId
+   * @param campaignId
    * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -536,8 +718,18 @@ export class DefaultService {
   /**
    *
    *
+   *
+   *
+   *
+   *
+   * @param campaignId
+   * @param campaignId
    * @param campaignId
    * @param imageId
+   * @param imageId
+   * @param imageId
+   * @param request
+   * @param request
    * @param request
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -615,6 +807,80 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId
+   * @param request
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public putCampaign(
+    campaignId: string,
+    request: CampaignUpdateRequest,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Campaign>;
+  public putCampaign(
+    campaignId: string,
+    request: CampaignUpdateRequest,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Campaign>>;
+  public putCampaign(
+    campaignId: string,
+    request: CampaignUpdateRequest,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Campaign>>;
+  public putCampaign(
+    campaignId: string,
+    request: CampaignUpdateRequest,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (campaignId === null || campaignId === undefined) {
+      throw new Error('Required parameter campaignId was null or undefined when calling putCampaign.');
+    }
+
+    if (request === null || request === undefined) {
+      throw new Error('Required parameter request was null or undefined when calling putCampaign.');
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.put<Campaign>(
+      `${this.basePath}/campaigns/${encodeURIComponent(String(campaignId))}`,
+      request,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   *
+   *
+   *
+   *
+   *
+   *
+   * @param campaignId
+   * @param campaignId
    * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.

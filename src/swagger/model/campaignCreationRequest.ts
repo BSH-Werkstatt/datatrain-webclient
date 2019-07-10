@@ -9,8 +9,15 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { CampaignType } from './campaignType';
 
-export interface CreateUserRequest {
-  email: string;
+export interface CampaignCreationRequest {
+  userToken: string;
+  type: CampaignType;
   name: string;
+  urlName?: string;
+  description: string;
+  taxonomy: Array<string>;
+  image: string;
+  ownerId?: string;
 }
