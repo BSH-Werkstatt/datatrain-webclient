@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CampaignComponent } from '../campaign/campaign.component';
 import {
   DefaultService,
@@ -16,6 +17,21 @@ const MIN_ZOOM = 1;
 const ZOOM_DELTA = 0.05;
 
 @Component({
+  selector: 'app-annotation-save-dialog',
+  templateUrl: './annotation-save-dialog.component.html'
+})
+export class AnnotationSaveDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<AnnotationSaveDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { campaign: Campaign }
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close(false);
+  }
+}
+
+@Component({
   selector: 'app-annotation',
   templateUrl: './annotation.component.html',
   styleUrls: ['./annotation.component.scss']
@@ -30,6 +46,7 @@ export class AnnotationComponent extends CampaignComponent {
   protected imageId = '';
 
   protected image;
+  protected imageLoaded = false;
   protected canvas: HTMLCanvasElement;
   protected ctx: CanvasRenderingContext2D;
 
@@ -62,7 +79,7 @@ export class AnnotationComponent extends CampaignComponent {
   protected otherLabelValue: string;
   protected taxnonomyChosen = -1;
 
-  constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService) {
+  constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService, public dialog: MatDialog) {
     super(route, router, defaultService);
   }
 
@@ -133,8 +150,23 @@ export class AnnotationComponent extends CampaignComponent {
   noImage() {}
 
   init() {
+    this.canvasAnnotations = [];
+    this.currentCanvasAnnotationIndex = -1;
+    this.state = this.STATE.IDLE;
+    this.canMove = true;
+
+    this.undoStack = [];
+    this.redoStack = [];
+
+    this.labelSource = 0;
+    this.otherLabelValue = '';
+    this.taxnonomyChosen = -1;
+
+    this.imageLoaded = false;
+
     this.image = new Image();
     this.image.onload = e => {
+      this.imageLoaded = true;
       this.initCanvas();
     };
     this.image.src = 'http://127.0.0.1:5000/images/' + this.campaign.id + '/' + this.imageId + '.jpg';
@@ -634,7 +666,7 @@ export class AnnotationComponent extends CampaignComponent {
   undo() {
     if (this.undoStack.length > 0) {
       this.saveToRedoStack();
-      console.log(this.redoStack);
+
       const undoState = this.undoStack[this.undoStack.length - 1];
       this.canvasAnnotations = undoState;
       this.undoStack.splice(-1, 1);
@@ -667,7 +699,23 @@ export class AnnotationComponent extends CampaignComponent {
     };
 
     this.defaultService.postImageAnnotation(this.campaign.id, this.imageId, ar).subscribe(response => {
-      console.log(response);
+      this.openSubmitDialog();
+    });
+  }
+
+  openSubmitDialog(): void {
+    const dialogRef = this.dialog.open(AnnotationSaveDialogComponent, {
+      width: '300px',
+      data: { campaign: this.campaign }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        this.router.navigateByUrl('/campaigns/' + this.campaign.urlName);
+      } else {
+        this.clear();
+        this.determineImageId();
+      }
     });
   }
 }

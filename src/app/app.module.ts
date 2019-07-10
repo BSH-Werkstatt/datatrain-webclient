@@ -14,6 +14,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { FormsModule } from '@angular/forms';
 
@@ -25,7 +27,7 @@ import { CampaignsComponent } from './campaigns/campaigns.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { CampaignComponent } from './campaign/campaign.component';
-import { AnnotationComponent } from './annotation/annotation.component';
+import { AnnotationComponent, AnnotationSaveDialogComponent } from './annotation/annotation.component';
 import { UploadComponent } from './upload/upload.component';
 import { HistoryComponent } from './history/history.component';
 import { AdminComponent } from './admin/admin.component';
@@ -42,6 +44,7 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
     UploadComponent,
     HistoryComponent,
     AdminComponent,
+    AnnotationSaveDialogComponent,
     CreateCampaignComponent
   ],
   imports: [
@@ -60,9 +63,12 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
     MatProgressBarModule,
     ApiModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AnnotationSaveDialogComponent]
 })
 export class AppModule {}

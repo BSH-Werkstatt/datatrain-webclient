@@ -90,8 +90,18 @@
   transform: translateY(-50%);
 
   max-width: 1000px;
-  max-height: calc(100% - 120px);
   margin: 0 auto;
+}
+
+#label-selector .mat-card .mat-card-content {
+  height: 400px;
+  overflow: auto;
+}
+
+@media (max-height: 600px) {
+  #label-selector .mat-card .mat-card-content {
+    height: 200px;
+  }
 }
 
 #label-selector .other-container .mat-form-field,
@@ -125,4 +135,32 @@
 
 #label-selector .mat-flat-button {
   margin-right: 10px;
+}
+
+.progres-spinner-container {
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progres-spinner-container .mat-card {
+  width: 200px;
+
+  text-align: center;
+}
+
+.progres-spinner-container .mat-card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 150px;
 }
