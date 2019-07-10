@@ -1,3 +1,5 @@
+import { AnnotationCreationRequestItem } from '../../swagger';
+
 export class CAPoint {
   public x: number;
   public y: number;
@@ -238,5 +240,15 @@ export class CanvasAnnotation {
 
   setLabel(labelValue) {
     this.label = labelValue;
+  }
+
+  toAnnotationCreationRequestItem(campaignId: string, imageId: string): AnnotationCreationRequestItem {
+    const annotation: AnnotationCreationRequestItem = {
+      points: this.points,
+      type: 'polygon',
+      label: this.label
+    };
+
+    return annotation;
   }
 }

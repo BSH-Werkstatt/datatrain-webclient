@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CampaignComponent } from '../campaign/campaign.component';
-import { DefaultService, ImageData, Campaign } from '../../swagger';
+import {
+  DefaultService,
+  ImageData,
+  Campaign,
+  AnnotationCreationRequest,
+  AnnotationCreationRequestItem
+} from '../../swagger';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { CanvasAnnotation } from './CanvasAnnotation';
@@ -646,5 +652,22 @@ export class AnnotationComponent extends CampaignComponent {
     }
 
     this.requestFrame();
+  }
+
+  save() {
+    const annotations: AnnotationCreationRequestItem[] = [];
+
+    this.canvasAnnotations.forEach(a => {
+      annotations.push(a.toAnnotationCreationRequestItem(this.campaign.id, this.imageId));
+    });
+
+    const ar: AnnotationCreationRequest = {
+      items: annotations,
+      userToken: localStorage.getItem('datatrainUserToken')
+    };
+
+    this.defaultService.postImageAnnotation(this.campaign.id, this.imageId, ar).subscribe(response => {
+      console.log(response);
+    });
   }
 }

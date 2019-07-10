@@ -65,6 +65,15 @@
   color: gray;
 }
 
+#toolbar .toolbar-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+#toolbar .toolbar-btn:disabled {
+  background: white !important;
+  cursor: initial;
+}
+
 #toolbar .toolbar-btn.active {
   background: rgba(0, 0, 0, 0.2);
 }

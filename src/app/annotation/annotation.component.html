@@ -49,7 +49,7 @@
     <i class="material-icons"> delete </i>Delete
   </button>
   <div class="toolbar-separator"></div>
-  <button class="toolbar-btn" [disabled]="canvasAnnotations.length === 0 || state != STATE.IDLE">
+  <button class="toolbar-btn" [disabled]="canvasAnnotations.length === 0 || state != STATE.IDLE" (click)="save()">
     <i class="material-icons">
       cloud_upload
     </i>
