@@ -62,7 +62,7 @@ export class CanvasAnnotation {
       if (this.completed) {
         // render bounding box;
         ctx.save();
-        ctx.setLineDash([20, 20]);
+        ctx.setLineDash([20 / scale, 20 / scale]);
         ctx.lineWidth = 3 / scale;
         ctx.strokeRect(
           this.boundingBox.topLeft.x,
@@ -73,6 +73,23 @@ export class CanvasAnnotation {
         ctx.setLineDash([]);
         ctx.restore();
       }
+    }
+
+    if (this.label != null) {
+      const font = 16 / scale + 'px BSH';
+      const textX = this.boundingBox.topLeft.x;
+      const textY = this.boundingBox.bottomRight.y;
+
+      ctx.save();
+      ctx.font = font;
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = this.selected ? '#ff20db' : '#ccc';
+      const width = ctx.measureText(this.label).width;
+
+      ctx.fillRect(textX, textY, width + 10, parseInt(font, 10) + 10);
+      ctx.fillStyle = '#000';
+      ctx.fillText(this.label, textX + 5, textY + 5);
+      ctx.restore();
     }
 
     // tslint:disable-next-line: prefer-for-of
@@ -98,23 +115,6 @@ export class CanvasAnnotation {
       ctx.beginPath();
       ctx.arc(this.freehandPoint.x, this.freehandPoint.y, POINT_RADIUS / scale, 0, 2 * Math.PI);
       ctx.fill();
-    }
-
-    if (this.label != null) {
-      const font = '28px BSH';
-      const textX = this.boundingBox.topLeft.x;
-      const textY = this.boundingBox.bottomRight.y;
-
-      ctx.save();
-      ctx.font = font;
-      ctx.textBaseline = 'top';
-      ctx.fillStyle = this.selected ? '#ff20db' : '#ccc';
-      const width = ctx.measureText(this.label).width;
-
-      ctx.fillRect(textX, textY, width + 10, parseInt(font, 10) + 10);
-      ctx.fillStyle = '#000';
-      ctx.fillText(this.label, textX + 5, textY + 5);
-      ctx.restore();
     }
   }
 

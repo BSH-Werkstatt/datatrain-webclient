@@ -21,21 +21,39 @@
     </i>
     Freehand
   </button>
+  <div class="toolbar-separator"></div>
+  <button class="toolbar-btn" [disabled]="undoStack.length === 0" (click)="undo()">
+    <i class="material-icons">
+      undo
+    </i>
+    Undo
+  </button>
+  <button class="toolbar-btn" [disabled]="redoStack.length === 0" (click)="redo()">
+    <i class="material-icons">
+      redo
+    </i>
+    Redo
+  </button>
+  <div class="toolbar-separator"></div>
   <button
     class="toolbar-btn"
     [disabled]="currentCanvasAnnotationIndex < 0 || canvasAnnotations[currentCanvasAnnotationIndex].label == null"
     (click)="initLabelling()"
   >
-    <i class="material-icons"> label </i><br />Relabel
+    <i class="material-icons"> label </i>Relabel
+  </button>
+  <button class="toolbar-btn" [disabled]="canvasAnnotations.length === 0" (click)="deleteAllAnnotations()">
+    <i class="material-icons"> delete_sweep </i>Delete All
   </button>
   <button class="toolbar-btn" [disabled]="currentCanvasAnnotationIndex < 0" (click)="deleteAnnotation()">
     <i class="material-icons"> delete </i>Delete
   </button>
-  <button class="toolbar-btn" [disabled]="state != STATE.IDLE">
+  <div class="toolbar-separator"></div>
+  <button class="toolbar-btn" [disabled]="canvasAnnotations.length === 0 || state != STATE.IDLE">
     <i class="material-icons">
       cloud_upload
     </i>
-    Upload
+    Save
   </button>
 </div>
 
@@ -69,8 +87,11 @@
           </mat-tab-group>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button color="primary" (click)="selectLabel()">
+          <button mat-flat-button color="primary" (click)="selectLabel()">
             Select
+          </button>
+          <button mat-stroked-button color="primary" (click)="selectLabelDelete()">
+            Delete Annotation
           </button>
         </mat-card-actions>
       </mat-card>

@@ -32,6 +32,9 @@ export class AnnotationComponent extends CampaignComponent {
   protected state = 0;
   protected canMove = true;
 
+  protected redoStack: CanvasAnnotation[][] = [];
+  protected undoStack: CanvasAnnotation[][] = [];
+
   protected originX = 0;
   protected originY = 0;
   protected offsetX = 0;
@@ -198,16 +201,16 @@ export class AnnotationComponent extends CampaignComponent {
   }
 
   touchToMouseEvent(e) {
-    //@ts-ignore
+    // @ts-ignore
     e.button = 0;
-    //@ts-ignore
+    // @ts-ignore
     if (e.touches.length > 0) {
       e.clientX = e.touches[0].clientX;
-      //@ts-ignore
+      // @ts-ignore
       e.clientY = e.touches[0].clientY;
     } else {
       e.clientX = undefined;
-      //@ts-ignore
+      // @ts-ignore
       e.clientY = undefined;
     }
 
@@ -218,6 +221,8 @@ export class AnnotationComponent extends CampaignComponent {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight - 64;
     this.rescale();
+
+    this.requestFrame();
   }
 
   render() {
@@ -287,11 +292,15 @@ export class AnnotationComponent extends CampaignComponent {
   }
 
   startPolygonAnnotation() {
+    this.saveToUndoStack();
+
     this.createAnnotation();
     this.state = this.STATE.POLYGON; // 1 is drawing polygon
   }
 
   startFreehandAnnotation() {
+    this.saveToUndoStack();
+
     this.createAnnotation();
     this.state = this.STATE.FREEHAND; // 1 is drawing polygon
   }
@@ -531,13 +540,27 @@ export class AnnotationComponent extends CampaignComponent {
   }
 
   deleteAnnotation() {
+    this.saveToUndoStack();
+
     this.canvasAnnotations.splice(this.currentCanvasAnnotationIndex, 1);
     this.currentCanvasAnnotationIndex = -1;
+    this.state = this.STATE.IDLE;
+
+    this.requestFrame();
+  }
+
+  deleteAllAnnotations() {
+    this.saveToUndoStack();
+
+    this.canvasAnnotations = [];
+    this.currentCanvasAnnotationIndex = -1;
+    this.state = this.STATE.IDLE;
 
     this.requestFrame();
   }
 
   initLabelling() {
+    this.labelSource = 0;
     this.mousedown = false;
 
     this.showSelectLabel = true;
@@ -565,10 +588,62 @@ export class AnnotationComponent extends CampaignComponent {
     this.getCurrentAnnotation().setLabel(labelValue);
 
     this.showSelectLabel = false;
+    this.getCurrentAnnotation().selected = false;
     this.currentCanvasAnnotationIndex = -1;
 
     this.otherLabelValue = '';
     this.taxnonomyChosen = -1;
+
+    this.requestFrame();
+  }
+
+  selectLabelDelete() {
+    this.canvasAnnotations.splice(this.canvasAnnotations.length - 1, 1);
+    this.currentCanvasAnnotationIndex = -1;
+    this.state = this.STATE.IDLE;
+    this.showSelectLabel = false;
+    this.otherLabelValue = '';
+    this.taxnonomyChosen = -1;
+
+    this.requestFrame();
+  }
+
+  saveToUndoStack() {
+    this.redoStack = [];
+    this.undoStack.push([...this.canvasAnnotations]);
+
+    if (this.undoStack.length > 15) {
+      this.undoStack.splice(0, 1);
+    }
+  }
+
+  saveToRedoStack() {
+    this.redoStack.push([...this.canvasAnnotations]);
+
+    if (this.redoStack.length > 15) {
+      this.redoStack.splice(0, 1);
+    }
+  }
+
+  undo() {
+    if (this.undoStack.length > 0) {
+      this.saveToRedoStack();
+      console.log(this.redoStack);
+      const undoState = this.undoStack[this.undoStack.length - 1];
+      this.canvasAnnotations = undoState;
+      this.undoStack.splice(-1, 1);
+    }
+
+    this.requestFrame();
+  }
+
+  redo() {
+    if (this.redoStack.length > 0) {
+      this.undoStack.push([...this.canvasAnnotations]);
+      const redoState = this.redoStack[this.redoStack.length - 1];
+      this.canvasAnnotations = redoState;
+      this.redoStack.splice(-1, 1);
+    }
 
     this.requestFrame();
   }

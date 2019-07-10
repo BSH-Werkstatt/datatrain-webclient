@@ -30,6 +30,7 @@
 
   overflow: hidden;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
 }
 
 #toolbar .toolbar-btn {
@@ -40,12 +41,23 @@
   width: 64px;
   font-size: 11px;
   color: black;
+  white-space: initial;
 
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgb(200, 200, 200);
+}
+#toolbar .toolbar-separator {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  height: 64px;
+  width: 4px;
+
+  vertical-align: bottom;
+  border-right: 1px solid rgb(200, 200, 200);
 }
 
 #toolbar .toolbar-btn .material-icons {
-  vertical-align: bottom;
+  display: block;
   padding-bottom: 6px;
 }
 
@@ -100,4 +112,8 @@
 
 #label-selector * {
   user-select: none;
+}
+
+#label-selector .mat-flat-button {
+  margin-right: 10px;
 }
