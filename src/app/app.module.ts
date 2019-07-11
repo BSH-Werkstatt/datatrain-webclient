@@ -30,7 +30,7 @@ import { CampaignComponent } from './campaign/campaign.component';
 import { AnnotationComponent, AnnotationSaveDialogComponent } from './annotation/annotation.component';
 import { UploadComponent } from './upload/upload.component';
 import { HistoryComponent } from './history/history.component';
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent, AdminSnackbarJPEGComponent, AdminSnackbarSavedComponent } from './admin/admin.component';
 import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
 
 @NgModule({
@@ -45,7 +45,9 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
     HistoryComponent,
     AdminComponent,
     AnnotationSaveDialogComponent,
-    CreateCampaignComponent
+    CreateCampaignComponent,
+    AdminSnackbarJPEGComponent,
+    AdminSnackbarSavedComponent
   ],
   imports: [
     AppRoutingModule,
@@ -69,6 +71,6 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AnnotationSaveDialogComponent]
+  entryComponents: [AnnotationSaveDialogComponent, AdminSnackbarJPEGComponent, AdminSnackbarSavedComponent]
 })
 export class AppModule {}

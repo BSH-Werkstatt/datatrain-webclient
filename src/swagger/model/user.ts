@@ -14,5 +14,5 @@ export interface User {
   id: string;
   email: string;
   name: string;
-  userType?: boolean;
+  userType?: string;
 }

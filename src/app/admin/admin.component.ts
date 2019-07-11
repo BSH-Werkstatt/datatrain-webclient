@@ -1,8 +1,31 @@
 import { Component } from '@angular/core';
 import { CampaignComponent } from '../campaign/campaign.component';
-import { DefaultService, Campaign, Leaderboard, User, LeaderboardScore, CampaignUpdateRequest } from '../../swagger';
+import {
+  DefaultService,
+  Campaign,
+  Leaderboard,
+  User,
+  LeaderboardScore,
+  CampaignUpdateRequest,
+  LeaderboardUpdateRequest
+} from '../../swagger';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { UploadComponent } from '../upload/upload.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+@Component({
+  selector: 'app-admin-jpeg-snackbar',
+  template: '<span>Please upload a JPEG file.</span>'
+})
+export class AdminSnackbarJPEGComponent {}
+
+@Component({
+  selector: 'app-admin-saved-snackbar',
+  template: '<span>Your updates have been saved successfully!</span>'
+})
+export class AdminSnackbarSavedComponent {}
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -14,11 +37,16 @@ export class AdminComponent extends CampaignComponent {
   userNotFound = false;
 
   campaignName: string;
-  campaignDescription;
+  campaignDescription: string;
+
+  campaignImageFile: File;
+  campaignImageFilePreviewSrc: string;
+  campaignImageNewAWSSrc: string;
+  uploading = false;
 
   protected leaderboard: Leaderboard;
 
-  constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService) {
+  constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService, protected snackBar: MatSnackBar) {
     super(route, router, defaultService);
   }
 
@@ -85,18 +113,81 @@ export class AdminComponent extends CampaignComponent {
   }
 
   save() {
-    console.log(this.campaignName, this.campaignDescription);
     this.campaign.name = this.campaignName;
     this.campaign.description = this.campaignDescription;
+    if (this.campaignImageNewAWSSrc) {
+      this.campaign.image = this.campaignImageNewAWSSrc;
+    }
 
-    const request: CampaignUpdateRequest = {
+    const requestCampaign: CampaignUpdateRequest = {
       campaign: this.campaign,
       userToken: localStorage.getItem('datatrainUserToken')
     };
-    console.log(this.campaign);
 
-    this.defaultService.putCampaign(this.campaign.id, request).subscribe(campaign => {
-      console.log(campaign);
+    this.defaultService.putCampaign(this.campaign.id, requestCampaign).subscribe(campaign => {
+      const requestLeaderboard: LeaderboardUpdateRequest = {
+        userToken: localStorage.getItem('datatrainUserToken'),
+        leaderboard: this.leaderboard
+      };
+      this.defaultService.putLeaderboard(this.campaign.id, requestLeaderboard).subscribe(leaderboard => {
+        this.snackBar.openFromComponent(AdminSnackbarSavedComponent, {
+          duration: 3 * 1000
+        });
+      });
     });
+  }
+
+  /**
+   * Handles the Choose Files input
+   */
+  onFileSelected() {
+    const fileChooser: any = document.getElementById('choose-file');
+
+    // tslint:disable-next-line: prefer-for-of
+    const file = fileChooser.files[0];
+    if (UploadComponent.fileIsImage(file)) {
+      this.campaignImageFile = file;
+
+      this.previewFile();
+    } else {
+      this.snackBar.openFromComponent(AdminSnackbarJPEGComponent, {
+        duration: 3 * 1000
+      });
+    }
+  }
+
+  /**
+   * Creates the preview of a file in the upload preview element
+   */
+  previewFile() {
+    const reader = new FileReader();
+    reader.readAsDataURL(this.campaignImageFile);
+    reader.onloadend = () => {
+      document.getElementById('upload-btn').removeAttribute('disabled');
+
+      this.campaignImageFilePreviewSrc = reader.result.toString();
+    };
+  }
+
+  /**
+   * Uploads the new campaign image and sets campaignImageNewAWSSrc to the returned url
+   */
+  uploadCampaignImage() {
+    this.uploading = true;
+    this.defaultService
+      .postCampaignImage(this.campaignImageFile, localStorage.getItem('datatrainUserToken'), this.campaign.id)
+      .subscribe(url => {
+        this.campaignImageNewAWSSrc = url;
+        this.uploading = false;
+      });
+  }
+
+  /**
+   * resets changes to the campaign image
+   */
+  revertCampaignImage() {
+    this.campaignImageNewAWSSrc = '';
+    this.campaignImageFile = null;
+    this.campaignImageFilePreviewSrc = '';
   }
 }

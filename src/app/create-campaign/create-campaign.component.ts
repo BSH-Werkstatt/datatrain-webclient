@@ -4,6 +4,7 @@ import { DefaultService, Campaign, Leaderboard, User, LeaderboardScore } from '.
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { CampaignComponent } from '../campaign/campaign.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-campaign',
@@ -11,8 +12,8 @@ import { CampaignComponent } from '../campaign/campaign.component';
   styleUrls: ['../admin/admin.component.scss']
 })
 export class CreateCampaignComponent extends AdminComponent {
-  constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService) {
-    super(route, router, defaultService);
+  constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService, snackBar: MatSnackBar) {
+    super(route, router, defaultService, snackBar);
 
     this.campaign = {
       id: '',

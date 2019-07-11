@@ -26,6 +26,18 @@ export class UploadComponent extends CampaignComponent {
   }
 
   /**
+   * Checks if the given file is an image by looking at the last segment of the filename split by '.'
+   * @param file File to be checked
+   */
+  static fileIsImage(file: File): boolean {
+    const filenameParts = file.name.split('.');
+    const imageExts = ['jpg', 'jpeg'];
+    const ext = filenameParts[filenameParts.length - 1].toLowerCase();
+
+    return imageExts.includes(ext);
+  }
+
+  /**
    * initializes the event listeners used for drag/drop upload
    */
   ngOnInit() {
@@ -74,7 +86,7 @@ export class UploadComponent extends CampaignComponent {
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < files.length; i++) {
-      if (this.fileIsImage(files[i])) {
+      if (UploadComponent.fileIsImage(files[i])) {
         this.files.push(files[i]);
         this.previewFile(files[i]);
       }
@@ -157,18 +169,6 @@ export class UploadComponent extends CampaignComponent {
   }
 
   /**
-   * Checks if the given file is an image by looking at the last segment of the filename split by '.'
-   * @param file File to be checked
-   */
-  fileIsImage(file: File): boolean {
-    const filenameParts = file.name.split('.');
-    const imageExts = ['png', 'jpg', 'jpeg'];
-    const ext = filenameParts[filenameParts.length - 1].toLowerCase();
-
-    return imageExts.includes(ext);
-  }
-
-  /**
    * Handles the Choose Files input
    */
   onFileSelected() {
@@ -177,7 +177,7 @@ export class UploadComponent extends CampaignComponent {
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < fileChooser.files.length; i++) {
       const file = fileChooser.files[i];
-      if (this.fileIsImage(file)) {
+      if (UploadComponent.fileIsImage(file)) {
         this.files.push(file);
 
         this.previewFile(file);

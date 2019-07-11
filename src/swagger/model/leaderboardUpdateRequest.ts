@@ -9,9 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Leaderboard } from './leaderboard';
 
-export interface CreateUserRequest {
-  email: string;
-  name: string;
-  userType?: string;
+export interface LeaderboardUpdateRequest {
+  userToken: string;
+  leaderboard: Leaderboard;
 }
