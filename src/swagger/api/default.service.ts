@@ -70,7 +70,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param request
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -97,24 +96,24 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
     const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
+    if (httpContentTypeSelected !== undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
     return this.httpClient.post<User>(`${this.basePath}/users`, request, {
       withCredentials: this.configuration.withCredentials,
-      headers: headers,
-      observe: observe,
-      reportProgress: reportProgress
+      headers,
+      observe,
+      reportProgress
     });
   }
 
@@ -131,9 +130,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -142,16 +141,15 @@ export class DefaultService {
 
     return this.httpClient.get<Array<Campaign>>(`${this.basePath}/campaigns`, {
       withCredentials: this.configuration.withCredentials,
-      headers: headers,
-      observe: observe,
-      reportProgress: reportProgress
+      headers,
+      observe,
+      reportProgress
     });
   }
 
   /**
    *
    *
-   * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -174,9 +172,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -187,9 +185,9 @@ export class DefaultService {
       `${this.basePath}/campaigns/${encodeURIComponent(String(campaignId))}/images`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -197,7 +195,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -216,9 +213,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -227,16 +224,15 @@ export class DefaultService {
 
     return this.httpClient.get<Campaign>(`${this.basePath}/campaigns/${encodeURIComponent(String(campaignId))}`, {
       withCredentials: this.configuration.withCredentials,
-      headers: headers,
-      observe: observe,
-      reportProgress: reportProgress
+      headers,
+      observe,
+      reportProgress
     });
   }
 
   /**
    *
    *
-   * @param campaignName
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -263,9 +259,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -276,9 +272,9 @@ export class DefaultService {
       `${this.basePath}/campaigns/byURLName/${encodeURIComponent(String(campaignName))}`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -286,7 +282,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -309,9 +304,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -322,9 +317,9 @@ export class DefaultService {
       `${this.basePath}/campaigns/${encodeURIComponent(String(campaignId))}/campaignImage`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -332,7 +327,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -355,9 +349,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -368,9 +362,9 @@ export class DefaultService {
       `${this.basePath}/campaigns/${encodeURIComponent(String(campaignId))}/leaderboard`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -378,7 +372,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -401,9 +394,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -414,9 +407,9 @@ export class DefaultService {
       `${this.basePath}/campaigns/${encodeURIComponent(String(campaignId))}/images/random`,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -424,7 +417,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param email
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -439,9 +431,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -450,16 +442,15 @@ export class DefaultService {
 
     return this.httpClient.get<User>(`${this.basePath}/users/byEmail/${encodeURIComponent(String(email))}`, {
       withCredentials: this.configuration.withCredentials,
-      headers: headers,
-      observe: observe,
-      reportProgress: reportProgress
+      headers,
+      observe,
+      reportProgress
     });
   }
 
   /**
    *
    *
-   * @param userId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -474,9 +465,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -485,9 +476,9 @@ export class DefaultService {
 
     return this.httpClient.get<User>(`${this.basePath}/users/${encodeURIComponent(String(userId))}`, {
       withCredentials: this.configuration.withCredentials,
-      headers: headers,
-      observe: observe,
-      reportProgress: reportProgress
+      headers,
+      observe,
+      reportProgress
     });
   }
 
@@ -504,9 +495,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -515,9 +506,9 @@ export class DefaultService {
 
     return this.httpClient.get<boolean>(`${this.basePath}/healthcheck`, {
       withCredentials: this.configuration.withCredentials,
-      headers: headers,
-      observe: observe,
-      reportProgress: reportProgress
+      headers,
+      observe,
+      reportProgress
     });
   }
 
@@ -534,9 +525,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -545,16 +536,15 @@ export class DefaultService {
 
     return this.httpClient.get<boolean>(`${this.basePath}/campaigns/initialize`, {
       withCredentials: this.configuration.withCredentials,
-      headers: headers,
-      observe: observe,
-      reportProgress: reportProgress
+      headers,
+      observe,
+      reportProgress
     });
   }
 
   /**
    *
    *
-   * @param request
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -585,33 +575,30 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
     const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
+    if (httpContentTypeSelected !== undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
     return this.httpClient.post<Campaign>(`${this.basePath}/campaigns`, request, {
       withCredentials: this.configuration.withCredentials,
-      headers: headers,
-      observe: observe,
-      reportProgress: reportProgress
+      headers,
+      observe,
+      reportProgress
     });
   }
 
   /**
    *
    *
-   * @param imageFile
-   * @param userToken
-   * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -657,15 +644,15 @@ export class DefaultService {
 
     let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
     if (userToken !== undefined && userToken !== null) {
-      queryParameters = queryParameters.set('userToken', <any>userToken);
+      queryParameters = queryParameters.set('userToken', userToken as any);
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -676,7 +663,7 @@ export class DefaultService {
 
     let formParams: { append(param: string, value: any): void };
     let useForm = false;
-    let convertFormParamsToString = false;
+    const convertFormParamsToString = false;
     // use FormData to transmit files using content-type "multipart/form-data"
     // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
     useForm = canConsumeForm;
@@ -687,7 +674,7 @@ export class DefaultService {
     }
 
     if (imageFile !== undefined) {
-      formParams.append('imageFile', <any>imageFile);
+      formParams.append('imageFile', imageFile as any);
     }
 
     return this.httpClient.post<string>(
@@ -696,9 +683,9 @@ export class DefaultService {
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -706,9 +693,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param imageFile
-   * @param userToken
-   * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -754,15 +738,15 @@ export class DefaultService {
 
     let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
     if (userToken !== undefined && userToken !== null) {
-      queryParameters = queryParameters.set('userToken', <any>userToken);
+      queryParameters = queryParameters.set('userToken', userToken as any);
     }
 
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -773,7 +757,7 @@ export class DefaultService {
 
     let formParams: { append(param: string, value: any): void };
     let useForm = false;
-    let convertFormParamsToString = false;
+    const convertFormParamsToString = false;
     // use FormData to transmit files using content-type "multipart/form-data"
     // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
     useForm = canConsumeForm;
@@ -784,7 +768,7 @@ export class DefaultService {
     }
 
     if (imageFile !== undefined) {
-      formParams.append('imageFile', <any>imageFile);
+      formParams.append('imageFile', imageFile as any);
     }
 
     return this.httpClient.post<ImageData>(
@@ -793,9 +777,9 @@ export class DefaultService {
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -803,9 +787,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
-   * @param imageId
-   * @param request
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -852,16 +833,16 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
     const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
+    if (httpContentTypeSelected !== undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
@@ -872,9 +853,9 @@ export class DefaultService {
       request,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -882,8 +863,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
-   * @param request
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -922,16 +901,16 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
     const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
+    if (httpContentTypeSelected !== undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
@@ -940,9 +919,9 @@ export class DefaultService {
       request,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -950,8 +929,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
-   * @param request
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -990,16 +967,16 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
     const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
+    if (httpContentTypeSelected !== undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
@@ -1008,9 +985,9 @@ export class DefaultService {
       request,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -1018,8 +995,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
-   * @param request
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1058,16 +1033,16 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
     const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
+    if (httpContentTypeSelected !== undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
@@ -1076,9 +1051,9 @@ export class DefaultService {
       request,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
@@ -1086,7 +1061,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1117,9 +1091,9 @@ export class DefaultService {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -1131,9 +1105,9 @@ export class DefaultService {
       null,
       {
         withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
+        headers,
+        observe,
+        reportProgress
       }
     );
   }
