@@ -142,6 +142,11 @@ export class AdminComponent extends CampaignComponent {
       userToken: localStorage.getItem('datatrainUserToken')
     };
 
+    if (this.leaderboard.scores.length <= 0) {
+      alert('Please add at least one object class to the taxonomy!');
+      return;
+    }
+
     this.defaultService.putCampaign(this.campaign.id, requestCampaign).subscribe(campaign => {
       const requestLeaderboard: LeaderboardUpdateRequest = {
         userToken: localStorage.getItem('datatrainUserToken'),

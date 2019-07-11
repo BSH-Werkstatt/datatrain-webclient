@@ -73,6 +73,11 @@ export class CreateCampaignComponent extends AdminComponent {
     const requestCampaign: CampaignCreationRequest = this.campaign;
     requestCampaign.userToken = this.campaign.ownerId;
 
+    if (!this.campaignImageFilePreviewSrc || this.leaderboard.scores.length <= 0) {
+      alert('Please choose an image and add at least one object class to the taxonomy!');
+      return;
+    }
+
     this.defaultService.postCampaign(requestCampaign).subscribe(campaign => {
       const requestLeaderboard: LeaderboardCreationRequest = {
         userToken: localStorage.getItem('datatrainUserToken'),
@@ -94,6 +99,10 @@ export class CreateCampaignComponent extends AdminComponent {
             this.campaign.image = url;
 
             super.save();
+
+            setTimeout(() => {
+              this.router.navigateByUrl('/campaigns');
+            }, 1000);
           });
       });
     });
