@@ -17,7 +17,7 @@ export class CampaignComponent implements OnInit {
 
   protected campaign: Campaign;
   protected campaign$: Observable<Campaign>;
-  protected campaignLoaded = false;
+  campaignLoaded = false;
 
   protected leaderboard: Leaderboard;
   protected leaderboardLoaded = false;

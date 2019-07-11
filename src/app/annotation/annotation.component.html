@@ -12,8 +12,8 @@
     Polygon
   </button>
   <button
-    class="toolbar-btn {{ state == STATE.FREEHAND || state == STATE.FREEHAND_MOUSEDOWN ? 'active' : '' }}"
-    [disabled]="state != STATE.IDLE && state != STATE.FREEHAND && state != STATE.FREEHAND_MOUSEDOWN"
+    class="toolbar-btn {{ state == STATE.FREEHAND ? 'active' : '' }}"
+    [disabled]="state != STATE.IDLE && state != STATE.FREEHAND"
     (click)="startFreehandAnnotation()"
   >
     <i class="material-icons">

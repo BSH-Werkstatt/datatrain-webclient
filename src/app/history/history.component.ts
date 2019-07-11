@@ -10,10 +10,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent extends CampaignComponent implements OnInit {
-  protected images: ImageData[] = [];
-  protected detail: ImageData = null;
-  protected showDetailIndicator = false;
-  protected baseURL = 'http://127.0.0.1:5000';
+  images: ImageData[] = [];
+  detail: ImageData = null;
+  showDetailIndicator = false;
+  baseURL = 'http://127.0.0.1:5000';
 
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService) {
     super(route, router, defaultService);

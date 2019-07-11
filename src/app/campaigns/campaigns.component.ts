@@ -12,7 +12,7 @@ import { DefaultService, Campaign } from '../../swagger';
  * The Start component
  */
 export class CampaignsComponent implements OnInit {
-  private campaigns: Campaign[];
+  campaigns: Campaign[];
 
   /**
    * Constructor

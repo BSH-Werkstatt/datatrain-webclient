@@ -45,7 +45,7 @@ export class AdminComponent extends CampaignComponent implements OnInit {
   campaignImageNewAWSSrc: string;
   uploading = false;
 
-  protected leaderboard: Leaderboard;
+  leaderboard: Leaderboard;
 
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService, protected snackBar: MatSnackBar) {
     super(route, router, defaultService);

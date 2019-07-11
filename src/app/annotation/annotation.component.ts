@@ -37,7 +37,7 @@ export class AnnotationSaveDialogComponent {
   styleUrls: ['./annotation.component.scss']
 })
 export class AnnotationComponent extends CampaignComponent implements OnInit {
-  protected STATE = {
+  STATE = {
     IDLE: 0,
     POLYGON: 1,
     FREEHAND: 2
@@ -45,18 +45,18 @@ export class AnnotationComponent extends CampaignComponent implements OnInit {
 
   protected imageId = '';
 
-  protected image;
-  protected imageLoaded = false;
+  image;
+  imageLoaded = false;
   protected canvas: HTMLCanvasElement;
   protected ctx: CanvasRenderingContext2D;
 
-  protected canvasAnnotations: CanvasAnnotation[] = [];
-  protected currentCanvasAnnotationIndex = -1;
-  protected state = 0;
+  canvasAnnotations: CanvasAnnotation[] = [];
+  currentCanvasAnnotationIndex = -1;
+  state = 0;
   protected canMove = true;
 
-  protected redoStack: CanvasAnnotation[][] = [];
-  protected undoStack: CanvasAnnotation[][] = [];
+  redoStack: CanvasAnnotation[][] = [];
+  undoStack: CanvasAnnotation[][] = [];
 
   protected originX = 0;
   protected originY = 0;
@@ -74,10 +74,10 @@ export class AnnotationComponent extends CampaignComponent implements OnInit {
 
   protected isRescaling = false;
 
-  protected showSelectLabel = false;
-  protected labelSource = 0; // 0 == taxonomy, 1 == other
-  protected otherLabelValue: string;
-  protected taxnonomyChosen = -1;
+  showSelectLabel = false;
+  labelSource = 0; // 0 == taxonomy, 1 == other
+  otherLabelValue: string;
+  taxnonomyChosen = -1;
 
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService, public dialog: MatDialog) {
     super(route, router, defaultService);

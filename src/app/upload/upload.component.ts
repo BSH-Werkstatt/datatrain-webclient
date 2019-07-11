@@ -10,16 +10,16 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent extends CampaignComponent implements OnInit {
-  private uploadDone = false;
-  private uploadedCount = 0;
-  private failedCount = 0;
-  private chosenFileCount = 0;
-  private uploadInProgress = false;
+  uploadDone = false;
+  uploadedCount = 0;
+  failedCount = 0;
+  chosenFileCount = 0;
+  uploadInProgress = false;
 
-  private files: File[] = [];
-  private fileSrcs: string[] = [];
-  private fileSrcSuccess: number[] = [];
-  private uploaded: ImageData[] = [];
+  files: File[] = [];
+  fileSrcs: string[] = [];
+  fileSrcSuccess: number[] = [];
+  uploaded: ImageData[] = [];
 
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService) {
     super(route, router, defaultService);
