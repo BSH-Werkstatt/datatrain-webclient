@@ -34,6 +34,7 @@
           id="upload-btn"
           [disabled]="!campaignImageFilePreviewSrc"
           style="margin-left: 10px"
+          *ngIf="!hideImageButtons"
         >
           Upload campaign image
         </button>
@@ -44,6 +45,7 @@
           (click)="revertCampaignImage()"
           [disabled]="!campaignImageNewAWSSrc"
           style="margin-left: 10px"
+          *ngIf="!hideImageButtons"
         >
           Revert
         </button>

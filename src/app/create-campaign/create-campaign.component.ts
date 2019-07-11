@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminComponent } from '../admin/admin.component';
-import { DefaultService, Campaign, Leaderboard, User, LeaderboardScore } from '../../swagger';
+import { AdminComponent, AdminSnackbarSavedComponent } from '../admin/admin.component';
+import {
+  DefaultService,
+  Campaign,
+  Leaderboard,
+  User,
+  LeaderboardScore,
+  CampaignCreationRequest,
+  LeaderboardCreationRequest
+} from '../../swagger';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { CampaignComponent } from '../campaign/campaign.component';
@@ -14,6 +22,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CreateCampaignComponent extends AdminComponent {
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService, snackBar: MatSnackBar) {
     super(route, router, defaultService, snackBar);
+
+    this.hideImageButtons = true;
 
     this.campaign = {
       id: '',
@@ -35,5 +45,57 @@ export class CreateCampaignComponent extends AdminComponent {
     this.campaignLoaded = true;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.campaignName = this.campaign.name;
+    this.campaignDescription = this.campaign.description;
+
+    this.setNavBar();
+  }
+
+  setNavBar() {
+    const navFunctionSlash = document.getElementById('nav-function-slash');
+    navFunctionSlash.classList.remove('nav-hidden');
+
+    const navFunctionBtn = document.getElementById('nav-function-btn');
+    navFunctionBtn.innerHTML = 'Create';
+    // @ts-ignore
+    navFunctionBtn.href = '/campaigns/' + this.campaign.urlName + '/create';
+  }
+
+  save() {
+    this.campaign.name = this.campaignName;
+    this.campaign.description = this.campaignDescription;
+    if (this.campaignImageNewAWSSrc) {
+      this.campaign.image = this.campaignImageNewAWSSrc;
+    }
+
+    // @ts-ignore
+    const requestCampaign: CampaignCreationRequest = this.campaign;
+    requestCampaign.userToken = this.campaign.ownerId;
+
+    this.defaultService.postCampaign(requestCampaign).subscribe(campaign => {
+      const requestLeaderboard: LeaderboardCreationRequest = {
+        userToken: localStorage.getItem('datatrainUserToken'),
+        campaignId: campaign.id,
+        scores: this.leaderboard.scores
+      };
+
+      this.defaultService.postLeaderboard(campaign.id, requestLeaderboard).subscribe(leaderboard => {
+        this.uploading = true;
+        this.leaderboard = leaderboard;
+
+        this.defaultService
+          .postCampaignImage(this.campaignImageFile, localStorage.getItem('datatrainUserToken'), campaign.id)
+          .subscribe(url => {
+            this.campaignImageNewAWSSrc = url;
+            this.uploading = false;
+
+            this.campaign = campaign;
+            this.campaign.image = url;
+
+            super.save();
+          });
+      });
+    });
+  }
 }

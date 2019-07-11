@@ -36,6 +36,7 @@ export class AdminComponent extends CampaignComponent {
   newUserEmail: string;
   userNotFound = false;
 
+  hideImageButtons = false;
   campaignName: string;
   campaignDescription: string;
 
@@ -48,6 +49,23 @@ export class AdminComponent extends CampaignComponent {
 
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService, protected snackBar: MatSnackBar) {
     super(route, router, defaultService);
+
+    this.campaign = {
+      id: '',
+      ownerId: localStorage.getItem('datatrainUserToken'),
+      type: '0',
+      name: 'Campaign',
+      urlName: '',
+      description: 'Please write a concise description of the aim of the campaign.',
+      taxonomy: [],
+      image: ''
+    };
+
+    this.leaderboard = {
+      id: '',
+      scores: [],
+      campaignId: ''
+    };
   }
 
   ngOnInit() {
@@ -163,7 +181,9 @@ export class AdminComponent extends CampaignComponent {
     const reader = new FileReader();
     reader.readAsDataURL(this.campaignImageFile);
     reader.onloadend = () => {
-      document.getElementById('upload-btn').removeAttribute('disabled');
+      if (document.getElementById('upload-btn')) {
+        document.getElementById('upload-btn').removeAttribute('disabled');
+      }
 
       this.campaignImageFilePreviewSrc = reader.result.toString();
     };
