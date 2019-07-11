@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
 })
-export class HistoryComponent extends CampaignComponent {
+export class HistoryComponent extends CampaignComponent implements OnInit {
   protected images: ImageData[] = [];
   protected detail: ImageData = null;
   protected showDetailIndicator = false;

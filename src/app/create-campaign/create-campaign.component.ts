@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: '../admin/admin.component.html',
   styleUrls: ['../admin/admin.component.scss']
 })
-export class CreateCampaignComponent extends AdminComponent {
+export class CreateCampaignComponent extends AdminComponent implements OnInit {
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService, snackBar: MatSnackBar) {
     super(route, router, defaultService, snackBar);
 

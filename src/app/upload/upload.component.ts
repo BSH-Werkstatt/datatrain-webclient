@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss']
 })
-export class UploadComponent extends CampaignComponent {
+export class UploadComponent extends CampaignComponent implements OnInit {
   private uploadDone = false;
   private uploadedCount = 0;
   private failedCount = 0;

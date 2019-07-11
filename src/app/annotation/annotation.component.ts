@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CampaignComponent } from '../campaign/campaign.component';
 import {
@@ -36,7 +36,7 @@ export class AnnotationSaveDialogComponent {
   templateUrl: './annotation.component.html',
   styleUrls: ['./annotation.component.scss']
 })
-export class AnnotationComponent extends CampaignComponent {
+export class AnnotationComponent extends CampaignComponent implements OnInit {
   protected STATE = {
     IDLE: 0,
     POLYGON: 1,
