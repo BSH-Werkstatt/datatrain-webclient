@@ -2,7 +2,7 @@
   "name": "bsh-gotcha",
   "version": "0.0.0",
   "scripts": {
-    "build": "npx compodoc -p src/tsconfig.app.json && ng build",
+    "build": "npx compodoc -p src/tsconfig.app.json && ng build --prod",
     "compodoc": "npx compodoc -p src/tsconfig.app.json",
     "e2e": "ng e2e",
     "format": "prettier src/**.html src/**.scss src/**.ts src/**.json --write",

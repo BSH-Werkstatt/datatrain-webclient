@@ -13,7 +13,7 @@ env:
 phases:
   install:
     runtime-versions:
-      nodejs: 8
+      nodejs: 10
       docker: 18
     commands:
       - 'yarn install'
@@ -23,3 +23,8 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - 'yarn build'
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'dist/bsh-gotcha*'
+  discard-paths: no
