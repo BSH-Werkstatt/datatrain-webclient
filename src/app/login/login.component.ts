@@ -30,7 +30,10 @@ export class LoginComponent implements OnInit {
   /**
    * Execute on controlle initialization
    */
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    localStorage.removeItem('datatrainUser');
+    localStorage.removeItem('datatrainUserToken');
+  }
 
   /**
    * Sends the login form data to the server and determines if the user can log in
@@ -44,6 +47,7 @@ export class LoginComponent implements OnInit {
           // user validated
           localStorage.setItem('datatrainUser', JSON.stringify(user));
           localStorage.setItem('datatrainUserToken', user.id);
+
           this.router.navigateByUrl('/campaigns');
         }
       });

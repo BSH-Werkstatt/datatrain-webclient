@@ -29,7 +29,12 @@
           <span class="btn-icon"><i class="material-icons">collections</i></span
           >Your Images and Annotations
         </button>
-        <button mat-stroked-button [routerLink]="['/campaigns', campaign.urlName, 'admin']" color="primary">
+        <button
+          *ngIf="canEditCampaign"
+          mat-stroked-button
+          [routerLink]="['/campaigns', campaign.urlName, 'admin']"
+          color="primary"
+        >
           <span class="btn-icon"><i class="material-icons">settings</i></span
           >Administration
         </button>

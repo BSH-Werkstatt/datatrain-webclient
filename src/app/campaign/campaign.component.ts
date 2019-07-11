@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 export class CampaignComponent implements OnInit {
   public urlName = '';
 
+  protected canEditCampaign = false;
+
   protected campaign: Campaign;
   protected campaign$: Observable<Campaign>;
   protected campaignLoaded = false;
@@ -39,6 +41,12 @@ export class CampaignComponent implements OnInit {
       this.setNavBar();
       this.loadLeaderboard();
     });
+
+    const user = JSON.parse(localStorage.getItem('datatrainUser'));
+
+    if (user && (user.userType === 'admin' || user.userType === 'campaign_owner')) {
+      this.canEditCampaign = true;
+    }
   }
 
   /**
