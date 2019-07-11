@@ -2,15 +2,49 @@
   <mat-toolbar>
     <div class="toolbar-content">
       <div class="toolbar-left">
-        <img src="assets/logo.svg" height="60" routerLink="/" />
-        <a *ngIf="router.url != '/'" routerLink="/start" class="start-btn">
-          Start
+        <img src="assets/logo.png" class="logo" height="50" routerLink="/" />
+        <h1 routerLink="/">DataTr/ai/n</h1>
+        <a *ngIf="router.url != '/'" routerLink="/campaigns" class="nav-btn">
+          Campaigns
         </a>
+        <button
+          id="create-campaign-btn"
+          class="nav-hidden"
+          *ngIf="router.url == '/campaigns'"
+          routerLink="/campaigns/create"
+          mat-flat-button
+          color="primary"
+          style="margin-left: 30px;"
+        >
+          Create
+        </button>
+        <!-- TODO: better solution for this -->
+        <span
+          *ngIf="router.url != '/campaigns' && router.url != '/'"
+          class="nav-btn nav-slash nav-hidden"
+          id="nav-campaign-slash"
+          ><i class="material-icons">
+            keyboard_arrow_right
+          </i></span
+        >
+        <a *ngIf="router.url != '/campaigns' && router.url != '/'" class="nav-btn" id="nav-campaign-btn"></a>
+        <span
+          *ngIf="router.url != '/campaigns' && router.url != '/'"
+          class="nav-btn nav-slash nav-hidden"
+          id="nav-function-slash"
+          ><i class="material-icons">
+            keyboard_arrow_right
+          </i></span
+        >
+        <a *ngIf="router.url != '/campaigns' && router.url != '/'" class="nav-btn" id="nav-function-btn"></a>
       </div>
       <div class="button-group">
-        <button mat-stroked-button routerLink="/" color="primary">
+        <button class="logout-button" mat-stroked-button routerLink="/" color="primary">
           <span *ngIf="router.url != '/'">
-            Log out
+            <i class="material-icons logout-icon">
+              exit_to_app
+            </i>
+            <span class="logout-text">Log out</span>
           </span>
           <span *ngIf="router.url == '/'">
             Log in

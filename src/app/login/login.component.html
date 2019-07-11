@@ -6,18 +6,19 @@
         <mat-label>BSH Email</mat-label>
         <input matInput placeholder="mustermann@bsh-group.com" name="email" [(ngModel)]="loginEmail" />
       </mat-form-field>
-      <mat-form-field class="full-width">
+      <!--<mat-form-field class="full-width">
         <mat-label>Password</mat-label>
         <input matInput placeholder="∙∙∙∙∙∙∙∙∙" name="password" [(ngModel)]="loginPassword" />
-      </mat-form-field>
+      </mat-form-field>-->
     </form>
+    <p class="alert" *ngIf="wrongCredentials">Wrong Login Credentials!</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-stroked-button routerLink="/register">
-      REGISTER
-    </button>
-    <button mat-raised-button routerLink="/start" color="primary" [disabled]="loginEmail == '' || loginPassword == ''">
+    <button mat-raised-button color="primary" [disabled]="loginEmail == '' || loginPassword == ''" (click)="login()">
       LOGIN
     </button>
+    <!--<button mat-stroked-button routerLink="/register">
+      REGISTER
+    </button>-->
   </mat-card-actions>
 </mat-card>

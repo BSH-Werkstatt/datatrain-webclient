@@ -1,0 +1,133 @@
+<div class="admin-container" *ngIf="campaignLoaded">
+  <mat-card class="admin-card">
+    <mat-card-header>
+      <mat-card-title>Administration</mat-card-title>
+      <mat-card-subtitle>{{ campaign.name }} Campaign</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="left">
+        <mat-form-field appearance="outline">
+          <mat-label>Campaign name</mat-label>
+          <input matInput [(ngModel)]="campaignName" name="campaign-name" />
+        </mat-form-field>
+
+        <h4>Campaign image</h4>
+        <img
+          class="campaign-image"
+          src="{{ !campaignImageFilePreviewSrc ? campaign.image : campaignImageFilePreviewSrc }}"
+        />
+        <br />
+        <button
+          type="button"
+          mat-stroked-button
+          color="primary"
+          (click)="fileInput.click()"
+          style="display: inline-block; margin-bottom: 40px; margin-top: 10px;"
+        >
+          Choose Image
+        </button>
+        <input hidden (change)="onFileSelected()" #fileInput type="file" id="choose-file" />
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="uploadCampaignImage()"
+          id="upload-btn"
+          [disabled]="!campaignImageFilePreviewSrc"
+          style="margin-left: 10px"
+          *ngIf="!hideImageButtons"
+        >
+          Upload campaign image
+        </button>
+
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="revertCampaignImage()"
+          [disabled]="!campaignImageNewAWSSrc"
+          style="margin-left: 10px"
+          *ngIf="!hideImageButtons"
+        >
+          Revert
+        </button>
+
+        <mat-progress-spinner
+          style="display: inline-block; vertical-align: top; margin-left: 10px; margin-top: 10px;"
+          color="primary"
+          mode="indeterminate"
+          *ngIf="uploading"
+          [diameter]="40"
+        >
+        </mat-progress-spinner>
+
+        <mat-form-field appearance="outline">
+          <mat-label style="background: white">Campaign description</mat-label>
+          <textarea
+            matInput
+            style="height: 200px;"
+            [(ngModel)]="campaignDescription"
+            name="campaign-description"
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <div class="right">
+        <form class="taxonomy-form">
+          <h4>Taxonomy</h4>
+          <ul class="taxonomy admin-list">
+            <li *ngFor="let type of campaign.taxonomy; let i = index">
+              {{ type }}<i class="material-icons remove" (click)="removeFromTaxonomy(i)">highlight_off</i>
+            </li>
+          </ul>
+
+          <mat-form-field appearance="outline">
+            <mat-label>New object type</mat-label>
+            <input [(ngModel)]="newObjectType" matInput name="newObjectType" />
+          </mat-form-field>
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="addToTaxonomy()"
+            [disabled]="!newObjectType || newObjectType == ''"
+            style="margin-top: -20px"
+          >
+            Add new object type
+          </button>
+        </form>
+        <form class="user-form">
+          <h4>Users</h4>
+          <ul class="users admin-list">
+            <li *ngFor="let score of leaderboard.scores; let i = index">
+              {{ score.name }} ({{ score.email }})<i class="material-icons remove" (click)="removeFromLeaderboard(i)"
+                >highlight_off</i
+              >
+            </li>
+          </ul>
+
+          <p class="alert" *ngIf="userNotFound">
+            Please enter a registered email address
+          </p>
+          <mat-form-field appearance="outline">
+            <mat-label>Add user by E-mail</mat-label>
+            <input [(ngModel)]="newUserEmail" matInput name="newUserEmail" />
+          </mat-form-field>
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="addToLeaderboard()"
+            [disabled]="!newUserEmail || newUserEmail == ''"
+            style="margin-top: -20px"
+          >
+            Add user
+          </button>
+        </form>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" (click)="save()">
+        Save
+      </button>
+      <button mat-button color="primary" style="margin-left: 8px;" [routerLink]="['/campaigns']">
+        Back
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

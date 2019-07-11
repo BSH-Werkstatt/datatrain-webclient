@@ -3,10 +3,14 @@ mat-form-field {
 }
 
 .login-card {
-  width: 500px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
 .register {
   text-align: center;
+}
+
+.login-card button {
+  margin-right: 8px;
 }

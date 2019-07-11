@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StartComponent } from './start/start.component';
+import { CampaignsComponent } from './campaigns/campaigns.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CampaignComponent } from './campaign/campaign.component';
+import { AnnotationComponent } from './annotation/annotation.component';
+import { UploadComponent } from './upload/upload.component';
+import { HistoryComponent } from './history/history.component';
+import { AdminComponent } from './admin/admin.component';
+import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
 
 const routes: Routes = [
   {
-    path: 'start',
-    component: StartComponent,
+    path: 'campaigns',
+    component: CampaignsComponent,
     data: { animation: 'AboutPage' }
   },
   { path: '', component: LoginComponent, data: { animation: 'HomePage' } },
@@ -18,9 +23,39 @@ const routes: Routes = [
     data: { animation: 'AboutPage' }
   },
   {
-    path: 'campaign',
+    path: 'campaigns/create',
+    component: CreateCampaignComponent,
+    data: { animation: 'HomePage' }
+  },
+  {
+    path: 'campaigns/:urlName',
     component: CampaignComponent,
     data: { animation: 'HomePage' }
+  },
+  {
+    path: 'campaigns/:urlName/annotate/:imageId',
+    component: AnnotationComponent,
+    data: { animation: 'AboutPage' }
+  },
+  {
+    path: 'campaigns/:urlName/annotate',
+    component: AnnotationComponent,
+    data: { animation: 'AboutPage' }
+  },
+  {
+    path: 'campaigns/:urlName/upload',
+    component: UploadComponent,
+    data: { animation: 'AboutPage' }
+  },
+  {
+    path: 'campaigns/:urlName/history',
+    component: HistoryComponent,
+    data: { animation: 'AboutPage' }
+  },
+  {
+    path: 'campaigns/:urlName/admin',
+    component: AdminComponent,
+    data: { animation: 'AboutPage' }
   }
 ];
 

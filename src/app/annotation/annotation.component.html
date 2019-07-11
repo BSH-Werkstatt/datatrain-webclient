@@ -1,0 +1,107 @@
+<canvas id="mainCanvas"> </canvas>
+
+<div id="toolbar">
+  <button
+    class="toolbar-btn {{ state == STATE.POLYGON ? 'active' : '' }}"
+    [disabled]="state != STATE.IDLE && state != STATE.POLYGON"
+    (click)="startPolygonAnnotation()"
+  >
+    <i class="material-icons">
+      format_shapes
+    </i>
+    Polygon
+  </button>
+  <button
+    class="toolbar-btn {{ state == STATE.FREEHAND ? 'active' : '' }}"
+    [disabled]="state != STATE.IDLE && state != STATE.FREEHAND"
+    (click)="startFreehandAnnotation()"
+  >
+    <i class="material-icons">
+      create
+    </i>
+    Freehand
+  </button>
+  <div class="toolbar-separator"></div>
+  <button class="toolbar-btn" [disabled]="undoStack.length === 0" (click)="undo()">
+    <i class="material-icons">
+      undo
+    </i>
+    Undo
+  </button>
+  <button class="toolbar-btn" [disabled]="redoStack.length === 0" (click)="redo()">
+    <i class="material-icons">
+      redo
+    </i>
+    Redo
+  </button>
+  <div class="toolbar-separator"></div>
+  <button
+    class="toolbar-btn"
+    [disabled]="currentCanvasAnnotationIndex < 0 || canvasAnnotations[currentCanvasAnnotationIndex].label == null"
+    (click)="initLabelling()"
+  >
+    <i class="material-icons"> label </i>Relabel
+  </button>
+  <button class="toolbar-btn" [disabled]="canvasAnnotations.length === 0" (click)="deleteAllAnnotations()">
+    <i class="material-icons"> delete_sweep </i>Delete All
+  </button>
+  <button class="toolbar-btn" [disabled]="currentCanvasAnnotationIndex < 0" (click)="deleteAnnotation()">
+    <i class="material-icons"> delete </i>Delete
+  </button>
+  <div class="toolbar-separator"></div>
+  <button class="toolbar-btn" [disabled]="canvasAnnotations.length === 0 || state != STATE.IDLE" (click)="save()">
+    <i class="material-icons">
+      cloud_upload
+    </i>
+    Submit
+  </button>
+</div>
+
+<div class="progres-spinner-container" *ngIf="!imageLoaded">
+  <mat-card>
+    <mat-card-content>
+      <mat-progress-spinner color="primary" mode="indeterminate"> </mat-progress-spinner>
+      <div style="width: 100%">Loading image</div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div id="label-selector-wrapper" *ngIf="showSelectLabel">
+  <div id="label-selector">
+    <mat-card style="width: 100%">
+      <mat-card-header>
+        <mat-card-title>Select a label</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-tab-group>
+          <mat-tab label="From the taxonomy" (click)="tabLabelTaxonomy()">
+            <div class="label-container">
+              <div
+                *ngFor="let type of campaign.taxonomy; let i = index"
+                class="{{ taxnonomyChosen == i ? 'chosen' : '' }}"
+              >
+                <button mat-stroked-button (click)="chooseLabel(i)">{{ type }}</button>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Other label">
+            <div class="other-container">
+              <mat-form-field appearance="outline" (click)="tabLabelOther()">
+                <mat-label>Other</mat-label>
+                <input [(ngModel)]="otherLabelValue" matInput name="otherLabel" />
+              </mat-form-field>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="selectLabel()">
+          Select
+        </button>
+        <button mat-stroked-button color="primary" (click)="selectLabelDelete()">
+          Delete Annotation
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

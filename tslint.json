@@ -1,5 +1,8 @@
 {
   "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "linterOptions": {
+    "exclude": ["src/swagger/*"]
+  },
   "rulesDirectory": ["codelyzer"],
   "rules": {
     "array-type": false,

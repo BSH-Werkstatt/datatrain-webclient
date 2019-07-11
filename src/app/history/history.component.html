@@ -1,0 +1,38 @@
+<div class="images-container">
+  <mat-card class="image" *ngFor="let image of images; let i = index">
+    <mat-card-header>
+      <mat-card-title>Image {{ image.annotations.length > 0 ? 'with Annotation' : '' }}</mat-card-title>
+      <mat-card-subtitle>{{ image.id }}</mat-card-subtitle>
+    </mat-card-header>
+    <div class="image-container">
+      <img src="{{ baseURL }}/images/{{ campaign.id }}/{{ image.id }}.jpg" />
+    </div>
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="showDetail(i)">
+        View
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card *ngIf="images.length === 0">
+    <mat-card-content>You have not uploaded or annotated any images in this campaign.</mat-card-content>
+  </mat-card>
+</div>
+
+<div class="image-detail-container-bg" *ngIf="showDetailIndicator">
+  <div class="image-detail-container" *ngIf="showDetailIndicator">
+    <mat-card class="image" style="width: 100%">
+      <mat-card-header>
+        <mat-card-title>Image {{ detail.annotations.length > 0 ? 'with Annotation' : '' }}</mat-card-title>
+        <mat-card-subtitle>{{ detail.id }}</mat-card-subtitle>
+      </mat-card-header>
+      <div class="image-container" style="height: calc(100vh - 200px);">
+        <img src="{{ baseURL }}/images/{{ campaign.id }}/{{ detail.id }}.jpg" />
+      </div>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="showDetailIndicator = false">
+          Close
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

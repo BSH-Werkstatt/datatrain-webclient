@@ -1,3 +1,14 @@
+h1 {
+  margin-left: 20px;
+  margin-right: 50px;
+
+  cursor: pointer;
+}
+
+.logo {
+  cursor: pointer;
+}
+
 .section-container {
   padding: 15px;
 }
@@ -15,8 +26,67 @@
   align-items: center;
 }
 
-.start-btn {
-  margin-left: 30px;
+.nav-btn {
+  margin-left: 15px;
   text-decoration: none;
   color: black;
+}
+
+.nav-hidden {
+  display: none;
+}
+
+.nav-slash {
+  color: darkgray;
+}
+
+.mat-toolbar {
+  background: white;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.logout-icon {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .logout-text {
+    display: none;
+  }
+
+  .logout-icon {
+    display: inline-block;
+  }
+
+  .logout-button {
+    padding: 0;
+    min-width: 40px;
+  }
+}
+
+@media (max-width: 800px) {
+  .toolbar-left h1 {
+    display: none;
+  }
+}
+
+@media (max-width: 599px) {
+  .mat-toolbar-single-row {
+    padding: 6px;
+  }
+
+  .logo {
+    margin-right: 10px;
+    height: 40px;
+  }
+
+  .toolbar-left .nav-btn {
+    font-size: 0.8em;
+    margin-left: 5px;
+  }
+
+  #nav-function-btn,
+  #nav-function-slash {
+    display: none;
+  }
 }

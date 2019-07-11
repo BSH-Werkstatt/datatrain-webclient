@@ -1,179 +1,83 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  keyframes
-  // ...
-} from '@angular/animations';
+import { DefaultService, Campaign, Leaderboard } from '../../swagger';
+import { Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-campaign',
   templateUrl: './campaign.component.html',
-  styleUrls: ['./campaign.component.scss'],
-
-  // Cool animations
-  animations: [
-    trigger('checkboxAnimation', [
-      transition(':enter', [
-        animate(
-          '175ms cubic-bezier(0.4, 0, 0.2, 1)',
-          keyframes([
-            style({
-              transform: 'rotateZ(-90deg)',
-              opacity: 0
-            }),
-            style({
-              transform: 'rotateZ(0)',
-              opacity: 1
-            })
-          ])
-        )
-      ]),
-      transition(':leave', [animate('100ms', style({ opacity: 0 }))])
-    ])
-  ]
+  styleUrls: ['./campaign.component.scss', '../upload/upload.component.scss']
 })
 export class CampaignComponent implements OnInit {
-  /**
-   *
-   */
-  constructor(private snackBar: MatSnackBar) {
-    this.reset();
-  }
+  public urlName = '';
 
-  checkingIncorrect = false;
-  incorrect = [];
-  incorrectValidated = 0;
-  incorrectItem = {};
+  protected canEditCampaign = false;
 
-  dataset = {
-    class: 'potatoes',
-    classSingular: 'potato',
-    images: [
-      {
-        id: 1,
-        src: '/assets/potatoes/potato1.jpg',
-        isValid: true,
-        selected: false
-      },
-      {
-        id: 2,
-        src: '/assets/potatoes/banana.jpg',
-        isValid: false,
-        selected: false
-      },
-      {
-        id: 3,
-        src: '/assets/potatoes/potato2.png',
-        isValid: true,
-        selected: false
-      },
-      {
-        id: 4,
-        src: '/assets/potatoes/carrot.png',
-        isValid: false,
-        selected: false
-      },
-      {
-        id: 5,
-        src: '/assets/potatoes/potato3.jpg',
-        isValid: true,
-        selected: false
-      },
-      {
-        id: 6,
-        src: '/assets/potatoes/potato4.jpg',
-        isValid: true,
-        selected: false
-      },
-      {
-        id: 7,
-        src: '/assets/potatoes/cucumber.jpg',
-        isValid: false,
-        selected: false
-      },
-      {
-        id: 8,
-        src: '/assets/potatoes/potato5.jpg',
-        isValid: true,
-        selected: false
-      },
-      {
-        id: 9,
-        src: '/assets/potatoes/radish.jpg',
-        isValid: false,
-        selected: false
-      }
-    ]
-  };
+  protected campaign: Campaign;
+  protected campaign$: Observable<Campaign>;
+  campaignLoaded = false;
 
-  ngOnInit(): void {}
+  protected leaderboard: Leaderboard;
+  protected leaderboardLoaded = false;
 
-  selectedCount(): number {
-    return this.dataset.images.filter(e => e.selected === true).length;
-  }
+  constructor(protected route: ActivatedRoute, protected router: Router, protected defaultService: DefaultService) {}
 
-  correctCount(): number {
-    return this.dataset.images.filter(e => e.selected === e.isValid).length;
-  }
+  ngOnInit(): void {
+    this.campaign$ = this.route.paramMap.pipe(
+      switchMap(params => {
+        const urlName = params.get('urlName');
+        this.urlName = urlName;
 
-  validate() {
-    const correctCount = this.correctCount();
+        return this.defaultService.getCampaignByURLName(urlName);
+      })
+    );
 
-    this.snackBar.open('You correctly selected ' + correctCount + '/' + this.dataset.images.length + ' images.');
+    this.campaign$.subscribe((campaign: Campaign) => {
+      this.campaign = campaign;
+      this.campaignLoaded = true;
 
-    setTimeout(() => {
-      this.snackBar.dismiss();
-    }, 3000);
-
-    if (correctCount < this.dataset.images.length) {
-      this.incorrect = this.dataset.images.filter(e => e.selected !== e.isValid);
-      this.incorrectItem = this.incorrect[this.incorrectValidated];
-    } else {
-      this.reset();
-    }
-  }
-
-  validateIncorrect() {
-    this.incorrectValidated++;
-
-    if (this.incorrectValidated >= 3 || this.incorrect.length - 1 < this.incorrectValidated) {
-      this.incorrectValidated = 0;
-      this.incorrect = [];
-      this.incorrectItem = {};
-
-      this.reset();
-      return;
-    }
-
-    this.incorrectItem = this.incorrect[this.incorrectValidated];
-  }
-
-  reset() {
-    this.dataset.images.forEach(e => {
-      e.selected = false;
+      this.setNavBar();
+      this.loadLeaderboard();
     });
 
-    let left = this.dataset.images.length;
-    let temp;
-    let index;
+    const user = JSON.parse(localStorage.getItem('datatrainUser'));
 
-    const cpy = this.dataset.images.slice(0);
-
-    while (left > 0) {
-      index = Math.floor(Math.random() * left);
-      left--;
-
-      temp = cpy[left];
-      cpy[left] = cpy[index];
-      cpy[index] = temp;
+    if (user && (user.userType === 'admin' || user.userType === 'campaign_owner')) {
+      this.canEditCampaign = true;
     }
+  }
 
-    this.dataset.images = cpy;
+  /**
+   * Sets the campaign name in the navigation bar
+   */
+  setNavBar() {
+    const navCampaignSlash = document.getElementById('nav-campaign-slash');
+    navCampaignSlash.classList.remove('nav-hidden');
+
+    const navCampaignBtn = document.getElementById('nav-campaign-btn');
+    navCampaignBtn.innerHTML = this.campaign.name;
+    // @ts-ignore
+    navCampaignBtn.href = '/campaigns/' + this.campaign.urlName;
+
+    const navFunctionSlash = document.getElementById('nav-function-slash');
+    navFunctionSlash.classList.add('nav-hidden');
+
+    const navFunctionBtn = document.getElementById('nav-function-btn');
+    navFunctionBtn.innerHTML = '';
+  }
+
+  /**
+   * Loads the leaderboard using the Swagger DefaultService
+   */
+  loadLeaderboard() {
+    this.defaultService.getLeaderboard(this.campaign.id).subscribe((leaderboard: Leaderboard) => {
+      this.leaderboard = leaderboard;
+      this.leaderboard.scores.sort((a, b) => {
+        return b.score - a.score;
+      });
+      this.leaderboardLoaded = true;
+    });
   }
 }

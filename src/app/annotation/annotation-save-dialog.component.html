@@ -1,0 +1,11 @@
+<mat-card-title>Success!</mat-card-title>
+<mat-card-subtitle>Your annotations have been submitted to the campaign!</mat-card-subtitle>
+<mat-card-content>
+  Would you like to continue annotating?
+</mat-card-content>
+<button mat-flat-button color="primary" mat-dialog-close="true" style="margin-right: 10px">
+  Continue
+</button>
+<button mat-stroked-button color="primary" (click)="onNoClick()">
+  Back to campaign
+</button>

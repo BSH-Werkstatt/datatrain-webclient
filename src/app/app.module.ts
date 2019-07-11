@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -11,18 +12,43 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { FormsModule } from '@angular/forms';
 
+import { ApiModule } from '../swagger/api.module';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
-import { StartComponent } from './start/start.component';
+import { CampaignsComponent } from './campaigns/campaigns.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { CampaignComponent } from './campaign/campaign.component';
+import { AnnotationComponent, AnnotationSaveDialogComponent } from './annotation/annotation.component';
+import { UploadComponent } from './upload/upload.component';
+import { HistoryComponent } from './history/history.component';
+import { AdminComponent, AdminSnackbarJPEGComponent, AdminSnackbarSavedComponent } from './admin/admin.component';
+import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, StartComponent, RegisterComponent, CampaignComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    CampaignsComponent,
+    RegisterComponent,
+    CampaignComponent,
+    AnnotationComponent,
+    UploadComponent,
+    HistoryComponent,
+    AdminComponent,
+    AnnotationSaveDialogComponent,
+    CreateCampaignComponent,
+    AdminSnackbarJPEGComponent,
+    AdminSnackbarSavedComponent
+  ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -35,9 +61,16 @@ import { CampaignComponent } from './campaign/campaign.component';
     MatIconModule,
     MatInputModule,
     MatSnackBarModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatProgressBarModule,
+    ApiModule,
+    HttpClientModule,
+    MatTabsModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AnnotationSaveDialogComponent, AdminSnackbarJPEGComponent, AdminSnackbarSavedComponent]
 })
 export class AppModule {}

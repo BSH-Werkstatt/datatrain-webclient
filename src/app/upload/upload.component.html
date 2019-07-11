@@ -1,0 +1,69 @@
+<div class="upload-container">
+  <mat-card class="upload-card">
+    <mat-card-header>
+      <mat-card-title>Upload Images</mat-card-title>
+      <mat-card-subtitle
+        >After you upload your images, we would like to ask you to annotate them right away!</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div id="upload-area">
+        <div id="upload-preview">
+          <div class="img-container" *ngFor="let src of fileSrcs; let i = index">
+            <img src="{{ src }}" />
+            <div class="success-indicator" *ngIf="fileSrcSuccess[i] != 0">
+              <div class="success" *ngIf="fileSrcSuccess[i] == 1">
+                <i class="material-icons">check_circle_outline</i>
+                <div style="margin-left: 5px;">Success</div>
+              </div>
+              <div class="failed" *ngIf="fileSrcSuccess[i] == -1">
+                <i class="material-icons">highlight_off</i>
+                <div style="margin-left: 5px;">Failed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="upload-help" *ngIf="!uploadInProgress && !uploadDone">
+          Drop your images here or &nbsp;<button
+            type="button"
+            mat-stroked-button
+            color="primary"
+            (click)="fileInput.click()"
+          >
+            Choose Files
+          </button>
+          <input hidden (change)="onFileSelected()" #fileInput type="file" id="choose-file" multiple />
+        </div>
+        <div id="upload-progress" *ngIf="uploadInProgress">
+          <mat-progress-bar
+            mode="determinate"
+            value="{{ ((failedCount + uploadedCount) * 100) / chosenFileCount }}"
+          ></mat-progress-bar>
+          <div id="upload-progress-count">
+            <div>{{ uploadedCount }} of {{ chosenFileCount }} Uploaded</div>
+            <small *ngIf="failedCount > 0">{{ failedCount }} failed to upload</small>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="button-action-container" style="float: left">
+        <button id="upload-btn" mat-flat-button color="primary" (click)="handleUploadButton()" disabled>Upload</button>
+      </div>
+      <div class="button-action-container" style="float: right">
+        <button
+          mat-button
+          color="primary"
+          *ngIf="uploadDone"
+          style="margin-right: 8px;"
+          [routerLink]="['/campaigns', campaign.urlName]"
+        >
+          Back
+        </button>
+        <button mat-flat-button color="primary" *ngIf="uploadDone" (click)="goToAnnotate()">
+          Annotate uploaded images
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

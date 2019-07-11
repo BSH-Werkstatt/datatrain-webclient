@@ -121,8 +121,59 @@ body {
 body {
   margin: 0;
   font-family: BSH, 'Helvetica Neue', sans-serif;
+  background: #f6f6f6;
 }
 
 * {
   font-family: BSH, 'Helvetica Neue', sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+app-root {
+  display: block;
+  min-height: calc(100vh - 400px);
+}
+
+.footer {
+  /* enable footer */
+  display: none;
+
+  box-sizing: border-box;
+  width: 100%;
+  background: white;
+  box-shadow: 0 -2px 1px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+  height: 300px;
+}
+
+.mat-card-actions {
+  margin: 0 !important;
+}
+
+.material-icons {
+  vertical-align: middle;
+}
+
+.alert {
+  color: red;
+  font-weight: bold;
 }
