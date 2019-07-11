@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CampaignComponent } from '../campaign/campaign.component';
 import { DefaultService, ImageData } from '../../swagger';
 import { Router } from '@angular/router';

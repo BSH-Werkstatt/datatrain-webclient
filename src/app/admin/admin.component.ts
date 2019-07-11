@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CampaignComponent } from '../campaign/campaign.component';
 import {
   DefaultService,
@@ -31,7 +31,7 @@ export class AdminSnackbarSavedComponent {}
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent extends CampaignComponent {
+export class AdminComponent extends CampaignComponent implements OnInit {
   newObjectType: string;
   newUserEmail: string;
   userNotFound = false;
