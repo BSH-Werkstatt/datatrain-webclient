@@ -13,7 +13,7 @@ export class HistoryComponent extends CampaignComponent implements OnInit {
   images: ImageData[] = [];
   detail: ImageData = null;
   showDetailIndicator = false;
-  baseURL = 'http://127.0.0.1:5000';
+  baseURL = 'https://api.datatrain.rocks';
 
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService) {
     super(route, router, defaultService);

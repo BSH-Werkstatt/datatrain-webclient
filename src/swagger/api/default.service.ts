@@ -35,7 +35,7 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class DefaultService {
-  protected basePath = 'http://127.0.0.1:5000';
+  protected basePath = 'https://api.datatrain.rocks';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
