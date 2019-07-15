@@ -17,61 +17,63 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormsModule } from '@angular/forms';
 
 import { ApiModule } from '../swagger/api.module';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './login/login.component';
-import { CampaignsComponent } from './campaigns/campaigns.component';
-import { AppRoutingModule } from './app-routing.module';
-import { RegisterComponent } from './register/register.component';
-import { CampaignComponent } from './campaign/campaign.component';
-import { AnnotationComponent, AnnotationSaveDialogComponent } from './annotation/annotation.component';
-import { UploadComponent } from './upload/upload.component';
-import { HistoryComponent } from './history/history.component';
 import { AdminComponent, AdminSnackbarJPEGComponent, AdminSnackbarSavedComponent } from './admin/admin.component';
+import { AnnotationComponent, AnnotationSaveDialogComponent } from './annotation/annotation.component';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CampaignComponent } from './campaign/campaign.component';
+import { CampaignsComponent } from './campaigns/campaigns.component';
 import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
+import { HistoryComponent } from './history/history.component';
 import { LeaderboardComponent } from './campaign/leaderboard/leaderboard.component';
+import { LoginComponent } from './login/login.component';
 import { PredictComponent } from './campaign/predict/predict.component';
+import { RegisterComponent } from './register/register.component';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    CampaignsComponent,
-    RegisterComponent,
-    CampaignComponent,
-    AnnotationComponent,
-    UploadComponent,
-    HistoryComponent,
     AdminComponent,
-    AnnotationSaveDialogComponent,
-    CreateCampaignComponent,
     AdminSnackbarJPEGComponent,
     AdminSnackbarSavedComponent,
+    AnnotationComponent,
+    AnnotationSaveDialogComponent,
+    AppComponent,
+    CampaignComponent,
+    CampaignsComponent,
+    CreateCampaignComponent,
+    HistoryComponent,
     LeaderboardComponent,
-    PredictComponent
+    LoginComponent,
+    PredictComponent,
+    RegisterComponent,
+    UploadComponent
   ],
   imports: [
+    ApiModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
-    MatSnackBarModule,
-    MatToolbarModule,
     MatProgressBarModule,
-    ApiModule,
-    HttpClientModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
     MatTabsModule,
-    MatDialogModule,
-    MatProgressSpinnerModule
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
