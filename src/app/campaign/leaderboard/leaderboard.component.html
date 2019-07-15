@@ -1,0 +1,14 @@
+<mat-card class="campaign-leaderboard auto-layout-container-item" *ngIf="leaderboardLoaded">
+  <mat-card-header>
+    <mat-card-title>Leaderboard</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table>
+      <tr class="campaign" *ngFor="let score of leaderboard.scores; let i = index">
+        <td>{{ i + 1 }}.</td>
+        <td>{{ score.name }}</td>
+        <td>{{ score.score }}</td>
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>

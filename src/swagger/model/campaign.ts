@@ -20,4 +20,6 @@ export interface Campaign {
   description: string;
   taxonomy: Array<string>;
   image: string;
+  trainingInProgress?: boolean;
+  currentTrainingId?: string;
 }

@@ -13,4 +13,7 @@ export * from './leaderboardScore';
 export * from './leaderboardUpdateRequest';
 export * from './point';
 export * from './predictionResult';
+export * from './training';
+export * from './trainingCreationRequest';
+export * from './trainingUpdateRequest';
 export * from './user';

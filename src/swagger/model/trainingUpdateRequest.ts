@@ -10,8 +10,9 @@
  * Do not edit the class manually.
  */
 
-export interface CreateUserRequest {
-  email: string;
-  name: string;
-  userType?: string;
+export interface TrainingUpdateRequest {
+  currentEpoch: number;
+  currentStep: number;
+  finished: boolean;
+  metric: string;
 }

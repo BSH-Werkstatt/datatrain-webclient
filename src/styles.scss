@@ -177,3 +177,15 @@ app-root {
   color: red;
   font-weight: bold;
 }
+
+.auto-layout-conatiner {
+  width: 100vw;
+  flex: auto;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.auto-layout-container-item {
+  min-width: 300px; /* Or whatever */
+  min-height: 300px; /* Or whatever */
+  margin: 10px;
+}

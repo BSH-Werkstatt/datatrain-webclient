@@ -32,6 +32,8 @@ import { UploadComponent } from './upload/upload.component';
 import { HistoryComponent } from './history/history.component';
 import { AdminComponent, AdminSnackbarJPEGComponent, AdminSnackbarSavedComponent } from './admin/admin.component';
 import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
+import { LeaderboardComponent } from './campaign/leaderboard/leaderboard.component';
+import { PredictComponent } from './campaign/predict/predict.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { CreateCampaignComponent } from './create-campaign/create-campaign.compo
     AnnotationSaveDialogComponent,
     CreateCampaignComponent,
     AdminSnackbarJPEGComponent,
-    AdminSnackbarSavedComponent
+    AdminSnackbarSavedComponent,
+    LeaderboardComponent,
+    PredictComponent
   ],
   imports: [
     AppRoutingModule,

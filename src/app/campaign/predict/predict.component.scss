@@ -1,0 +1,14 @@
+img {
+  width: 100%;
+  transition: 0.6s ease-in-out all;
+}
+
+img.loading {
+  filter: #{'contrast(0.3) saturate(0.5) opacity(0.5)'};
+}
+
+.uploaded-image-container mat-spinner {
+  position: absolute;
+  left: calc(50% - 50px);
+  top: calc(50% - 50px);
+}
