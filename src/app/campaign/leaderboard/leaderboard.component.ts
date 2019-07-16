@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
-import { DefaultService, Leaderboard } from '../../../swagger';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+
+import { DefaultService, Leaderboard, User, LeaderboardScore } from '../../../swagger';
 
 @Component({
   selector: 'bsh-leaderboard',
@@ -12,11 +14,18 @@ export class LeaderboardComponent implements OnInit {
 
   protected leaderboard: Leaderboard;
   protected leaderboardLoaded = false;
+  user: User;
+
+  displayedColumns: string[] = ['position', 'name', 'score'];
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(protected defaultService: DefaultService) {}
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('datatrainUser'));
     this.loadLeaderboard();
+    console.log(this.user);
   }
 
   /**
@@ -28,6 +37,7 @@ export class LeaderboardComponent implements OnInit {
       this.leaderboard.scores.sort((a, b) => {
         return b.score - a.score;
       });
+
       this.leaderboardLoaded = true;
     });
   }

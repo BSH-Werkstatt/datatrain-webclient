@@ -1,46 +1,48 @@
-<div class="campaign-container auto-layout-container" *ngIf="campaignLoaded">
-  <mat-card class="campaign-selected">
-    <mat-card-header>
-      <mat-card-title>{{ campaign.name }}</mat-card-title>
-      <mat-card-subtitle>
-        <small>Object classification campaign</small>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <div class="image-container">
-      <img src="{{ campaign.image }}" />
-    </div>
-    <mat-card-content>
-      <p>
-        {{ campaign.description }}
-      </p>
-    </mat-card-content>
+<div
+  class="content"
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayout.sm="column"
+  fxLayoutAlign="space-around stretch"
+  *ngIf="campaignLoaded"
+  fxLayoutGap="20px"
+>
+  <div fxFlex="50" fxFlex.xs="50">
+    <mat-card class="campaign-card">
+      <mat-card-header>
+        <mat-card-title>{{ campaign.name }}</mat-card-title>
+        <mat-card-subtitle>
+          <small>Object classification campaign</small>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{ campaign.image }}" />
+      <mat-card-content>
+        <p>
+          {{ campaign.description }}
+        </p>
+      </mat-card-content>
 
-    <mat-card-actions>
-      <div class="button-action-container button-action-container-left">
-        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName, 'annotate']" color="primary">
-          <span class="btn-icon">⛶</span>Annotate Random Images
+      <mat-card-actions>
+        <button mat-raised-button [routerLink]="['/campaigns', campaign.urlName, 'annotate']" color="primary">
+          Annotate Images
         </button>
-        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName, 'upload']" color="primary">
-          <span class="btn-icon">🡅</span>Upload Images
+        <button mat-raised-button [routerLink]="['/campaigns', campaign.urlName, 'upload']" color="primary">
+          Upload
         </button>
-      </div>
-      <div class="button-action-container button-action-container-right">
-        <button mat-stroked-button [routerLink]="['/campaigns', campaign.urlName, 'history']" color="primary">
-          <span class="btn-icon"><i class="material-icons">collections</i></span
-          >Your Images and Annotations
+        <button mat-button [routerLink]="['/campaigns', campaign.urlName, 'history']" color="primary">
+          Your Work
         </button>
         <button
           *ngIf="canEditCampaign"
-          mat-stroked-button
+          mat-button
           [routerLink]="['/campaigns', campaign.urlName, 'admin']"
           color="primary"
         >
-          <span class="btn-icon"><i class="material-icons">settings</i></span
-          >Administration
+          Administration
         </button>
-      </div>
-    </mat-card-actions>
-  </mat-card>
-  <bsh-leaderboard [campaignId]="campaign.id"></bsh-leaderboard>
-  <bsh-prediction [campaignId]="campaign.id"></bsh-prediction>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <bsh-leaderboard [campaignId]="campaign.id" fxFlex="20" fxFlex.xs="20"></bsh-leaderboard>
+  <bsh-prediction [campaignId]="campaign.id" fxFlex="30" fxFlex.xs="30"></bsh-prediction>
 </div>

@@ -1,14 +1,39 @@
-<mat-card class="campaign-leaderboard auto-layout-container-item" *ngIf="leaderboardLoaded">
+<mat-card class="campaign-card" *ngIf="leaderboardLoaded">
   <mat-card-header>
     <mat-card-title>Leaderboard</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <table>
-      <tr class="campaign" *ngFor="let score of leaderboard.scores; let i = index">
-        <td>{{ i + 1 }}.</td>
-        <td>{{ score.name }}</td>
-        <td>{{ score.score }}</td>
-      </tr>
+    <table mat-table [dataSource]="leaderboard.scores" class="leaderboard-table">
+      <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>User</th>
+        <td mat-cell *matCellDef="let element">
+          <span [class.current-user]="element.email === user.email">{{ element.name }}</span>
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="score">
+        <th mat-header-cell *matHeaderCellDef>Score</th>
+        <td mat-cell *matCellDef="let element">{{ element.score }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [ngClass]="{ 'current-user-row': row.email === user.email }"
+      ></tr>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </table>
   </mat-card-content>
 </mat-card>

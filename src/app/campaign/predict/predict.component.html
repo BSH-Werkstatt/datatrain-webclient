@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="campaign-card">
   <mat-card-header>
     <mat-card-title>Prediction</mat-card-title>
   </mat-card-header>
@@ -14,10 +14,16 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button id="upload-btn" mat-icon-button (click)="resetImage()" [disabled]="!fileSrc">
+    <button id="upload-btn" mat-icon-button (click)="resetImage()" [disabled]="!fileSrc || uploadInProgress">
       <mat-icon>clear</mat-icon>
     </button>
-    <button id="upload-btn" mat-flat-button color="primary" (click)="handlePredictionButton()" [disabled]="!fileSrc">
+    <button
+      id="upload-btn"
+      mat-raised-button
+      color="primary"
+      (click)="handlePredictionButton()"
+      [disabled]="!fileSrc || uploadInProgress"
+    >
       Upload
     </button>
   </mat-card-actions>
