@@ -9,16 +9,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./predict.component.scss']
 })
 export class PredictComponent implements OnInit {
+  constructor(private defaultService: DefaultService, private _snackBar: MatSnackBar) {}
   @Input() campaignId: string;
 
   imageFile: File;
   fileSrc: String;
   predictionResult: PredictionResult;
-  uploadInProgress: boolean = false;
-
-  constructor(private defaultService: DefaultService, private _snackBar: MatSnackBar) {}
-
-  ngOnInit() {}
+  uploadInProgress = false;
 
   static fileIsImage(file: File): boolean {
     const filenameParts = file.name.split('.');
@@ -27,6 +24,8 @@ export class PredictComponent implements OnInit {
 
     return imageExts.includes(ext);
   }
+
+  ngOnInit() {}
 
   /**
    * Handles the Choose Files input
