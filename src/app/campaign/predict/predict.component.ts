@@ -4,7 +4,7 @@ import { DefaultService, ImageData, PredictionResult } from '../../../swagger';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'bsh-prediction',
+  selector: 'app-prediction',
   templateUrl: './predict.component.html',
   styleUrls: ['./predict.component.scss']
 })

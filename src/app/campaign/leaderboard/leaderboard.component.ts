@@ -5,7 +5,7 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { DefaultService, Leaderboard, User, LeaderboardScore } from '../../../swagger';
 
 @Component({
-  selector: 'bsh-leaderboard',
+  selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
   styleUrls: ['./leaderboard.component.scss']
 })
