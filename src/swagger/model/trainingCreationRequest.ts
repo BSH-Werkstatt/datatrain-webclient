@@ -9,9 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Training } from './training';
 
-export interface CreateUserRequest {
-  email: string;
-  name: string;
-  userType?: string;
+export interface TrainingCreationRequest {
+  userToken: string;
+  training: Training;
 }

@@ -1,122 +1,48 @@
-<div class="campaign-container" *ngIf="campaignLoaded">
-  <mat-card class="campaign-selected">
-    <mat-card-header>
-      <mat-card-title>{{ campaign.name }}</mat-card-title>
-      <mat-card-subtitle>
-        <small>Object classification campaign</small>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <div class="image-container">
-      <img src="{{ campaign.image }}" />
-    </div>
-    <mat-card-content>
-      <p>
-        {{ campaign.description }}
-      </p>
-    </mat-card-content>
+<div
+  class="content"
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayout.sm="column"
+  fxLayoutAlign="space-around stretch"
+  *ngIf="campaignLoaded"
+  fxLayoutGap="20px"
+>
+  <div fxFlex="50" fxFlex.xs="50">
+    <mat-card class="campaign-card">
+      <mat-card-header>
+        <mat-card-title>{{ campaign.name }}</mat-card-title>
+        <mat-card-subtitle>
+          <small>Object classification campaign</small>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{ campaign.image }}" />
+      <mat-card-content>
+        <p>
+          {{ campaign.description }}
+        </p>
+      </mat-card-content>
 
-    <mat-card-actions>
-      <div class="button-action-container button-action-container-left">
-        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName, 'annotate']" color="primary">
-          <span class="btn-icon">⛶</span>Annotate Random Images
+      <mat-card-actions>
+        <button mat-raised-button [routerLink]="['/campaigns', campaign.urlName, 'annotate']" color="primary">
+          Annotate Images
         </button>
-        <button mat-flat-button [routerLink]="['/campaigns', campaign.urlName, 'upload']" color="primary">
-          <span class="btn-icon">🡅</span>Upload Images
+        <button mat-raised-button [routerLink]="['/campaigns', campaign.urlName, 'upload']" color="primary">
+          Upload
         </button>
-      </div>
-      <div class="button-action-container button-action-container-right">
-        <button mat-stroked-button [routerLink]="['/campaigns', campaign.urlName, 'history']" color="primary">
-          <span class="btn-icon"><i class="material-icons">collections</i></span
-          >Your Images and Annotations
+        <button mat-button [routerLink]="['/campaigns', campaign.urlName, 'history']" color="primary">
+          Your Work
         </button>
         <button
           *ngIf="canEditCampaign"
-          mat-stroked-button
+          mat-button
           [routerLink]="['/campaigns', campaign.urlName, 'admin']"
           color="primary"
         >
-          <span class="btn-icon"><i class="material-icons">settings</i></span
-          >Administration
+          Administration
         </button>
-      </div>
-    </mat-card-actions>
-  </mat-card>
-
-  <div class="campaign-bottom-cards">
-    <mat-card class="campaign-leaderboard" *ngIf="leaderboardLoaded">
-      <mat-card-header>
-        <mat-card-title>Leaderboard</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <table>
-          <tr class="campaign" *ngFor="let score of leaderboard.scores; let i = index">
-            <td>{{ i + 1 }}.</td>
-            <td>{{ score.name }}</td>
-            <td>{{ score.score }}</td>
-          </tr>
-        </table>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="campaign-playground" *ngIf="leaderboardLoaded">
-      <mat-card-header>
-        <mat-card-title>Playground</mat-card-title>
-        <mat-card-subtitle style="white-space: normal">
-          After you upload some images, we will try to classify the objects within them using this campaign's model.
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div id="upload-area">
-          <div id="upload-preview">
-            <div class="img-container" *ngFor="let src of fileSrcs; let i = index">
-              <img src="{{ src }}" />
-              <div class="success-indicator" *ngIf="fileSrcSuccess[i] != 0">
-                <div class="success" *ngIf="fileSrcSuccess[i] == 1">
-                  <i class="material-icons">check_circle_outline</i>
-                  <div style="margin-left: 5px;">Success</div>
-                </div>
-                <div class="failed" *ngIf="fileSrcSuccess[i] == -1">
-                  <i class="material-icons">check_circle_outline</i>
-                  <div style="margin-left: 5px;">Failed</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="upload-help" *ngIf="!uploadInProgress && !uploadDone">
-            Drop your images here or &nbsp;<button
-              type="button"
-              mat-stroked-button
-              color="primary"
-              (click)="fileInput.click()"
-            >
-              Choose Files
-            </button>
-            <input hidden (change)="onFileSelected()" #fileInput type="file" id="choose-file" multiple />
-          </div>
-          <div id="upload-progress" *ngIf="uploadInProgress">
-            <mat-progress-bar
-              mode="determinate"
-              value="{{ ((failedCount + uploadedCount) * 100) / chosenFileCount }}"
-            ></mat-progress-bar>
-            <div id="upload-progress-count">
-              <div>{{ uploadedCount }} of {{ chosenFileCount }} Uploaded</div>
-              <small *ngIf="failedCount > 0">{{ failedCount }} failed to upload</small>
-            </div>
-          </div>
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <div class="button-action-container" style="float: left">
-          <button id="upload-btn" mat-flat-button color="primary" (click)="handleUploadButton()" disabled>
-            Upload
-          </button>
-        </div>
-        <div class="button-action-container" style="float: right">
-          <button mat-flat-button color="primary" *ngIf="uploadDone" (click)="goToAnnotate()">
-            Predict
-          </button>
-        </div>
       </mat-card-actions>
     </mat-card>
   </div>
+  <app-leaderboard [campaignId]="campaign.id" fxFlex="20" fxFlex.xs="20"></app-leaderboard>
+  <app-prediction [campaignId]="campaign.id" fxFlex="30" fxFlex.xs="30"></app-prediction>
 </div>

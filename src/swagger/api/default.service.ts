@@ -28,6 +28,9 @@ import { Leaderboard } from '../model/leaderboard';
 import { LeaderboardCreationRequest } from '../model/leaderboardCreationRequest';
 import { LeaderboardUpdateRequest } from '../model/leaderboardUpdateRequest';
 import { PredictionResult } from '../model/predictionResult';
+import { Training } from '../model/training';
+import { TrainingCreationRequest } from '../model/trainingCreationRequest';
+import { TrainingUpdateRequest } from '../model/trainingUpdateRequest';
 import { User } from '../model/user';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
@@ -70,6 +73,7 @@ export class DefaultService {
   /**
    *
    *
+   * @param request [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -120,6 +124,45 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getActive(campaignId: string, observe?: 'body', reportProgress?: boolean): Observable<Training>;
+  public getActive(
+    campaignId: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Training>>;
+  public getActive(campaignId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Training>>;
+  public getActive(campaignId: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    if (campaignId === null || campaignId === undefined) {
+      throw new Error('Required parameter campaignId was null or undefined when calling getActive.');
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Training>(`${this.basePath}/train/active/${encodeURIComponent(String(campaignId))}`, {
+      withCredentials: this.configuration.withCredentials,
+      headers,
+      observe,
+      reportProgress
+    });
+  }
+
+  /**
+   *
+   *
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -150,6 +193,7 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -195,6 +239,7 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -233,6 +278,7 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignName [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -282,6 +328,7 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -327,6 +374,7 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -372,6 +420,7 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -417,6 +466,7 @@ export class DefaultService {
   /**
    *
    *
+   * @param email [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -451,6 +501,7 @@ export class DefaultService {
   /**
    *
    *
+   * @param userId [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -545,6 +596,71 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
+   * @param request [empty description]
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public postActive(
+    campaignId: string,
+    request: TrainingCreationRequest,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Training>;
+  public postActive(
+    campaignId: string,
+    request: TrainingCreationRequest,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Training>>;
+  public postActive(
+    campaignId: string,
+    request: TrainingCreationRequest,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Training>>;
+  public postActive(
+    campaignId: string,
+    request: TrainingCreationRequest,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (campaignId === null || campaignId === undefined) {
+      throw new Error('Required parameter campaignId was null or undefined when calling postActive.');
+    }
+
+    if (request === null || request === undefined) {
+      throw new Error('Required parameter request was null or undefined when calling postActive.');
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<Training>(`${this.basePath}/train/${encodeURIComponent(String(campaignId))}`, request, {
+      withCredentials: this.configuration.withCredentials,
+      headers,
+      observe,
+      reportProgress
+    });
+  }
+
+  /**
+   *
+   *
+   * @param request [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -599,6 +715,9 @@ export class DefaultService {
   /**
    *
    *
+   * @param imageFile [empty description]
+   * @param userToken [empty description]
+   * @param campaignId [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -693,6 +812,9 @@ export class DefaultService {
   /**
    *
    *
+   * @param imageFile [empty description]
+   * @param userToken [empty description]
+   * @param campaignId [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -787,6 +909,9 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
+   * @param imageId [empty description]
+   * @param request [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -863,6 +988,8 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
+   * @param request [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -929,6 +1056,76 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
+   * @param request [empty description]
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public putActive(
+    campaignId: string,
+    request: TrainingUpdateRequest,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Training>;
+  public putActive(
+    campaignId: string,
+    request: TrainingUpdateRequest,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Training>>;
+  public putActive(
+    campaignId: string,
+    request: TrainingUpdateRequest,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Training>>;
+  public putActive(
+    campaignId: string,
+    request: TrainingUpdateRequest,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (campaignId === null || campaignId === undefined) {
+      throw new Error('Required parameter campaignId was null or undefined when calling putActive.');
+    }
+
+    if (request === null || request === undefined) {
+      throw new Error('Required parameter request was null or undefined when calling putActive.');
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.put<Training>(
+      `${this.basePath}/train/active/${encodeURIComponent(String(campaignId))}`,
+      request,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers,
+        observe,
+        reportProgress
+      }
+    );
+  }
+
+  /**
+   *
+   *
+   * @param campaignId [empty description]
+   * @param request [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -995,6 +1192,8 @@ export class DefaultService {
   /**
    *
    *
+   * @param campaignId [empty description]
+   * @param request [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1061,29 +1260,39 @@ export class DefaultService {
   /**
    *
    *
+   * @param imageFile [empty description]
+   * @param campaignId [empty description]
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public requestPrediction(
+    imageFile: Blob,
     campaignId: string,
     observe?: 'body',
     reportProgress?: boolean
   ): Observable<PredictionResult>;
   public requestPrediction(
+    imageFile: Blob,
     campaignId: string,
     observe?: 'response',
     reportProgress?: boolean
   ): Observable<HttpResponse<PredictionResult>>;
   public requestPrediction(
+    imageFile: Blob,
     campaignId: string,
     observe?: 'events',
     reportProgress?: boolean
   ): Observable<HttpEvent<PredictionResult>>;
   public requestPrediction(
+    imageFile: Blob,
     campaignId: string,
     observe: any = 'body',
     reportProgress: boolean = false
   ): Observable<any> {
+    if (imageFile === null || imageFile === undefined) {
+      throw new Error('Required parameter imageFile was null or undefined when calling requestPrediction.');
+    }
+
     if (campaignId === null || campaignId === undefined) {
       throw new Error('Required parameter campaignId was null or undefined when calling requestPrediction.');
     }
@@ -1098,11 +1307,29 @@ export class DefaultService {
     }
 
     // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
+    const consumes: string[] = ['multipart/form-data'];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let formParams: { append(param: string, value: any): void };
+    let useForm = false;
+    const convertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      formParams = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
+    }
+
+    if (imageFile !== undefined) {
+      formParams.append('imageFile', imageFile as any);
+    }
 
     return this.httpClient.post<PredictionResult>(
       `${this.basePath}/campaigns/${encodeURIComponent(String(campaignId))}/predictions`,
-      null,
+      convertFormParamsToString ? formParams.toString() : formParams,
       {
         withCredentials: this.configuration.withCredentials,
         headers,

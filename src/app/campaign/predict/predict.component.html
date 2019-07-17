@@ -1,0 +1,30 @@
+<mat-card class="campaign-card">
+  <mat-card-header>
+    <mat-card-title>Prediction</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <input (change)="onFileSelected()" #fileInput type="file" id="choose-file" *ngIf="!fileSrc" />
+    <div *ngIf="fileSrc" class="uploaded-image-container">
+      <mat-spinner *ngIf="uploadInProgress"></mat-spinner>
+      <img src="{{ fileSrc }}" [class.loading]="uploadInProgress" />
+    </div>
+
+    <div *ngIf="predictionResult" class="image-result">
+      <img [src]="predictionResult.predictionURL" />
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button id="upload-btn" mat-icon-button (click)="resetImage()" [disabled]="!fileSrc || uploadInProgress">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <button
+      id="upload-btn"
+      mat-raised-button
+      color="primary"
+      (click)="handlePredictionButton()"
+      [disabled]="!fileSrc || uploadInProgress"
+    >
+      Upload
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -10,8 +10,14 @@
  * Do not edit the class manually.
  */
 
-export interface CreateUserRequest {
-  email: string;
-  name: string;
-  userType?: string;
+export interface Training {
+  id: string;
+  campaignId: string;
+  timeStart: string;
+  currentEpoch: number;
+  epochs: number;
+  currentStep: number;
+  steps: number;
+  metrics: Array<string>;
+  finished: boolean;
 }
