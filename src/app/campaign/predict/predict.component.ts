@@ -9,11 +9,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./predict.component.scss']
 })
 export class PredictComponent implements OnInit {
-  constructor(private defaultService: DefaultService, private _snackBar: MatSnackBar) {}
+  constructor(private defaultService: DefaultService, private snackBar: MatSnackBar) {}
   @Input() campaignId: string;
 
   imageFile: File;
-  fileSrc: String;
+  fileSrc: string;
   predictionResult: PredictionResult;
   uploadInProgress = false;
 
@@ -61,7 +61,7 @@ export class PredictComponent implements OnInit {
    */
   handlePredictionButton() {
     if (!this.imageFile) {
-      this._snackBar.open('No images available for prediction', 'dismiss', {
+      this.snackBar.open('No images available for prediction', 'dismiss', {
         duration: 2000
       });
     } else {
@@ -74,7 +74,7 @@ export class PredictComponent implements OnInit {
             this.resetImage();
           });
       } catch (e) {
-        this._snackBar.open('There was an error with the prediction. ' + e, 'dismiss', {
+        this.snackBar.open('There was an error with the prediction. ' + e, 'dismiss', {
           duration: 2000
         });
         this.resetImage();
