@@ -12,8 +12,8 @@ import { DefaultService, Leaderboard, User, LeaderboardScore } from '../../../sw
 export class LeaderboardComponent implements OnInit {
   @Input() campaignId: string;
 
-  protected leaderboard: Leaderboard;
-  protected leaderboardLoaded = false;
+  leaderboard: Leaderboard;
+  leaderboardLoaded = false;
   user: User;
 
   displayedColumns: string[] = ['position', 'name', 'score'];
