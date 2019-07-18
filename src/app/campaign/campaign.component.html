@@ -44,5 +44,8 @@
     </mat-card>
   </div>
   <app-leaderboard [campaignId]="campaign.id" fxFlex="20" fxFlex.xs="20"></app-leaderboard>
-  <app-prediction [campaignId]="campaign.id" fxFlex="30" fxFlex.xs="30"></app-prediction>
+  <div fxFlex="30" fxFlex.xs="30">
+    <app-prediction [campaignId]="campaign.id"></app-prediction>
+    <app-training [campaignId]="campaign.id" *ngIf="canEditCampaign"></app-training>
+  </div>
 </div>

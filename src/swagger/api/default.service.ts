@@ -38,7 +38,8 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class DefaultService {
-  protected basePath = 'https://api.datatrain.rocks';
+  // protected basePath = 'https://api.datatrain.rocks';
+  protected basePath = 'http://127.0.0.1:5000';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
@@ -1330,6 +1331,185 @@ export class DefaultService {
     return this.httpClient.post<PredictionResult>(
       `${this.basePath}/campaigns/${encodeURIComponent(String(campaignId))}/predictions`,
       convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers,
+        observe,
+        reportProgress
+      }
+    );
+  }
+
+  /**
+   *
+   *
+   * @param campaignId
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getActiveTraining(campaignId: string, observe?: 'body', reportProgress?: boolean): Observable<Training>;
+  public getActiveTraining(
+    campaignId: string,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Training>>;
+  public getActiveTraining(
+    campaignId: string,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Training>>;
+  public getActiveTraining(
+    campaignId: string,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (campaignId === null || campaignId === undefined) {
+      throw new Error('Required parameter campaignId was null or undefined when calling getActiveTraining.');
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+
+    return this.httpClient.get<Training>(`${this.basePath}/train/active/${encodeURIComponent(String(campaignId))}`, {
+      withCredentials: this.configuration.withCredentials,
+      headers,
+      observe,
+      reportProgress
+    });
+  }
+
+  /**
+   *
+   *
+   * @param campaignId
+   * @param request
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public postTraining(
+    campaignId: string,
+    request: TrainingCreationRequest,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Training>;
+  public postTraining(
+    campaignId: string,
+    request: TrainingCreationRequest,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Training>>;
+  public postTraining(
+    campaignId: string,
+    request: TrainingCreationRequest,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Training>>;
+  public postTraining(
+    campaignId: string,
+    request: TrainingCreationRequest,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (campaignId === null || campaignId === undefined) {
+      throw new Error('Required parameter campaignId was null or undefined when calling postTraining.');
+    }
+
+    if (request === null || request === undefined) {
+      throw new Error('Required parameter request was null or undefined when calling postTraining.');
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.post<Training>(`${this.basePath}/train/${encodeURIComponent(String(campaignId))}`, request, {
+      withCredentials: this.configuration.withCredentials,
+      headers,
+      observe,
+      reportProgress
+    });
+  }
+
+  /**
+   *
+   *
+   * @param campaignId
+   * @param request
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public putActiveTraining(
+    campaignId: string,
+    request: TrainingUpdateRequest,
+    observe?: 'body',
+    reportProgress?: boolean
+  ): Observable<Training>;
+  public putActiveTraining(
+    campaignId: string,
+    request: TrainingUpdateRequest,
+    observe?: 'response',
+    reportProgress?: boolean
+  ): Observable<HttpResponse<Training>>;
+  public putActiveTraining(
+    campaignId: string,
+    request: TrainingUpdateRequest,
+    observe?: 'events',
+    reportProgress?: boolean
+  ): Observable<HttpEvent<Training>>;
+  public putActiveTraining(
+    campaignId: string,
+    request: TrainingUpdateRequest,
+    observe: any = 'body',
+    reportProgress: boolean = false
+  ): Observable<any> {
+    if (campaignId === null || campaignId === undefined) {
+      throw new Error('Required parameter campaignId was null or undefined when calling putActiveTraining.');
+    }
+
+    if (request === null || request === undefined) {
+      throw new Error('Required parameter request was null or undefined when calling putActiveTraining.');
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    const httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.put<Training>(
+      `${this.basePath}/train/active/${encodeURIComponent(String(campaignId))}`,
+      request,
       {
         withCredentials: this.configuration.withCredentials,
         headers,

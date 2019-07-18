@@ -1,0 +1,64 @@
+<mat-card class="training-card">
+  <mat-card-header>
+    <mat-card-title>Training</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <button mat-flat-button color="primary" (click)="triggerTraining()" *ngIf="training == null">
+      Start Training
+    </button>
+    <table class="metrics" *ngIf="training != null">
+      <tr>
+        <th colspan="2">
+          <b>{{ training.finished ? 'Training finished' : 'Training in progress' }}</b>
+        </th>
+        <td colspan="2">
+          <button mat-flat-button color="primary" [disabled]="!training.finished" (click)="triggerTraining()">
+            Start Training
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="training != null">
+        <td colspan="4">
+          <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+        </td>
+      </tr>
+      <tr>
+        <td>Target Epochs</td>
+        <td>{{ training.epochs }}</td>
+        <td>Current Epoch</td>
+        <td>{{ training.currentEpoch }}</td>
+      </tr>
+      <tr>
+        <td>Target Steps</td>
+        <td>{{ training.steps }}</td>
+        <td>Current Step</td>
+        <td>{{ training.currentStep }}</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+    <table mat-table [dataSource]="dataSource" class="metrics">
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Number Column -->
+      <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
+        </td>
+      </ng-container>
+
+      <!-- Message Column -->
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef>Message</th>
+        <td mat-cell *matCellDef="let element">
+          <span class="log-text">{{ element }}</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>
