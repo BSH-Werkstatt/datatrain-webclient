@@ -38,6 +38,7 @@ import { LoginComponent } from './login/login.component';
 import { PredictComponent } from './campaign/predict/predict.component';
 import { RegisterComponent } from './register/register.component';
 import { UploadComponent } from './upload/upload.component';
+import { TrainingComponent } from './training/training.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { UploadComponent } from './upload/upload.component';
     LoginComponent,
     PredictComponent,
     RegisterComponent,
-    UploadComponent
+    UploadComponent,
+    TrainingComponent
   ],
   imports: [
     ApiModule,

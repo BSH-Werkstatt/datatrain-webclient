@@ -25,7 +25,6 @@ export class LeaderboardComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('datatrainUser'));
     this.loadLeaderboard();
-    console.log(this.user);
   }
 
   /**
