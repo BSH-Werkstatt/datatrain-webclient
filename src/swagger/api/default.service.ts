@@ -1343,7 +1343,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1372,7 +1371,7 @@ export class DefaultService {
     // to determine the Accept header
     const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
@@ -1390,8 +1389,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
-   * @param request
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1432,14 +1429,14 @@ export class DefaultService {
     // to determine the Accept header
     const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
     const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
+    if (httpContentTypeSelected !== undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
@@ -1454,8 +1451,6 @@ export class DefaultService {
   /**
    *
    *
-   * @param campaignId
-   * @param request
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -1496,14 +1491,14 @@ export class DefaultService {
     // to determine the Accept header
     const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
+    if (httpHeaderAcceptSelected !== undefined) {
       headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
     const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
+    if (httpContentTypeSelected !== undefined) {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
