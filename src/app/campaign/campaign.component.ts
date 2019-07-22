@@ -17,9 +17,12 @@ export class CampaignComponent implements OnInit {
 
   protected campaign: Campaign;
   protected campaign$: Observable<Campaign>;
+  userToken: string;
   campaignLoaded = false;
 
-  constructor(protected route: ActivatedRoute, protected router: Router, protected defaultService: DefaultService) {}
+  constructor(protected route: ActivatedRoute, protected router: Router, protected defaultService: DefaultService) {
+    this.userToken = localStorage.getItem('datatrainUserToken');
+  }
 
   ngOnInit(): void {
     this.campaign$ = this.route.paramMap.pipe(
