@@ -169,7 +169,14 @@ export class AnnotationComponent extends CampaignComponent implements OnInit {
       this.imageLoaded = true;
       this.initCanvas();
     };
-    this.image.src = 'https://api.datatrain.rocks/images/' + this.campaign.id + '/' + this.imageId + '.jpg';
+
+    this.image.src =
+      'https://api.datatrain.rocks/images/' +
+      this.campaign.id +
+      '/' +
+      this.imageId +
+      '.jpg?userToken=' +
+      this.userToken;
   }
 
   initCanvas() {
