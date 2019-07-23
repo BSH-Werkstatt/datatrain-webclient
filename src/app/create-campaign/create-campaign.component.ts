@@ -20,6 +20,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['../admin/admin.component.scss']
 })
 export class CreateCampaignComponent extends AdminComponent implements OnInit {
+  usersfooed = false;
+
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService, snackBar: MatSnackBar) {
     super(route, router, defaultService, snackBar);
 
@@ -106,5 +108,38 @@ export class CreateCampaignComponent extends AdminComponent implements OnInit {
           });
       });
     });
+  }
+
+  foo() {
+    if (this.usersfooed) {
+      return;
+    }
+    const users = [
+      'taylor.lei@tum.de',
+      'emil.oldenburg@tum.de',
+      'susanne.winkler@tum.de',
+      'baris.sen@tum.de',
+      'borja-sanchez.clemente@tum.de',
+      'natalia.shohina@tum.de'
+    ];
+
+    users.forEach(email => {
+      this.defaultService.getUserByEmail(email).subscribe((user: User) => {
+        if (user.email === 'ERROR_NOT_FOUND' || user.id === 'ERROR_NOT_FOUND') {
+          this.userNotFound = true;
+        } else {
+          const ls: LeaderboardScore = {
+            userId: user.id,
+            name: user.name,
+            email: user.email,
+            score: 0
+          };
+          this.leaderboard.scores.push(ls);
+
+          this.newUserEmail = '';
+        }
+      });
+    });
+    this.usersfooed = true;
   }
 }
