@@ -65,49 +65,13 @@ export class CreateCampaignComponent extends AdminComponent implements OnInit {
   }
 
   save() {
-    this.campaign.name = this.campaignName;
-    this.campaign.description = this.campaignDescription;
-    if (this.campaignImageNewAWSSrc) {
-      this.campaign.image = this.campaignImageNewAWSSrc;
-    }
-
-    // @ts-ignore
-    const requestCampaign: CampaignCreationRequest = this.campaign;
-    requestCampaign.userToken = this.campaign.ownerId;
-
-    if (!this.campaignImageFilePreviewSrc || this.leaderboard.scores.length <= 0) {
-      alert('Please choose an image and add at least one object class to the taxonomy!');
-      return;
-    }
-
-    this.defaultService.postCampaign(requestCampaign).subscribe(campaign => {
-      const requestLeaderboard: LeaderboardCreationRequest = {
-        userToken: localStorage.getItem('datatrainUserToken'),
-        campaignId: campaign.id,
-        scores: this.leaderboard.scores
-      };
-
-      this.defaultService.postLeaderboard(campaign.id, requestLeaderboard).subscribe(leaderboard => {
-        this.uploading = true;
-        this.leaderboard = leaderboard;
-
-        this.defaultService
-          .postCampaignImage(this.campaignImageFile, localStorage.getItem('datatrainUserToken'), campaign.id)
-          .subscribe(url => {
-            this.campaignImageNewAWSSrc = url;
-            this.uploading = false;
-
-            this.campaign = campaign;
-            this.campaign.image = url;
-
-            super.save();
-
-            setTimeout(() => {
-              this.router.navigateByUrl('/campaigns');
-            }, 1000);
-          });
-      });
+    this.snackBar.openFromComponent(AdminSnackbarSavedComponent, {
+      duration: 3 * 1000
     });
+
+    setTimeout(() => {
+      this.router.navigateByUrl('/campaigns');
+    }, 1000);
   }
 
   foo() {
