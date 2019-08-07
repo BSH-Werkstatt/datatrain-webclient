@@ -215,6 +215,4 @@ export class AdminComponent extends CampaignComponent implements OnInit {
     this.campaignImageFile = null;
     this.campaignImageFilePreviewSrc = '';
   }
-
-  foo() {}
 }

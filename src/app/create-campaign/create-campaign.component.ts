@@ -20,8 +20,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['../admin/admin.component.scss']
 })
 export class CreateCampaignComponent extends AdminComponent implements OnInit {
-  usersfooed = false;
-
   constructor(route: ActivatedRoute, router: Router, defaultService: DefaultService, snackBar: MatSnackBar) {
     super(route, router, defaultService, snackBar);
 
@@ -65,45 +63,48 @@ export class CreateCampaignComponent extends AdminComponent implements OnInit {
   }
 
   save() {
-    this.snackBar.openFromComponent(AdminSnackbarSavedComponent, {
-      duration: 3 * 1000
-    });
+    this.campaign.name = this.campaignName;
+    this.campaign.description = this.campaignDescription;
+    if (this.campaignImageNewAWSSrc) {
+      this.campaign.image = this.campaignImageNewAWSSrc;
+    }
 
-    setTimeout(() => {
-      this.router.navigateByUrl('/campaigns');
-    }, 1000);
-  }
+    // @ts-ignore
+    const requestCampaign: CampaignCreationRequest = this.campaign;
+    requestCampaign.userToken = this.campaign.ownerId;
 
-  foo() {
-    if (this.usersfooed) {
+    if (!this.campaignImageFilePreviewSrc || this.leaderboard.scores.length <= 0) {
+      alert('Please choose an image and add at least one object class to the taxonomy!');
       return;
     }
-    const users = [
-      'taylor.lei@tum.de',
-      'emil.oldenburg@tum.de',
-      'susanne.winkler@tum.de',
-      'baris.sen@tum.de',
-      'borja-sanchez.clemente@tum.de',
-      'natalia.shohina@tum.de'
-    ];
 
-    users.forEach(email => {
-      this.defaultService.getUserByEmail(email).subscribe((user: User) => {
-        if (user.email === 'ERROR_NOT_FOUND' || user.id === 'ERROR_NOT_FOUND') {
-          this.userNotFound = true;
-        } else {
-          const ls: LeaderboardScore = {
-            userId: user.id,
-            name: user.name,
-            email: user.email,
-            score: 0
-          };
-          this.leaderboard.scores.push(ls);
+    this.defaultService.postCampaign(requestCampaign).subscribe(campaign => {
+      const requestLeaderboard: LeaderboardCreationRequest = {
+        userToken: localStorage.getItem('datatrainUserToken'),
+        campaignId: campaign.id,
+        scores: this.leaderboard.scores
+      };
 
-          this.newUserEmail = '';
-        }
+      this.defaultService.postLeaderboard(campaign.id, requestLeaderboard).subscribe(leaderboard => {
+        this.uploading = true;
+        this.leaderboard = leaderboard;
+
+        this.defaultService
+          .postCampaignImage(this.campaignImageFile, localStorage.getItem('datatrainUserToken'), campaign.id)
+          .subscribe(url => {
+            this.campaignImageNewAWSSrc = url;
+            this.uploading = false;
+
+            this.campaign = campaign;
+            this.campaign.image = url;
+
+            super.save();
+
+            setTimeout(() => {
+              this.router.navigateByUrl('/campaigns');
+            }, 1000);
+          });
       });
     });
-    this.usersfooed = true;
   }
 }

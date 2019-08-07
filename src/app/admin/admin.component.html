@@ -93,7 +93,7 @@
           </button>
         </form>
         <form class="user-form">
-          <h4><span (click)="foo()">Users</span></h4>
+          <h4><span>Users</span></h4>
           <ul class="users admin-list">
             <li *ngFor="let score of leaderboard.scores; let i = index">
               {{ score.name }} ({{ score.email }})<i class="material-icons remove" (click)="removeFromLeaderboard(i)"
