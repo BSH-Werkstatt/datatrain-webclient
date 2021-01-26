@@ -6,9 +6,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Install all dependencies by first installing yarn: `npm i -g yarn` and then installing everything from the `package.json` with `yarn install`
 
-## Development server
+## Running the project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Change relevant line on `./src/swagger/api/default.service.ts` for connection between server side.
+
+Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`(http://localhost:4200/). The app will automatically reload if you change any of the source files.
 
 ## Code Formatting
 

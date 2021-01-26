@@ -25,26 +25,30 @@ export class CampaignComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.campaign$ = this.route.paramMap.pipe(
-      switchMap(params => {
-        const urlName = params.get('urlName');
-        this.urlName = urlName;
-
-        return this.defaultService.getCampaignByURLName(urlName);
-      })
-    );
-
-    this.campaign$.subscribe((campaign: Campaign) => {
-      this.campaign = campaign;
-      this.campaignLoaded = true;
-
-      this.setNavBar();
-    });
-
     const user = JSON.parse(localStorage.getItem('datatrainUser'));
 
-    if (user && (user.userType === 'admin' || user.userType === 'campaign_owner')) {
-      this.canEditCampaign = true;
+    if (!user) {
+      this.router.navigateByUrl('/');
+    } else {
+      this.campaign$ = this.route.paramMap.pipe(
+        switchMap(params => {
+          const urlName = params.get('urlName');
+          this.urlName = urlName;
+
+          return this.defaultService.getCampaignByURLName(urlName);
+        })
+      );
+
+      this.campaign$.subscribe((campaign: Campaign) => {
+        this.campaign = campaign;
+        this.campaignLoaded = true;
+
+        this.setNavBar();
+      });
+
+      if (user.userType === 'admin' || user.userType === 'campaign_owner') {
+        this.canEditCampaign = true;
+      }
     }
   }
 

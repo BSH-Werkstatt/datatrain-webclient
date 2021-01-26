@@ -31,8 +31,10 @@ export class LoginComponent implements OnInit {
    * Execute on controlle initialization
    */
   ngOnInit(): void {
-    localStorage.removeItem('datatrainUser');
-    localStorage.removeItem('datatrainUserToken');
+    const user = JSON.parse(localStorage.getItem('datatrainUser'));
+    if (user) {
+      this.router.navigateByUrl('/campaigns');
+    }
   }
 
   /**
@@ -40,17 +42,16 @@ export class LoginComponent implements OnInit {
    */
   login() {
     if (this.loginEmail) {
-      this.defaultService.getUserByEmail(this.loginEmail).subscribe((user: User) => {
-        if (user.email === 'ERROR_NOT_FOUND' || user.id === 'ERROR_NOT_FOUND') {
-          this.wrongCredentials = true;
-        } else {
-          // user validated
+      this.defaultService.getUserByEmail(this.loginEmail).subscribe(
+        (user: User) => {
           localStorage.setItem('datatrainUser', JSON.stringify(user));
           localStorage.setItem('datatrainUserToken', user.id);
-
           this.router.navigateByUrl('/campaigns');
+        },
+        err => {
+          this.wrongCredentials = true;
         }
-      });
+      );
     }
   }
 }

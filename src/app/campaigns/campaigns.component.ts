@@ -23,14 +23,17 @@ export class CampaignsComponent implements OnInit {
    * Execute on controller initialization
    */
   ngOnInit(): void {
-    this.defaultService.getAllCampaigns().subscribe((campaigns: Campaign[]) => {
-      this.campaigns = campaigns;
-    });
-
     const user = JSON.parse(localStorage.getItem('datatrainUser'));
 
-    if (user && (user.userType === 'admin' || user.userType === 'campaign_owner')) {
-      document.getElementById('create-campaign-btn').classList.remove('nav-hidden');
+    if (!user) {
+      this.router.navigateByUrl('/');
+    } else {
+      this.defaultService.getAllCampaigns().subscribe((campaigns: Campaign[]) => {
+        this.campaigns = campaigns;
+      });
+      if (user.userType === 'admin' || user.userType === 'campaign_owner') {
+        document.getElementById('create-campaign-btn').classList.remove('nav-hidden');
+      }
     }
   }
 }

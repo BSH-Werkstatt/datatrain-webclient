@@ -106,7 +106,6 @@ export class AnnotationComponent extends CampaignComponent implements OnInit {
 
   determineImageId() {
     const toAnnotate = localStorage.getItem('datatrainToAnnotate');
-
     if (!toAnnotate) {
       this.getRandomImage();
     } else {
@@ -147,7 +146,9 @@ export class AnnotationComponent extends CampaignComponent implements OnInit {
     });
   }
 
-  noImage() {}
+  noImage() {
+    this.imageLoaded = true;
+  }
 
   init() {
     this.canvasAnnotations = [];
@@ -169,9 +170,9 @@ export class AnnotationComponent extends CampaignComponent implements OnInit {
       this.imageLoaded = true;
       this.initCanvas();
     };
-
     this.image.src =
-      'https://api.datatrain.rocks/images/' +
+      this.defaultService.basePath +
+      '/images/' +
       this.campaign.id +
       '/' +
       this.imageId +

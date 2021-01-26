@@ -2,8 +2,10 @@
   <mat-toolbar>
     <div class="toolbar-content">
       <div class="toolbar-left">
-        <img src="assets/logo.png" class="logo" height="50" routerLink="/" />
-        <h1 routerLink="/">DataTr/ai/n</h1>
+        <img src="assets/logo.png" class="logo" height="50" *ngIf="router.url != '/'" routerLink="/campaigns" />
+        <img src="assets/logo.png" class="logo" height="50" *ngIf="router.url == '/'" />
+        <h1 *ngIf="router.url != '/'" routerLink="/campaigns">DataTr/ai/n</h1>
+        <h1 *ngIf="router.url == '/'">DataTr/ai/n</h1>
         <a *ngIf="router.url != '/'" routerLink="/campaigns" class="nav-btn">
           Campaigns
         </a>
@@ -39,7 +41,7 @@
         <a *ngIf="router.url != '/campaigns' && router.url != '/'" class="nav-btn" id="nav-function-btn"></a>
       </div>
       <div class="button-group">
-        <button class="logout-button" mat-stroked-button routerLink="/" color="primary">
+        <button class="logout-button" mat-stroked-button routerLink="/" color="primary" (click)="logout()">
           <span *ngIf="router.url != '/'">
             <i class="material-icons logout-icon">
               exit_to_app

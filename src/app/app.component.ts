@@ -32,4 +32,10 @@ export class AppComponent {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
     /* tslint:enable:no-string-literal */
   }
+
+  logout() {
+    localStorage.removeItem('datatrainUser');
+    localStorage.removeItem('datatrainUserToken');
+    this.router.navigateByUrl('/');
+  }
 }

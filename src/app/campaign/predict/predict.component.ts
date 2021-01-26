@@ -87,4 +87,9 @@ export class PredictComponent implements OnInit {
     this.fileSrc = undefined;
     this.uploadInProgress = false;
   }
+
+  setImage() {
+    this.fileSrc = undefined;
+    this.uploadInProgress = false;
+  }
 }

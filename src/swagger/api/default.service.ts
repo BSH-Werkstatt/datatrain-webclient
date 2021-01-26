@@ -38,10 +38,11 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class DefaultService {
-  protected basePath = 'https://api.datatrain.rocks';
-  // protected basePath = 'http://127.0.0.1:5000';
+  public basePath = 'http://api.url:port';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
+
+  public isValid = JSON.parse(localStorage.getItem('datatrainUser'));
 
   constructor(
     protected httpClient: HttpClient,
@@ -183,12 +184,16 @@ export class DefaultService {
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
 
-    return this.httpClient.get<Array<Campaign>>(`${this.basePath}/campaigns`, {
-      withCredentials: this.configuration.withCredentials,
-      headers,
-      observe,
-      reportProgress
-    });
+    if (this.isValid) {
+      return this.httpClient.get<Array<Campaign>>(`${this.basePath}/campaigns`, {
+        withCredentials: this.configuration.withCredentials,
+        headers,
+        observe,
+        reportProgress
+      });
+    } else {
+      throw new Error('Required parameter campaignId was null or undefined when calling getAllImages.');
+    }
   }
 
   /**
@@ -439,6 +444,8 @@ export class DefaultService {
   public getRandomImage(campaignId: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
     if (campaignId === null || campaignId === undefined) {
       throw new Error('Required parameter campaignId was null or undefined when calling getRandomImage.');
+    } else {
+      console.log('Success on requesting random image.');
     }
 
     let headers = this.defaultHeaders;
